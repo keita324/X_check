@@ -63,6 +63,7 @@ repl = {
     '__FONT_B64__'        : base64.b64encode(font_bytes).decode(),
     '__IMG_LOGO__'        : datauri('dticket-logo.png'),
     '__IMG_UI__'          : datauri('dticket-ui.jpg'),
+    '__IMG_KV__'          : datauri('dticket-kv.jpg'),
     '__IMG_V_TOKYODOME__' : datauri('venue-tokyodome.jpg'),
     '__IMG_V_IGARENA__'   : datauri('venue-igarena.jpg'),
     '__IMG_V_KOKURITSU__' : datauri('venue-kokuritsu.jpg'),

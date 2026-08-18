@@ -8,693 +8,476 @@
 }
 
 :root{
-  /* ground */
   --paper:#FFFFFF;
-  --mist:#F2F7F8;
-  --mist-2:#E7F0F2;
-  --line:#DBE7EA;
-  --line-2:#C3D6DA;
-  /* ink */
-  --ink:#08161F;
-  --ink-2:#3E5A66;
-  --ink-3:#6E8791;
-  /* brand — sampled from the official d ticket key visual */
-  --void:#03080F;
-  --navy:#041D3C;
-  --navy-2:#0A2B40;
-  --teal:#106B7D;
-  --aqua:#08BEBF;
-  --aqua-2:#15C4C7;
-  --aqua-3:#4FE9DF;
-  --docomo:#CC0000;
-  /* on-dark ink */
-  --d-ink:#EAF6F7;
-  --d-ink-2:rgba(234,246,247,.72);
-  --d-ink-3:rgba(234,246,247,.48);
-  --d-line:rgba(120,220,220,.20);
-
-  --wrap:1200px;
-  --ease:cubic-bezier(.22,.68,.24,1);
-  --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  --mist:#F5F7F8;
+  --mist-2:#EBF0F1;
+  --line:#E2E8EA;
+  --line-2:#CBD6D9;
+  --ink:#152229;
+  --ink-2:#4A5B65;
+  --ink-3:#7C8B93;
+  --navy:#0E1F33;
+  --navy-2:#1B3550;
+  --aqua:#00858A;           /* accent on white: readable, still d ticket */
+  --aqua-d:#2FD8D2;         /* accent on navy */
+  --docomo:#C8102E;
+  --wrap:1120px;
+  --r:6px;
 }
 
 *,*::before,*::after{box-sizing:border-box;}
-html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%;}
+html{scroll-behavior:smooth;scroll-padding-top:80px;-webkit-text-size-adjust:100%;}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;animation:none!important;}}
 body{
   margin:0;background:var(--paper);color:var(--ink);
-  font-family:'NotoSansJP',system-ui,"Segoe UI","Yu Gothic UI","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;
-  font-size:16px;line-height:1.85;font-weight:400;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-  overflow-x:hidden;
+  font-family:'NotoSansJP',system-ui,"Segoe UI","Yu Gothic UI","Hiragino Sans",Meiryo,sans-serif;
+  font-size:15.5px;line-height:1.95;font-weight:400;letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;display:block;}
-a{color:var(--teal);text-underline-offset:3px;}
-:focus-visible{outline:2px solid var(--aqua);outline-offset:3px;border-radius:2px;}
+a{color:var(--aqua);}
+:focus-visible{outline:2px solid var(--aqua);outline-offset:2px;}
 
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px;}
-@media(max-width:640px){.wrap{padding:0 20px;}.hero{padding-top:104px;padding-bottom:64px;}section{padding:68px 0;}}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:28px;padding-right:28px;}
+@media(max-width:640px){.wrap{padding-left:18px;padding-right:18px;}}
 
-/* ══ reveal ══ */
-.rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
-.rv.in{opacity:1;transform:none;}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto;}
-  .rv{opacity:1;transform:none;transition:none;}
-  *{animation:none!important;}
-}
-
-/* ══ nav ══ */
-.nav{
-  position:fixed;inset:0 0 auto 0;z-index:100;
-  transition:background .4s var(--ease),border-color .4s var(--ease),backdrop-filter .4s;
-  border-bottom:1px solid transparent;
-}
-.nav-in{max-width:var(--wrap);margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:20px;height:66px;}
-.nav-logo{height:17px;width:auto;filter:brightness(0) invert(1);transition:filter .4s var(--ease);}
-.nav-links{display:flex;gap:1px;margin-left:auto;overflow-x:auto;scrollbar-width:none;}
+/* ── nav ───────────────────────────────── */
+.nav{position:sticky;top:0;z-index:80;background:var(--paper);border-bottom:1px solid var(--line);}
+.nav-in{max-width:var(--wrap);margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:22px;height:60px;}
+.nav-logo{height:15px;width:auto;filter:brightness(0);}
+.nav-links{display:flex;gap:0;margin-left:auto;overflow-x:auto;scrollbar-width:none;}
 .nav-links::-webkit-scrollbar{display:none;}
 .nav-links a{
-  flex:0 0 auto;padding:7px 12px;font-size:12.5px;font-weight:500;letter-spacing:.02em;
-  color:var(--d-ink-2);text-decoration:none;border-radius:99px;
-  transition:color .25s,background .25s;white-space:nowrap;
+  flex:0 0 auto;padding:6px 11px;font-size:12.5px;font-weight:500;letter-spacing:.02em;
+  color:var(--ink-2);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;
 }
-.nav-links a:hover{color:#fff;background:rgba(255,255,255,.10);}
-.nav.solid{background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);border-bottom-color:var(--line);}
-.nav.solid .nav-logo{filter:brightness(0);}
-.nav.solid .nav-links a{color:var(--ink-2);}
-.nav.solid .nav-links a:hover{color:var(--ink);background:var(--mist-2);}
-@media(max-width:900px){.nav-links{display:none;}}
+.nav-links a:hover{color:var(--ink);border-bottom-color:var(--aqua);}
+@media(max-width:900px){.nav-links{display:none;}.nav-in{padding:0 18px;}}
 
-/* ══ dark canvas ══ */
-.dark{position:relative;background:var(--void);color:var(--d-ink);overflow:hidden;isolation:isolate;}
-.dark::before{
-  content:"";position:absolute;inset:0;z-index:-2;
-  background:
-    radial-gradient(58% 78% at 6% 14%,  rgba(8,190,191,.92) 0%, rgba(8,190,191,0) 62%),
-    radial-gradient(52% 68% at 97% 66%, rgba(30,205,200,.80) 0%, rgba(30,205,200,0) 60%),
-    radial-gradient(70% 90% at 74% 6%,  rgba(10,60,105,.85) 0%, rgba(10,60,105,0) 65%),
-    linear-gradient(150deg,#062033 0%,#041428 45%,#05131F 100%);
-}
-.dark::after{
-  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background-image:var(--noise);opacity:.30;mix-blend-mode:overlay;
-}
-.dark a{color:var(--aqua-3);}
+/* ── header ────────────────────────────── */
+.head{background:var(--navy);color:#fff;padding:52px 0 56px;}
+.head-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center;}
+.to{font-size:13px;color:rgba(255,255,255,.66);margin:0 0 22px;}
+.to b{color:#fff;font-weight:700;}
+.head h1{font-size:clamp(1.55rem,3vw,2.15rem);font-weight:700;line-height:1.55;letter-spacing:-.01em;margin:0 0 18px;}
+.head-desc{font-size:14.5px;line-height:2.0;color:rgba(255,255,255,.78);margin:0;max-width:40em;}
+.head-desc b{color:#fff;font-weight:700;}
+.kv{border-radius:var(--r);overflow:hidden;}
+@media(max-width:860px){.head-grid{grid-template-columns:1fr;gap:30px;}}
 
-/* ══ hero ══ */
-.hero{padding-top:132px;padding-bottom:92px;}
-.hero-mark{height:34px;width:auto;margin-bottom:36px;}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:700;
-  letter-spacing:.24em;color:var(--aqua-3);margin-bottom:20px;text-transform:uppercase;
+/* ── 要点 ──────────────────────────────── */
+.gist{background:var(--mist);border-bottom:1px solid var(--line);padding:34px 0;}
+.gist h2{font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--ink-3);margin:0 0 18px;}
+.gist ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:g;}
+.gist li{counter-increment:g;padding-left:34px;position:relative;font-size:14.5px;line-height:1.9;color:var(--ink-2);}
+.gist li::before{
+  content:counter(g);position:absolute;left:0;top:4px;width:23px;height:23px;border-radius:50%;
+  background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;line-height:1;
 }
-.eyebrow::before{content:"";width:26px;height:1px;background:var(--aqua);}
-.hero h1{
-  font-size:clamp(2.5rem,7.2vw,5.4rem);font-weight:900;line-height:1.14;
-  letter-spacing:-.045em;margin:0 0 30px;text-wrap:balance;
-}
-.hero h1 .g{
-  background:linear-gradient(96deg,var(--aqua-3) 0%,var(--aqua) 48%,#7CE3FF 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero-lead{font-size:clamp(1rem,1.5vw,1.14rem);line-height:2.0;color:var(--d-ink-2);max-width:34em;margin:0 0 44px;}
-.hero-lead b{color:#fff;font-weight:700;}
-.to{
-  display:inline-flex;align-items:baseline;gap:12px;padding:11px 20px;margin-bottom:34px;
-  border:1px solid var(--d-line);border-radius:99px;background:rgba(255,255,255,.04);
-  font-size:13px;color:var(--d-ink-2);
-}
-.to b{color:#fff;font-weight:700;letter-spacing:.01em;}
+.gist b{color:var(--ink);font-weight:700;}
+@media(max-width:800px){.gist ol{grid-template-columns:1fr;gap:14px;}}
 
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--d-line);}
-.stat{padding:26px 24px 4px;border-right:1px solid var(--d-line);}
-.stat:last-child{border-right:none;}
-.stat .v{
-  display:flex;align-items:baseline;gap:3px;font-size:clamp(2rem,3.8vw,3.1rem);font-weight:900;
-  line-height:1;letter-spacing:-.05em;color:#fff;font-variant-numeric:tabular-nums;
+/* ── toc ───────────────────────────────── */
+.toc{padding:34px 0;border-bottom:1px solid var(--line);}
+.toc h2{font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--ink-3);margin:0 0 16px;}
+.toc ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:2px 26px;}
+.toc a{
+  display:flex;gap:10px;padding:7px 0;font-size:14px;color:var(--ink-2);text-decoration:none;
+  border-bottom:1px solid var(--line);
 }
-.stat .v i{font-style:normal;font-size:.42em;font-weight:700;letter-spacing:0;color:var(--aqua-3);}
-.stat .k{display:block;font-size:12px;line-height:1.8;color:var(--d-ink-3);margin-top:12px;}
-@media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr);}
-  .stat{border-bottom:1px solid var(--d-line);}
-  .stat:nth-child(2){border-right:none;}}
-@media(max-width:460px){.stats{grid-template-columns:1fr;}.stat{border-right:none;padding-left:0;padding-right:0;}}
+.toc a:hover{color:var(--aqua);}
+.toc a i{font-style:normal;color:var(--ink-3);font-size:12.5px;min-width:1.4em;}
+@media(max-width:800px){.toc ol{grid-template-columns:1fr;}}
 
-/* ══ ticker ══ */
-.ticker{
-  border-top:1px solid var(--d-line);border-bottom:1px solid var(--d-line);
-  padding:15px 0;overflow:hidden;position:relative;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-          mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-}
-.ticker-track{display:flex;gap:0;width:max-content;animation:slide 46s linear infinite;}
-.ticker:hover .ticker-track{animation-play-state:paused;}
-.ticker span{
-  padding:0 30px;font-size:13px;font-weight:500;color:var(--d-ink-2);white-space:nowrap;
-  display:inline-flex;align-items:center;gap:12px;
-}
-.ticker span::after{content:"";width:4px;height:4px;border-radius:50%;background:var(--aqua);opacity:.65;}
-@keyframes slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
-/* ══ section frame ══ */
-section{padding:104px 0;}
+/* ── sections ──────────────────────────── */
+section{padding:66px 0;border-top:1px solid var(--line);}
 .sec-mist{background:var(--mist);}
-.sec-head{margin-bottom:56px;}
-.num{
-  display:inline-block;font-size:11.5px;font-weight:900;letter-spacing:.2em;
-  color:var(--teal);margin-bottom:16px;
-}
-.dark .num{color:var(--aqua-3);}
-h2{
-  font-size:clamp(1.75rem,3.9vw,2.85rem);font-weight:900;line-height:1.32;
-  letter-spacing:-.035em;margin:0 0 24px;text-wrap:balance;
-}
-h3{font-size:1.08rem;font-weight:700;line-height:1.6;margin:0 0 10px;letter-spacing:-.01em;}
-h4{font-size:.92rem;font-weight:700;margin:0 0 7px;letter-spacing:-.005em;}
-.lead{font-size:1.045rem;line-height:2.05;color:var(--ink-2);max-width:40em;margin:0;}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--aqua);margin:0 0 10px;}
+h2.t{font-size:clamp(1.28rem,2.3vw,1.7rem);font-weight:700;line-height:1.6;letter-spacing:-.012em;margin:0 0 18px;}
+.lead{font-size:15px;line-height:2.05;color:var(--ink-2);max-width:44em;margin:0 0 36px;}
 .lead b{color:var(--ink);font-weight:700;}
-.dark .lead{color:var(--d-ink-2);}
-.dark .lead b{color:#fff;}
-.sub{margin:72px 0 30px;padding-top:34px;border-top:1px solid var(--line);}
-.dark .sub{border-top-color:var(--d-line);}
-.sub:first-of-type{margin-top:0;padding-top:0;border-top:none;}
-.sub h3{font-size:1.28rem;font-weight:900;letter-spacing:-.025em;margin-bottom:14px;}
-.sub .lead{font-size:.98rem;line-height:2.0;max-width:42em;}
+h3.s{
+  font-size:15.5px;font-weight:700;margin:44px 0 12px;padding-bottom:9px;
+  border-bottom:2px solid var(--navy);display:inline-block;letter-spacing:.005em;
+}
+.slead{font-size:14.5px;line-height:2.0;color:var(--ink-2);max-width:46em;margin:0 0 22px;}
+.slead b{color:var(--ink);font-weight:700;}
 
-/* ══ bento ══ */
-.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
-.bt{
-  grid-column:span 2;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 20px;
-  transition:border-color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease);
-}
-.sec-mist .bt{background:var(--paper);}
-.bt:hover{border-color:var(--aqua);transform:translateY(-3px);box-shadow:0 10px 30px -14px rgba(8,60,80,.32);}
-.bt h4{color:var(--ink);}
-.bt p{margin:0;font-size:.79rem;line-height:1.82;color:var(--ink-3);}
-.bt-hub{
-  grid-column:3/5;grid-row:1/3;border:none;border-radius:16px;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
-  padding:38px 30px;color:var(--d-ink);position:relative;overflow:hidden;
-}
-.bt-hub::before{
-  content:"";position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(70% 90% at 12% 18%,rgba(8,190,191,.95) 0%,rgba(8,190,191,0) 64%),
-    radial-gradient(64% 80% at 92% 82%,rgba(35,210,205,.8) 0%,rgba(35,210,205,0) 60%),
-    linear-gradient(145deg,#062033,#041428 55%,#05131F);
-}
-.bt-hub::after{content:"";position:absolute;inset:0;background-image:var(--noise);opacity:.3;mix-blend-mode:overlay;}
-.bt-hub:hover{transform:none;box-shadow:none;}
-.bt-hub img{position:relative;z-index:1;height:30px;width:auto;margin-bottom:16px;}
-.bt-hub p{position:relative;z-index:1;margin:0;font-size:.82rem;line-height:1.9;color:var(--d-ink-2);max-width:26ch;}
-@media(max-width:900px){.bento{grid-template-columns:repeat(4,1fr);}.bt-hub{grid-column:3/5;grid-row:1/3;}}
-@media(max-width:560px){.bento{grid-template-columns:repeat(2,1fr);}.bt{grid-column:span 2;}.bt-hub{grid-column:1/3;grid-row:auto;min-height:190px;}}
-
-/* ══ cards ══ */
-.cards{display:grid;gap:12px;}
+/* ── cards ─────────────────────────────── */
+.cards{display:grid;gap:14px;}
 .c2{grid-template-columns:repeat(2,1fr);}
 .c3{grid-template-columns:repeat(3,1fr);}
 .c4{grid-template-columns:repeat(4,1fr);}
 .card{
   display:flex;flex-direction:column;align-items:flex-start;
-  background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:26px 24px;
-  transition:border-color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease);
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 20px;
 }
-.card:hover{border-color:var(--aqua);transform:translateY(-3px);box-shadow:0 12px 34px -16px rgba(8,60,80,.34);}
-.card p{width:100%;margin:0;font-size:.86rem;line-height:1.92;color:var(--ink-2);}
-.card p+p{margin-top:9px;}
-.card ul{width:100%;margin:12px 0 0;padding-left:1.05em;font-size:.81rem;line-height:1.85;color:var(--ink-3);}
-.card li{margin-bottom:2px;}
-.tag{
-  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.13em;
-  color:var(--teal);background:var(--mist-2);padding:4px 10px;border-radius:99px;margin-bottom:13px;
+.sec-mist .card{background:var(--paper);}
+.card h4{font-size:14.5px;font-weight:700;margin:0 0 8px;line-height:1.65;}
+.card p{width:100%;margin:0;font-size:13.5px;line-height:1.9;color:var(--ink-2);}
+.card p+p{margin-top:7px;}
+.card ul{width:100%;margin:10px 0 0;padding-left:1.05em;font-size:13px;line-height:1.85;color:var(--ink-3);}
+.lbl{
+  display:inline-block;font-size:11px;font-weight:500;letter-spacing:.06em;
+  color:var(--ink-2);background:var(--mist-2);padding:3px 9px;border-radius:3px;margin-bottom:11px;
 }
-.tag.dc{color:var(--docomo);background:#FDECEC;}
-.dark .card{background:rgba(255,255,255,.045);border-color:var(--d-line);}
-.dark .card:hover{border-color:var(--aqua);background:rgba(255,255,255,.07);box-shadow:none;}
-.dark .card p{color:var(--d-ink-2);}
-.dark .card h3,.dark .card h4{color:#fff;}
-.dark .tag{color:var(--aqua-3);background:rgba(8,190,191,.14);}
+.lbl.dc{color:var(--docomo);background:#FBECEE;}
 @media(max-width:900px){.c4,.c3{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:560px){.c4,.c3,.c2{grid-template-columns:1fr;}}
 
-/* ══ venue cards ══ */
-.venues{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.vn{
-  position:relative;border-radius:14px;overflow:hidden;aspect-ratio:3/4;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  background:var(--navy);isolation:isolate;
-}
-.vn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .8s var(--ease);}
-.vn::after{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(178deg,rgba(3,12,20,.12) 0%,rgba(3,12,20,.55) 46%,rgba(3,12,20,.94) 100%);
-}
-.vn:hover img{transform:scale(1.06);}
-.vn-body{padding:22px 20px;color:var(--d-ink);}
-.vn .genre{
-  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--aqua-3);
-  margin-bottom:9px;
-}
-.vn .name{font-size:.93rem;font-weight:700;line-height:1.6;color:#fff;margin:0 0 8px;letter-spacing:-.01em;}
-.vn .place{font-size:.75rem;color:var(--d-ink-3);margin:0;}
-.vn.flat{aspect-ratio:auto;min-height:172px;background:rgba(255,255,255,.05);border:1px solid var(--d-line);}
-.vn.flat::after{display:none;}
-@media(max-width:900px){.venues{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:520px){.venues{grid-template-columns:1fr;}.vn{aspect-ratio:16/10;}}
+/* ── definition table (the clearest way to show paired facts) ── */
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--paper);}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:13.5px;}
+caption{caption-side:bottom;text-align:left;font-size:12px;color:var(--ink-3);padding:10px 16px;}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.8;}
+thead th{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:var(--ink-2);background:var(--mist);white-space:nowrap;}
+thead th.own{color:#fff;background:var(--navy);}
+tbody th{font-weight:700;color:var(--ink);width:180px;background:var(--mist);}
+td.own{background:#F0F7F7;}
+td.tnum{font-variant-numeric:tabular-nums;}
+.yes{color:var(--aqua);font-weight:700;}
+.no{color:var(--line-2);}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:none;}
+b.hl{color:var(--aqua);font-weight:700;}
 
-/* ══ device shot ══ */
-.shot{
-  border-radius:16px;overflow:hidden;border:1px solid var(--d-line);
-  background:#041428;margin-top:14px;
+/* ── venue list ────────────────────────── */
+.venues{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.vn{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--paper);display:flex;flex-direction:column;}
+.vn img{width:100%;aspect-ratio:4/3;object-fit:cover;}
+.vn-b{padding:14px 15px 16px;display:flex;flex-direction:column;gap:5px;flex:1;}
+.vn .g{font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--aqua);}
+.vn .n{font-size:13.5px;font-weight:700;line-height:1.7;margin:0;}
+.vn .p{font-size:12.5px;color:var(--ink-3);margin:auto 0 0;}
+.reclist{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--r);background:var(--paper);}
+.reclist li{
+  display:grid;grid-template-columns:9em 1fr auto;gap:16px;align-items:baseline;
+  padding:13px 18px;border-bottom:1px solid var(--line);font-size:13.5px;
 }
-.shot img{width:100%;height:auto;}
-.shot-cap{font-size:12px;color:var(--ink-3);margin:12px 0 0;text-align:center;}
-.dark .shot-cap{color:var(--d-ink-3);}
+.reclist li:last-child{border-bottom:none;}
+.reclist .g{font-size:11.5px;font-weight:500;letter-spacing:.06em;color:var(--aqua);}
+.reclist b{font-weight:700;color:var(--ink);}
+.reclist .p{font-size:12.5px;color:var(--ink-3);}
+@media(max-width:900px){.venues{grid-template-columns:repeat(2,1fr);}
+  .reclist li{grid-template-columns:1fr;gap:3px;padding:14px 16px;}}
+@media(max-width:520px){.venues{grid-template-columns:1fr;}}
 
-/* ══ flow ══ */
-.flow{border:1px solid var(--line);border-radius:16px;padding:30px 26px;background:var(--paper);}
-.flow-band{
-  display:flex;align-items:center;justify-content:center;gap:11px;
-  background:linear-gradient(94deg,var(--navy),var(--teal) 55%,var(--aqua));
-  color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.1em;
-  padding:11px;border-radius:99px;margin-bottom:9px;
-}
-.flow-note{text-align:center;font-size:.75rem;color:var(--ink-3);margin:0 0 24px;}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-.step{position:relative;border:1px solid var(--line);border-radius:12px;padding:20px 18px;background:var(--mist);}
-.step .sn{font-size:10.5px;font-weight:900;letter-spacing:.16em;color:var(--aqua);}
-.step h4{margin:8px 0 9px;font-size:.95rem;}
-.step p{margin:0;font-size:.79rem;line-height:1.8;color:var(--ink-2);}
-.step::after{
-  content:"";position:absolute;right:-7px;top:50%;width:7px;height:1px;background:var(--line-2);z-index:1;
-}
-.step:last-child::after{display:none;}
-@media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr);}.step::after{display:none;}}
+/* ── flow ──────────────────────────────── */
+.flow{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}
+.flow-h{background:var(--navy);color:#fff;font-size:13px;font-weight:700;letter-spacing:.06em;padding:11px 18px;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);background:var(--line);gap:1px;}
+.step{background:var(--paper);padding:18px 17px;}
+.step .n{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--aqua);}
+.step h4{font-size:14px;font-weight:700;margin:7px 0 8px;}
+.step p{margin:0;font-size:13px;line-height:1.85;color:var(--ink-2);}
+.flow-f{background:var(--mist);border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-3);padding:11px 18px;}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:520px){.steps{grid-template-columns:1fr;}}
 
-/* ══ case study ══ */
-.case{display:grid;grid-template-columns:1.2fr .95fr;gap:12px;}
-.case-col{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px 26px;}
-.find{padding-left:18px;border-left:2px solid var(--aqua);margin-bottom:26px;}
+/* ── case ──────────────────────────────── */
+.case{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;}
+.box{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--paper);}
+.find{margin-bottom:22px;}
 .find:last-child{margin-bottom:0;}
-.find p{margin:0;font-size:.85rem;line-height:1.95;color:var(--ink-2);}
-.figs{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px;}
-.fig{
-  font-size:.76rem;background:var(--mist);border:1px solid var(--line);border-radius:99px;
-  padding:5px 12px;color:var(--ink-2);font-variant-numeric:tabular-nums;
-}
-.fig b{color:var(--teal);font-weight:900;}
-.plan{border:1px solid var(--line);border-radius:12px;padding:20px;background:var(--mist);margin-bottom:12px;}
+.find h4{font-size:14px;font-weight:700;margin:0 0 8px;}
+.find p{margin:0;font-size:13.5px;line-height:1.9;color:var(--ink-2);}
+.figs{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;}
+.fig{font-size:12.5px;background:var(--mist);border:1px solid var(--line);border-radius:3px;padding:4px 10px;color:var(--ink-2);font-variant-numeric:tabular-nums;}
+.fig b{color:var(--aqua);font-weight:700;}
+.plan{border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:14px;}
 .plan:last-child{margin-bottom:0;}
-.pn{
-  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.14em;color:#fff;
-  background:var(--navy);padding:4px 11px;border-radius:99px;margin-bottom:12px;
-}
-.plan dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.79rem;line-height:1.8;}
+.plan .pn{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--navy);padding:3px 10px;border-radius:3px;margin-bottom:10px;}
+.plan h4{font-size:14.5px;font-weight:700;margin:0 0 9px;}
+.plan dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:13px;line-height:1.8;}
 .plan dt{color:var(--ink-3);white-space:nowrap;}
 .plan dd{margin:0;color:var(--ink-2);}
 @media(max-width:900px){.case{grid-template-columns:1fr;}}
 
-/* ══ fraud ══ */
-.threats{
-  border:1px solid var(--d-line);border-radius:14px;background:rgba(255,255,255,.04);
-  padding:26px 28px;margin-bottom:14px;counter-reset:t;
-}
-.threats h4{color:#fff;margin-bottom:16px;font-size:.86rem;letter-spacing:.1em;}
-.threats ol{margin:0;padding:0;list-style:none;display:grid;gap:10px;}
-.threats li{
-  counter-increment:t;position:relative;padding-left:34px;
-  font-size:.85rem;line-height:1.85;color:var(--d-ink-2);
-}
+/* ── fraud ─────────────────────────────── */
+.threats{border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-bottom:14px;background:var(--paper);counter-reset:t;}
+.threats h4{font-size:13.5px;font-weight:700;margin:0 0 13px;}
+.threats ol{margin:0;padding:0;list-style:none;display:grid;gap:8px;}
+.threats li{counter-increment:t;position:relative;padding-left:31px;font-size:13.5px;line-height:1.85;color:var(--ink-2);}
 .threats li::before{
-  content:counter(t);position:absolute;left:0;top:5px;width:21px;height:21px;border-radius:50%;
-  display:grid;place-items:center;font-size:11px;font-weight:900;line-height:1;
-  color:var(--void);background:var(--aqua);
+  content:counter(t);position:absolute;left:0;top:4px;width:21px;height:21px;border-radius:50%;
+  border:1px solid var(--line-2);color:var(--ink-2);font-size:11.5px;font-weight:700;
+  display:grid;place-items:center;line-height:1;
 }
-.chip{
-  display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;
-  font-size:11px;font-weight:900;color:var(--void);background:var(--aqua);margin-right:4px;
-}
-.applies{width:100%;margin-top:auto;padding-top:16px;border-top:1px dashed var(--d-line);}
-.applies .lbl{font-size:10.5px;letter-spacing:.14em;color:var(--d-ink-3);margin-right:9px;}
+.chip{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;margin-right:3px;}
+.applies{width:100%;margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:8px;}
 
-/* ══ tiers ══ */
-.intake{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:12px;}
-.intake div{
-  border:1px solid var(--line);border-radius:12px;padding:18px 22px;background:var(--mist);
-  font-size:.85rem;color:var(--ink-2);
-}
+/* ── tiers ─────────────────────────────── */
+.intake{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:14px;}
+.intake div{border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:var(--r);padding:15px 18px;font-size:13.5px;color:var(--ink-2);background:var(--paper);}
 .intake b{color:var(--ink);font-weight:700;}
-.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-.tier{border:1px solid var(--line);border-radius:14px;padding:26px 24px;background:var(--paper);}
-.lv{
-  display:inline-block;font-size:11px;font-weight:900;letter-spacing:.14em;color:#fff;
-  background:linear-gradient(94deg,var(--navy),var(--teal));padding:4px 12px;border-radius:99px;margin-bottom:14px;
-}
-.tier p{margin:0;font-size:.84rem;line-height:1.9;color:var(--ink-2);}
-.hours{
-  display:block;margin-top:16px;padding-top:13px;border-top:1px solid var(--line);
-  font-size:1.02rem;font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink);
-}
-.hours span{display:block;font-size:11px;font-weight:400;letter-spacing:.1em;color:var(--ink-3);margin-top:3px;}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.tier{border:1px solid var(--line);border-radius:var(--r);padding:20px;background:var(--paper);}
+.lv{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#fff;background:var(--navy);padding:3px 10px;border-radius:3px;margin-bottom:12px;}
+.tier h4{font-size:14.5px;font-weight:700;margin:0 0 8px;}
+.tier p{margin:0;font-size:13.5px;line-height:1.9;color:var(--ink-2);}
+.hours{display:block;margin-top:13px;padding-top:11px;border-top:1px solid var(--line);font-size:14.5px;font-weight:700;font-variant-numeric:tabular-nums;}
+.hours span{display:block;font-size:11.5px;font-weight:400;color:var(--ink-3);margin-top:2px;letter-spacing:.06em;}
 @media(max-width:900px){.tiers,.intake{grid-template-columns:1fr;}}
 
-/* ══ table ══ */
-.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--paper);}
-table{border-collapse:collapse;width:100%;min-width:760px;font-size:.83rem;}
-caption{caption-side:bottom;text-align:left;font-size:.75rem;color:var(--ink-3);padding:12px 18px;}
-th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.75;}
-thead th{
-  font-size:.76rem;font-weight:700;letter-spacing:.08em;color:var(--ink-3);
-  background:var(--mist);white-space:nowrap;
-}
-thead th.own{color:#fff;background:linear-gradient(94deg,var(--navy),var(--teal));font-size:.85rem;letter-spacing:.02em;}
-tbody th{font-weight:700;color:var(--ink);width:180px;background:var(--mist);}
-td.own{background:rgba(8,190,191,.07);color:var(--ink);font-weight:500;}
-td.tnum{font-variant-numeric:tabular-nums;}
-.yes{color:var(--teal);font-weight:900;}
-.no{color:var(--line-2);}
-tbody tr:last-child th,tbody tr:last-child td{border-bottom:none;}
-mark{background:linear-gradient(transparent 58%,rgba(8,190,191,.32) 58%);color:inherit;font-weight:700;padding:0 1px;}
+/* ── badges / shot ─────────────────────── */
+.badges{display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:12px;}
+.badge{font-size:12px;background:var(--mist-2);color:var(--ink-2);padding:4px 10px;border-radius:3px;}
+.shot{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--navy);}
+.cap{font-size:12.5px;color:var(--ink-3);margin:10px 0 0;}
 
-/* ══ badges ══ */
-.badges{display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:14px;}
-.badge{font-size:.74rem;background:var(--mist-2);color:var(--ink-2);padding:5px 11px;border-radius:99px;}
-.dark .badge{background:rgba(255,255,255,.08);color:var(--d-ink-2);}
-
-/* ══ cta ══ */
-.next{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px;}
-.next div{border:1px solid var(--d-line);border-radius:14px;padding:26px 24px;background:rgba(255,255,255,.045);}
-.next .sn{font-size:10.5px;font-weight:900;letter-spacing:.18em;color:var(--aqua-3);}
-.next h4{color:#fff;margin:9px 0 8px;font-size:1rem;}
-.next p{margin:0;font-size:.83rem;line-height:1.9;color:var(--d-ink-2);}
+/* ── next ──────────────────────────────── */
+.next{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.next div{border:1px solid var(--line);border-radius:var(--r);padding:20px;background:var(--paper);}
+.next .n{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--aqua);}
+.next h4{font-size:14.5px;font-weight:700;margin:8px 0 8px;}
+.next p{margin:0;font-size:13.5px;line-height:1.9;color:var(--ink-2);}
 @media(max-width:900px){.next{grid-template-columns:1fr;}}
 
-/* ══ footer ══ */
-footer{background:var(--paper);border-top:1px solid var(--line);padding:44px 0 60px;}
-.notice{
-  border:1px solid var(--line);border-radius:12px;background:var(--mist);
-  padding:18px 22px;font-size:.75rem;line-height:1.95;color:var(--ink-3);
-}
-.notice b{color:var(--ink-2);font-weight:700;}
-.credits{font-size:.71rem;line-height:1.9;color:var(--ink-3);margin-top:18px;}
-.credits a{color:var(--ink-3);}
-.foot-brand{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;}
-.foot-brand img{height:19px;width:auto;filter:brightness(0);opacity:.82;}
-.foot-brand span{font-size:.75rem;color:var(--ink-3);}
+/* ── footer ────────────────────────────── */
+footer{background:var(--navy);color:rgba(255,255,255,.62);padding:38px 0 46px;font-size:12.5px;line-height:1.95;}
+footer img{height:16px;width:auto;margin-bottom:18px;}
+.notice{border:1px solid rgba(255,255,255,.16);border-radius:var(--r);padding:15px 18px;margin-bottom:16px;}
+.notice b{color:rgba(255,255,255,.9);font-weight:700;}
+.credits{font-size:11.5px;line-height:1.9;color:rgba(255,255,255,.44);}
+.credits b{color:rgba(255,255,255,.7);font-weight:700;}
 </style>
 
-<nav class="nav" id="nav">
+<nav class="nav">
   <div class="nav-in">
     <img class="nav-logo" src="__IMG_LOGO__" alt="d ticket">
     <div class="nav-links">
-      <a href="#about">d ticketとは</a>
-      <a href="#features">機能概要</a>
-      <a href="#records">導入実績</a>
-      <a href="#value">提供する価値</a>
-      <a href="#service">サービス機能</a>
-      <a href="#fraud">転売対策</a>
-      <a href="#support">受付体制</a>
-      <a href="#compare">他社比較</a>
-      <a href="#appendix">Appendix</a>
+      <a href="#s1">1 d ticketとは</a>
+      <a href="#s2">2 機能概要</a>
+      <a href="#s3">3 導入実績</a>
+      <a href="#s4">4 提供する価値</a>
+      <a href="#s5">5 サービス機能</a>
+      <a href="#s6">6 転売対策</a>
+      <a href="#s7">7 受付体制</a>
+      <a href="#s8">8 他社比較</a>
+      <a href="#s9">9 Appendix</a>
     </div>
   </div>
 </nav>
 
-<!-- ═══════ HERO ═══════ -->
-<header class="dark">
-  <div class="wrap hero">
-    <img class="hero-mark" src="__IMG_LOGO__" alt="d ticket">
-    <p class="to"><b>IMG Media Japan 合同会社</b> 御中</p>
-    <p class="eyebrow">ドコモ 新チケットサービス</p>
-    <h1>チケットを売る、<br>その<span class="g">先まで</span>支える。</h1>
-    <p class="hero-lead">
-      d ticketは、チケット販売システムではありません。ドコモが自社で保有する<b>1億規模の会員データ基盤</b>、ベニュー、コンテンツ配信、金融、グッズ／EC、全国の販路を、ひとつの興行のために束ねて差し出す仕組みです。
-      <b>需要予測から集客、当日の入場、次回興行の企画まで</b>を一気通貫でご支援します。
-    </p>
-    <div class="stats">
-      <div class="stat">
-        <span class="v">1<i>億規模</i></span>
-        <span class="k">dアカウント／dポイントクラブの会員基盤</span>
-      </div>
-      <div class="stat">
-        <span class="v">5<i>倍</i></span>
-        <span class="k">3大プレイガイド比のリーチ可能アカウント数</span>
-      </div>
-      <div class="stat">
-        <span class="v">4<i>施設</i></span>
-        <span class="k">運営に参画する大型ベニュー</span>
-      </div>
-      <div class="stat">
-        <span class="v">2,000<i>店超</i></span>
-        <span class="k">全国のドコモショップ（オフライン販路）</span>
-      </div>
+<header class="head">
+  <div class="wrap head-grid">
+    <div>
+      <p class="to"><b>IMG Media Japan 合同会社</b> 御中</p>
+      <h1>ドコモ 新チケットサービス<br>d ticket のご紹介</h1>
+      <p class="head-desc">
+        d ticket は、NTTドコモが提供するチケット販売サービスです。全国のスポーツや音楽ライブなどのチケットを取り扱います。
+        販売・決済・入場の標準機能に加えて、<b>dアカウントと連携した1億規模の会員データ</b>を使った需要予測と集客支援、
+        電子チケットによる入場管理、公式リセールによる転売対策までをあわせてご提供します。
+      </p>
     </div>
-  </div>
-  <div class="ticker">
-    <div class="ticker-track">
-      <span>ボクシング ダブル世界タイトルマッチ 井上尚弥 vs 中谷潤人</span><span>令和7年大相撲七月場所</span><span>BLACK SAMURAI 2025</span><span>NTTドコモ ビジネスレディス</span><span>THE MUSIC STADIUM 2026</span><span>マイナビ 東京ガールズコレクション 2026 A/W</span><span>MUSIC AWARDS JAPAN 2026</span><span>びわ湖大花火大会 2026</span>
-      <span aria-hidden="true">ボクシング ダブル世界タイトルマッチ 井上尚弥 vs 中谷潤人</span><span aria-hidden="true">令和7年大相撲七月場所</span><span aria-hidden="true">BLACK SAMURAI 2025</span><span aria-hidden="true">NTTドコモ ビジネスレディス</span><span aria-hidden="true">THE MUSIC STADIUM 2026</span><span aria-hidden="true">マイナビ 東京ガールズコレクション 2026 A/W</span><span aria-hidden="true">MUSIC AWARDS JAPAN 2026</span><span aria-hidden="true">びわ湖大花火大会 2026</span>
-    </div>
+    <div class="kv"><img src="__IMG_KV__" alt="d ticket キービジュアル"></div>
   </div>
 </header>
 
+<div class="gist">
+  <div class="wrap">
+    <h2>この資料の要点</h2>
+    <ol>
+      <li><b>集客に、ドコモの会員データが使えます。</b>1億規模のdアカウント・dポイントクラブの属性、行動、決済データから、購入しそうな層を抽出して広告配信まで行えます。</li>
+      <li><b>転売対策を、購入の入口から標準で備えています。</b>SMS認証、AI不正検知、電子チケットのシステム制御、転売サイト監視の4つを組み合わせます。</li>
+      <li><b>販売後のデータを、次回興行に還元できます。</b>会場選定、キャパシティ設計、グッズの在庫予測、協賛獲得用のIPプロフィール作成までご支援します。</li>
+    </ol>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="wrap">
+    <h2>目次</h2>
+    <ol>
+      <li><a href="#s1"><i>1</i>d ticketとは</a></li>
+      <li><a href="#s2"><i>2</i>機能概要</a></li>
+      <li><a href="#s3"><i>3</i>導入実績</a></li>
+      <li><a href="#s4"><i>4</i>提供する価値</a></li>
+      <li><a href="#s5"><i>5</i>チケットサービス機能</a></li>
+      <li><a href="#s6"><i>6</i>電子チケット利用などに関する転売対策</a></li>
+      <li><a href="#s7"><i>7</i>チケットサービス問合せ受付体制</a></li>
+      <li><a href="#s8"><i>8</i>他社チケットサービスとの比較</a></li>
+      <li><a href="#s9"><i>9</i>Appendix</a></li>
+    </ol>
+  </div>
+</div>
+
 <main>
 
-<!-- ═══════ 01 ═══════ -->
-<section id="about">
+<!-- 1 -->
+<section id="s1">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">01 — d ticketとは</p>
-      <h2>チケットシステムではなく、<br>ドコモの事業資産そのものを差し出す。</h2>
-      <p class="lead">
-        チケット販売機能だけであれば、どの事業者にもあります。d ticketが他と異なるのは、その周囲に<b>ドコモが自社で運営する10領域の事業</b>が接続されている点です。
-        会員データで買いそうな人を見つけ、オウンドメディアで届け、ドコモショップで売り、d払いで決済し、Leminoで配信する——<b>すべて同一グループ内で完結します</b>。
-      </p>
-    </div>
-    <div class="bento rv">
-      <div class="bt"><h4>データ基盤</h4><p>dアカウント／dポイント。属性・行動・決済を横断した1億規模の会員データ</p></div>
-      <div class="bt"><h4>ベニュー</h4><p>国立競技場、IGアリーナほか大型施設の運営に参画</p></div>
-      <div class="bt bt-hub">
-        <img src="__IMG_LOGO__" alt="d ticket">
-        <p>10領域の資産を、ひとつの興行に束ねる結節点</p>
-      </div>
-      <div class="bt"><h4>コンテンツ配信</h4><p>Lemino／dヒッツ／dマガジン／スゴ得コンテンツ／dバリューパス</p></div>
-      <div class="bt"><h4>ファンクラブ／コミュニティ</h4><p>ファン組織の構築・運営を支援</p></div>
-      <div class="bt"><h4>オウンドメディア</h4><p>dメニュー／my daiz。自社面での告知配信</p></div>
-      <div class="bt"><h4>IPマネジメント</h4><p>docomo Studio&amp;Live によるIPの育成・運用</p></div>
-      <div class="bt"><h4>回線</h4><p>ドコモMAX／5G／IOWN。会場の通信基盤まで対応</p></div>
-      <div class="bt"><h4>金融</h4><p>d払い／dカード。決済とポイント経済圏</p></div>
-      <div class="bt"><h4>オフライン販路</h4><p>全国2,000店舗以上のドコモショップ</p></div>
-      <div class="bt"><h4>グッズ／EC</h4><p>タワーレコード／dポイントマーケット</p></div>
+    <p class="kicker">1. d ticketとは</p>
+    <h2 class="t">ドコモの10領域の事業資産を、チケット販売とあわせて利用できます</h2>
+    <p class="lead">
+      d ticket は、ドコモが所有するコンテンツ配信、金融、グッズ／ECなどの他領域資産を活用し、あらゆる角度から支援するチケットサービスです。
+      チケットの販売機能だけでなく、会員データによる見込み層の抽出、オウンドメディアでの告知、全国のドコモショップでの販売、d払いでの決済、Leminoでの配信までを、<b>同一グループ内でご提供できます</b>。
+    </p>
+    <div class="cards c3">
+      <div class="card"><h4>データ基盤</h4><p>dアカウント／dポイント。属性・行動・決済を横断した1億規模の会員データ。</p></div>
+      <div class="card"><h4>ベニュー</h4><p>国立競技場、IGアリーナほか大型施設の運営に参画。</p></div>
+      <div class="card"><h4>コンテンツ配信</h4><p>Lemino／dヒッツ／dマガジン／スゴ得コンテンツ／dバリューパス。</p></div>
+      <div class="card"><h4>ファンクラブ／コミュニティ</h4><p>ファン組織の構築・運営を支援。</p></div>
+      <div class="card"><h4>オウンドメディア</h4><p>dメニュー／my daiz。自社面での告知配信。</p></div>
+      <div class="card"><h4>IPマネジメント</h4><p>docomo Studio&amp;Live によるIPの育成・運用。</p></div>
+      <div class="card"><h4>回線</h4><p>ドコモMAX／5G／IOWN。会場の通信基盤まで対応。</p></div>
+      <div class="card"><h4>金融</h4><p>d払い／dカード。決済とポイント経済圏。</p></div>
+      <div class="card"><h4>オフライン販路</h4><p>全国2,000店舗以上のドコモショップ。</p></div>
+      <div class="card"><h4>グッズ／EC</h4><p>タワーレコード／dポイントマーケット。</p></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════ 02 ═══════ -->
-<section id="features" class="sec-mist">
+<!-- 2 -->
+<section id="s2" class="sec-mist">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">02 — 機能概要</p>
-      <h2>標準機能を完備し、その上に<br>ドコモならではの付加価値を重ねる。</h2>
-      <p class="lead">
-        全国のスポーツや音楽ライブなどを取り扱うチケット販売サービスとして、販売・決済・利用の標準機能は一通り揃っています。
-        そこに、ドコモが培ってきた<b>情報セキュリティ技術と転売防止機能によるあんしん安全の運用体制</b>、そして<b>dアカウント連携によるデータ分析とマーケティング／プロモーション支援</b>を上乗せしてご提供します。
-      </p>
-    </div>
+    <p class="kicker">2. 機能概要</p>
+    <h2 class="t">販売・決済・利用の標準機能に、ドコモアセットによる支援を追加します</h2>
+    <p class="lead">
+      全国のスポーツや音楽ライブなどを取り扱うチケット販売サービスです。
+      ドコモが培ってきた情報セキュリティ技術に、転売防止機能などを備えたあんしん安全の運用体制を加えて、
+      <b>dアカウント連携によるデータ分析</b>や、<b>ドコモアセットを活用したマーケティング・プロモーション支援</b>等の付加価値を提供します。
+    </p>
+    <div class="shot"><img src="__IMG_UI__" alt="d ticket の画面：公演選択、公演説明、座席選択、お支払い完了"></div>
+    <p class="cap">公演選択から座席選択、決済完了までをWEB上で完結します。※画面はイメージです</p>
 
-    <div class="rv" style="margin-bottom:44px;">
-      <div class="shot"><img src="__IMG_UI__" alt="d ticket の実画面：公演選択、公演詳細、座席選択、お支払い完了"></div>
-      <p class="shot-cap">公演選択から座席選択、決済完了までをすべてWEB上で完結。※画面はイメージです</p>
-    </div>
-
-    <div class="cards c3 rv">
+    <h3 class="s">主な機能</h3>
+    <div class="cards c3">
       <div class="card">
-        <span class="tag">販売</span>
-        <h3>販売スタイルに柔軟に対応</h3>
-        <p>興行の性質に合わせて販売設計を組み立てられます。</p>
+        <span class="lbl">販売</span><h4>販売スタイルに柔軟に対応</h4>
+        <p>興行の性質に合わせて販売方式を設定できます。</p>
         <ul><li>先着／抽選</li><li>座席指定／券種指定</li></ul>
       </div>
       <div class="card">
-        <span class="tag">決済</span>
-        <h3>各種決済方法に対応</h3>
-        <p>キャリア決済からコンビニまで、購入者を選びません。</p>
+        <span class="lbl">決済</span><h4>各種決済方法に対応</h4>
+        <p>キャリア決済からコンビニ支払いまで対応します。</p>
         <ul><li>クレジットカード</li><li>d払い</li><li>コンビニ（セブン‑イレブン）</li></ul>
       </div>
       <div class="card">
-        <span class="tag">再販売</span>
-        <h3>各種機能を実装し転売を防止</h3>
-        <p>公式の受け皿を用意することで、非公式流通そのものを減らします。</p>
+        <span class="lbl">再販売</span><h4>各種機能を実装し転売を防止</h4>
+        <p>公式の再販売の場を用意することで、非公式サイトでの流通を減らします。</p>
         <ul><li>公式リセール販売</li><li>券種アップグレード</li></ul>
       </div>
       <div class="card">
-        <span class="tag">利用</span>
-        <h3>電子チケット発券に対応</h3>
-        <p>電子認証による、スムーズな入退場管理を実現します。</p>
+        <span class="lbl">利用</span><h4>電子チケット発券に対応</h4>
+        <p>電子認証により、入退場をスムーズに管理します。</p>
       </div>
       <div class="card">
-        <span class="tag dc">データ分析</span>
-        <h3>アカウント管理によるデータ分析</h3>
-        <p>誰が買ったのかを、匿名の購入者ではなくアカウントとして把握できます。</p>
+        <span class="lbl dc">データ分析</span><h4>アカウント管理によるデータ分析</h4>
+        <p>購入者をdアカウント単位で把握し、分析に利用できます。</p>
         <ul><li>ログイン連携</li><li>dアカウントログイン</li></ul>
       </div>
       <div class="card">
-        <span class="tag dc">マーケティング／プロモーション</span>
-        <h3>ドコモアセットを活用した販売活動</h3>
-        <p>販売開始と同時に、集客の打ち手までセットで動かせます。</p>
+        <span class="lbl dc">マーケティング／プロモーション</span><h4>ドコモアセットを活用した販売活動</h4>
+        <p>販売開始にあわせて集客施策を実施できます。</p>
         <ul><li>オウンドメディア</li><li>関連企業連携</li></ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════ 03 ═══════ -->
-<section id="records" class="dark">
+<!-- 3 -->
+<section id="s3">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">03 — 導入実績</p>
-      <h2>ジャンルも会場規模も異なる興行で、<br>すでに稼働しています。</h2>
-      <p class="lead">
-        格闘技、大相撲、バスケットボール、ゴルフ、スタジアムフェス、ファッション、音楽アワード、花火大会——<b>東京ドーム・国立競技場クラスの大規模興行から、屋外の広域イベントまで</b>実運用の実績があります。
-      </p>
-    </div>
-    <div class="venues rv">
+    <p class="kicker">3. 導入実績</p>
+    <h2 class="t">ジャンルと会場規模の異なる興行で稼働しています</h2>
+    <p class="lead">
+      格闘技、大相撲、バスケットボール、ゴルフ、音楽フェス、ファッション、音楽アワード、花火大会で導入しています。
+      東京ドームや国立競技場などの大規模会場から、屋外の広域イベントまで対応します。
+    </p>
+    <div class="venues">
       <div class="vn">
         <img src="__IMG_V_TOKYODOME__" alt="東京ドーム">
-        <div class="vn-body">
-          <span class="genre">BOXING</span>
-          <p class="name">ダブル世界タイトルマッチ<br>井上尚弥 vs 中谷潤人</p>
-          <p class="place">東京ドーム</p>
-        </div>
+        <div class="vn-b"><span class="g">ボクシング</span><p class="n">ダブル世界タイトルマッチ<br>井上尚弥 vs 中谷潤人</p><p class="p">東京ドーム</p></div>
       </div>
       <div class="vn">
         <img src="__IMG_V_IGARENA__" alt="IGアリーナ">
-        <div class="vn-body">
-          <span class="genre">SUMO</span>
-          <p class="name">令和7年大相撲七月場所<br>（名古屋場所）</p>
-          <p class="place">IGアリーナ</p>
-        </div>
+        <div class="vn-b"><span class="g">大相撲</span><p class="n">令和7年大相撲七月場所<br>（名古屋場所）</p><p class="p">IGアリーナ</p></div>
       </div>
       <div class="vn">
         <img src="__IMG_V_KOKURITSU__" alt="国立競技場">
-        <div class="vn-body">
-          <span class="genre">MUSIC FESTIVAL</span>
-          <p class="name">THE MUSIC STADIUM 2026</p>
-          <p class="place">国立競技場</p>
-        </div>
+        <div class="vn-b"><span class="g">音楽フェス</span><p class="n">THE MUSIC STADIUM 2026</p><p class="p">国立競技場</p></div>
       </div>
       <div class="vn">
         <img src="__IMG_V_YOKOHAMA__" alt="横浜アリーナ">
-        <div class="vn-body">
-          <span class="genre">FASHION</span>
-          <p class="name">マイナビ 東京ガールズ<br>コレクション 2026 A/W</p>
-          <p class="place">横浜アリーナ</p>
-        </div>
-      </div>
-      <div class="vn flat">
-        <div class="vn-body">
-          <span class="genre">BASKETBALL</span>
-          <p class="name">BLACK SAMURAI 2025<br>（八村塁）</p>
-          <p class="place">IGアリーナ</p>
-        </div>
-      </div>
-      <div class="vn flat">
-        <div class="vn-body">
-          <span class="genre">GOLF</span>
-          <p class="name">NTTドコモ<br>ビジネスレディス</p>
-          <p class="place">浜野ゴルフクラブ</p>
-        </div>
-      </div>
-      <div class="vn flat">
-        <div class="vn-body">
-          <span class="genre">MUSIC AWARD</span>
-          <p class="name">MUSIC AWARDS JAPAN 2026</p>
-          <p class="place">TOYOTA ARENA、SGC HALL</p>
-        </div>
-      </div>
-      <div class="vn flat">
-        <div class="vn-body">
-          <span class="genre">FIREWORKS</span>
-          <p class="name">びわ湖大花火大会 2026</p>
-          <p class="place">びわ湖湖岸</p>
-        </div>
+        <div class="vn-b"><span class="g">ファッション</span><p class="n">マイナビ 東京ガールズ<br>コレクション 2026 A/W</p><p class="p">横浜アリーナ</p></div>
       </div>
     </div>
+
+    <h3 class="s">そのほかの導入実績</h3>
+    <ul class="reclist">
+      <li><span class="g">バスケットボール</span><b>BLACK SAMURAI 2025（八村塁）</b><span class="p">IGアリーナ</span></li>
+      <li><span class="g">ゴルフ</span><b>NTTドコモ ビジネスレディス</b><span class="p">浜野ゴルフクラブ</span></li>
+      <li><span class="g">音楽アワード</span><b>MUSIC AWARDS JAPAN 2026</b><span class="p">TOYOTA ARENA、SGC HALL</span></li>
+      <li><span class="g">花火大会</span><b>びわ湖大花火大会 2026</b><span class="p">びわ湖湖岸</span></li>
+    </ul>
   </div>
 </section>
 
-<!-- ═══════ 04 ═══════ -->
-<section id="value">
+<!-- 4 -->
+<section id="s4" class="sec-mist">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">04 — d ticketが提供する価値</p>
-      <h2>売れたかどうかで終わらせず、<br>次の興行の材料に変える。</h2>
-      <p class="lead">
-        チケットが売り切れても、<b>「誰が買ったのか」が分からなければ次の一手は打てません</b>。d ticketは購入から入場までのデータをアカウント単位で蓄積し、需要予測・会場選定・グッズ企画・協賛獲得まで還元します。
-        以下では、その土台となるデータ資産、提供の流れ、支援範囲、そして実際の分析事例をご説明します。
-      </p>
+    <p class="kicker">4. d ticketが提供する価値</p>
+    <h2 class="t">購入から入場までのデータを、次回興行の計画に還元します</h2>
+    <p class="lead">
+      d ticket では、購入から入場までの記録をdアカウント単位で蓄積します。
+      蓄積したデータは、需要予測、会場選定、グッズ企画、協賛獲得の材料としてご利用いただけます。
+      以下では、土台となるデータ資産、提供の流れ、支援範囲、分析事例の順にご説明します。
+    </p>
+
+    <h3 class="s">① ドコモが保有するデータ</h3>
+    <p class="slead">
+      顧客属性データだけでなく、キャリアとして得られる行動データ（ネット・リアル）と決済データをエンタメと掛け合わせます。
+      これにより、<b>潜在層の発掘</b>、および興味・関心の喚起につながるコンテンツの発信を通じた<b>新たなファン層の開拓</b>を図ります。
+    </p>
+    <div class="cards c3">
+      <div class="card"><span class="lbl">顧客属性データ</span><h4>国内最大級の契約者情報</h4><p>携帯電話の契約時に登録する情報。<br>ex. 地域、年齢、性別、誕生月、所有機種のOS</p></div>
+      <div class="card"><span class="lbl">顧客属性データ</span><h4>dポイントクラブ情報（1億人超）</h4><p>dポイントクラブユーザー情報やポイント利用情報。<br>ex. 保有ポイント数等</p></div>
+      <div class="card"><span class="lbl">顧客属性データ</span><h4>アンケートデータ</h4><p>ユーザーに実施しているアンケート情報。<br>ex. 世帯収入、家族構成、生活情報、購買情報等</p></div>
+      <div class="card"><span class="lbl dc">リアル行動データ</span><h4>位置情報データ（Wi‑Fi）</h4><p>駅、空港、カフェ、ファストフード店、ファミレス、コンビニ等のWi‑Fiのデータ。</p></div>
+      <div class="card"><span class="lbl dc">リアル行動データ</span><h4>位置情報データ（特徴量）</h4><p>基地局情報などの位置情報から類推した移動に関するデータ。</p></div>
+      <div class="card"><span class="lbl dc">リアル行動データ</span><h4>dポイントクラブ加盟店利用情報</h4><p>コンビニ、薬局、ファストフード等の加盟店におけるdポイント利用・付与データ。</p></div>
+      <div class="card"><span class="lbl">決済データ</span><h4>d払い決済情報</h4><p>キャリア決済に関わる情報。<br>ex. 決済金額、決済回数、リピート率</p></div>
+      <div class="card"><span class="lbl dc">ネット行動データ</span><h4>アプリ利用ログ／dメニュー閲覧</h4><p>利用許諾ユーザーのアプリ利用情報、dメニュー内のコンテンツ利用やサービス登録情報。</p></div>
+      <div class="card"><span class="lbl dc">ネット行動データ</span><h4>dマーケット利用情報／検索クエリ</h4><p>雑誌購読・動画視聴サービス等の利用情報、dmenu内検索の検索キーワード。</p></div>
     </div>
 
-    <div class="sub rv">
-      <h3>① 土台となるドコモのデータ資産</h3>
-      <p class="lead">
-        顧客属性データだけでなく、キャリアとして得られる<b>行動データ（ネット・リアル）と決済データ</b>をエンタメと掛け合わせます。これにより、すでにファンである層だけでなく<b>潜在層の発掘</b>と、興味・関心の喚起につながるコンテンツ発信を通じた<b>新たなファン層の開拓</b>を図ります。
-      </p>
-    </div>
-    <div class="cards c3 rv">
-      <div class="card"><span class="tag">顧客属性データ</span><h3>国内最大級の契約者情報</h3><p>携帯電話の契約時に登録する情報。<br>ex. 地域、年齢、性別、誕生月、所有機種のOS</p></div>
-      <div class="card"><span class="tag">顧客属性データ</span><h3>dポイントクラブ情報<br><mark>1億人超</mark></h3><p>dポイントクラブユーザー情報やポイント利用情報。<br>ex. 保有ポイント数等</p></div>
-      <div class="card"><span class="tag">顧客属性データ</span><h3>アンケートデータ</h3><p>ユーザーに実施しているアンケート情報。<br>ex. 世帯収入、家族構成、生活情報、購買情報等</p></div>
-      <div class="card"><span class="tag dc">リアル行動データ</span><h3>位置情報データ（Wi‑Fi）</h3><p>駅、空港、カフェ、ファストフード店、ファミレス、コンビニ等のWi‑Fiのデータ</p></div>
-      <div class="card"><span class="tag dc">リアル行動データ</span><h3>位置情報データ（特徴量）</h3><p>基地局情報などの位置情報から類推した移動に関するデータ</p></div>
-      <div class="card"><span class="tag dc">リアル行動データ</span><h3>dポイントクラブ加盟店利用情報</h3><p>コンビニ、薬局、ファストフード等の加盟店におけるdポイント利用・付与データ</p></div>
-      <div class="card"><span class="tag">決済データ</span><h3>d払い決済情報</h3><p>キャリア決済に関わる情報。<br>ex. 決済金額、決済回数、リピート率</p></div>
-      <div class="card"><span class="tag dc">ネット行動データ</span><h3>アプリ利用ログ／dメニュー閲覧</h3><p>利用許諾ユーザーのアプリ利用情報、dメニュー内のコンテンツ利用やサービス登録情報</p></div>
-      <div class="card"><span class="tag dc">ネット行動データ</span><h3>dマーケット利用情報／検索クエリ</h3><p>雑誌購読・動画視聴サービス等の利用情報、dmenu内検索の検索キーワード</p></div>
-    </div>
-
-    <div class="sub rv">
-      <h3>② 購入から入場までを、ひとつのループで回す</h3>
-      <p class="lead">
-        購入から入場までの<b>全過程においてコンテンツ価値の最大化と顧客体験向上</b>を目指します。あわせて<b>1億の会員基盤を活用したデータ分析から興行需要を予測</b>し、継続的な興行計画・改善をサポートいたします。
-      </p>
-    </div>
-    <div class="flow rv">
-      <div class="flow-band">継続的なサービス提供</div>
-      <p class="flow-note">行動ログはデータ分析へ戻り、次の興行の予測精度を高めます</p>
+    <h3 class="s">② 購入から入場までの流れ</h3>
+    <p class="slead">
+      購入から入場までの全過程において、コンテンツ価値の最大化と顧客体験向上を目指します。
+      1億の会員基盤を活用したデータ分析から興行需要を予測し、継続的な興行計画・改善をサポートいたします。
+    </p>
+    <div class="flow">
+      <div class="flow-h">継続的なサービス提供</div>
       <div class="steps">
-        <div class="step"><span class="sn">STEP 1</span><h4>データ分析</h4><p>データに基づく興行需要を予測。dアカウント所有者や過去来場のお客様の購買データを基に、販売計画段階からサポート。</p></div>
-        <div class="step"><span class="sn">STEP 2</span><h4>チケット販売</h4><p>一気通貫のサービス。チケット販売と同時にグッズ販売も可能。お客様操作で人数の追加、上位席種への変更も可能。</p></div>
-        <div class="step"><span class="sn">STEP 3</span><h4>サービス機能</h4><p>不正転売防止。電話番号認証（SMS認証）を経てチケットを発行。分配機能により同行者情報の取得も可能。</p></div>
-        <div class="step"><span class="sn">STEP 4</span><h4>行動ログ管理</h4><p>サービス認証。電子認証による、スムーズな入退場管理を実現。</p></div>
+        <div class="step"><span class="n">STEP 1</span><h4>データ分析</h4><p>dアカウント所有者や過去来場のお客様の購買データを基に、販売計画の段階から興行需要を予測します。</p></div>
+        <div class="step"><span class="n">STEP 2</span><h4>チケット販売</h4><p>チケット販売と同時にグッズ販売も可能です。お客様の操作で人数の追加、上位席種への変更も行えます。</p></div>
+        <div class="step"><span class="n">STEP 3</span><h4>サービス機能</h4><p>電話番号認証（SMS認証）を経てチケットを発行します。分配機能により同行者情報の取得も可能です。</p></div>
+        <div class="step"><span class="n">STEP 4</span><h4>行動ログ管理</h4><p>電子認証により、入退場をスムーズに管理します。</p></div>
       </div>
+      <div class="flow-f">STEP 4 で得た行動ログは STEP 1 のデータ分析に戻り、次回興行の予測精度を高めます。</div>
     </div>
 
-    <div class="sub rv">
-      <h3>③ 単一興行に留まらない、IP価値への継続支援</h3>
-      <p class="lead">
-        d ticketの支援範囲は、公演当日で終わりません。蓄積したデータを起点に、<b>コンテンツ・IPの価値を高める継続的なサポート</b>を幅広くご提供いたします。
-      </p>
-    </div>
-    <div class="cards c4 rv">
-      <div class="card"><span class="tag">01 新規ファン獲得</span><h3>新規ファンを類推</h3><p>チケット購入者と近いペルソナを持つユーザーを、ドコモデータ基盤を活用して抽出しマーケティングに活用。</p></div>
-      <div class="card"><span class="tag">02 興行企画</span><h3>データに基づく興行実需を予測</h3><p>dアカウント所有者や過去来場のお客様の購買データを基に、会場選定からサポート。キャパ最適化（競合分析ダッシュボード）。</p></div>
-      <div class="card"><span class="tag">03 グッズ企画</span><h3>データに基づく企画サポート</h3><p>購買層の傾向などをデータ化し、次回興行時のグッズ企画／最適在庫数の予測／販売方法の改善案をご提案。</p></div>
-      <div class="card"><span class="tag">04 協賛獲得</span><h3>スポンサー獲得の材料を提供</h3><p>スポンサー獲得のためのIPプロフィールを作成しご提出。ドコモから相性の良いスポンサーをご提案。</p></div>
+    <h3 class="s">③ 単一興行に留まらない継続支援</h3>
+    <p class="slead">
+      支援の範囲は公演当日で終わりません。蓄積したデータを起点に、コンテンツ・IPの価値を高める継続的なサポートを幅広く提供いたします。
+    </p>
+    <div class="cards c4">
+      <div class="card"><span class="lbl">新規ファン獲得</span><h4>新規ファンを類推</h4><p>チケット購入者と近いペルソナを持つユーザーを、ドコモデータ基盤を活用して抽出しマーケティングに活用します。</p></div>
+      <div class="card"><span class="lbl">興行企画</span><h4>興行実需を予測</h4><p>過去来場のお客様の購買データを基に、会場選定をサポートします。競合分析ダッシュボードによるキャパシティ最適化も行います。</p></div>
+      <div class="card"><span class="lbl">グッズ企画</span><h4>企画サポート</h4><p>購買層の傾向をデータ化し、次回興行時のグッズ企画、最適在庫数の予測、販売方法の改善案を提案します。</p></div>
+      <div class="card"><span class="lbl">協賛獲得</span><h4>スポンサー獲得の材料を提供</h4><p>スポンサー獲得のためのIPプロフィールを作成して提出します。ドコモから相性の良いスポンサーを提案します。</p></div>
     </div>
 
-    <div class="sub rv">
-      <h3>④ 分析事例：顧客像分析から販促プラン検討まで</h3>
-      <p class="lead">
-        実際に大相撲名古屋場所のデータを分析した事例です。<b>「誰が、誰と、どこから来ているか」</b>を明らかにすると、打つべき販促の形が具体的に決まります。以下は分析結果と、そこから導いた2つの販促プランです。
-      </p>
-    </div>
-    <div class="case rv">
-      <div class="case-col">
+    <h3 class="s">④ 分析事例：大相撲名古屋場所</h3>
+    <p class="slead">
+      実際に大相撲名古屋場所のデータを分析した事例です。
+      チケット購入者の年代、同行者との関係、宿泊の有無と居住地を調べ、そこから2つの販促プランを設計しました。
+    </p>
+    <div class="case">
+      <div class="box">
         <div class="find">
           <h4>顧客像は「親子ペア」と「シニア夫婦ペア」の2つ</h4>
-          <p>チケット購入者が40代以下の場合は親子が多く、なかでも「親子‑女性ペア」が男性ペアより相対的に多い。50代以上の場合は「同世代‑男女ペア」が最も多い。</p>
+          <p>チケット購入者が40代以下の場合は親子が多く、その中でも「親子‑女性ペア」が男性ペアより相対的に多い。50代以上の場合は「同世代‑男女ペア」が最も多い。</p>
           <div class="figs">
             <span class="fig">40代以下・親子 <b>41.6%</b></span>
             <span class="fig">50代以上・同年代 <b>51.2%</b></span>
@@ -714,7 +497,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:44px 0 6
           </div>
         </div>
       </div>
-      <div class="case-col">
+      <div>
         <div class="plan">
           <span class="pn">販促プラン A</span>
           <h4>まるっと名古屋旅パック</h4>
@@ -736,59 +519,53 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:44px 0 6
   </div>
 </section>
 
-<!-- ═══════ 05 ═══════ -->
-<section id="service" class="sec-mist">
+<!-- 5 -->
+<section id="s5">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">05 — チケットサービス機能</p>
-      <h2>収益を増やす機能と、転売を抑える機能を、<br>同じ導線の中に。</h2>
-      <p class="lead">
-        チケットサービスの標準機能を完備し、<b>新たな機能開発についても積極的に導入します</b>。とくにリセールとアップグレードは、購入者の利便性を高めながら、興行主さまの収益機会と転売抑止を同時に成立させる機能です。
-      </p>
-    </div>
-    <div class="cards c3 rv">
-      <div class="card"><h3>FC先行</h3><p>ファンクラブ向けの希望順エントリー／単独エントリーによる抽選先行受付。</p></div>
-      <div class="card"><h3>分配登録</h3><p>LINE・メールほかの方法で同行者へチケットを分配。同行者情報の取得にもつながります。</p></div>
-      <div class="card"><h3>オプション購入</h3><p>チケット購入導線上にグッズ販売を差し込むことが可能。サイズ・数量まで同一フローで選択。</p></div>
-      <div class="card"><h3>リセール</h3><p>行けなくなったチケットを公式の場で再流通。出品→購入→発券→振込までサービス内で完結。</p></div>
-      <div class="card"><h3>アップグレード</h3><p>チケット購入後に席種のアップグレードが可能。抽選受付として実施できます。</p></div>
-      <div class="card"><h3>追加購入</h3><p>チケット購入後に、座席の追加やオプションの追加が可能。</p></div>
+    <p class="kicker">5. チケットサービス機能</p>
+    <h2 class="t">チケットサービス標準機能を完備し、新たな機能開発についても積極的に導入します</h2>
+    <p class="lead">
+      販売から利用までの標準機能に加えて、収益機会を増やす機能と転売を抑える機能を同じ購入導線の中に実装しています。
+    </p>
+    <div class="cards c3">
+      <div class="card"><h4>FC先行</h4><p>ファンクラブ向けの希望順エントリー／単独エントリーによる抽選先行受付。</p></div>
+      <div class="card"><h4>分配登録</h4><p>LINE、メールほかの方法で同行者へチケットを分配します。同行者情報の取得にもつながります。</p></div>
+      <div class="card"><h4>オプション購入</h4><p>チケット購入導線上にグッズ販売を差し込むことが可能です。サイズと数量まで同一フローで選択できます。</p></div>
+      <div class="card"><h4>リセール</h4><p>行けなくなったチケットを公式の場で再流通します。出品、購入、発券、振込までサービス内で完結します。</p></div>
+      <div class="card"><h4>アップグレード</h4><p>チケット購入後に席種のアップグレードが可能です。抽選受付として実施できます。</p></div>
+      <div class="card"><h4>追加購入</h4><p>チケット購入後に、座席の追加やオプションの追加が可能です。</p></div>
     </div>
 
-    <div class="sub rv">
-      <h3>リセール／アップグレードの仕組み</h3>
-      <p class="lead">
-        この2機能は、公演直前に必ず発生する<b>「行けなくなった人」と「今からでも行きたい人」</b>を、非公式サイトではなく公式の中でマッチングさせるためのものです。
-      </p>
-    </div>
-    <div class="cards c2 rv">
+    <h3 class="s">リセールとアップグレードの仕組み</h3>
+    <p class="slead">
+      公演直前には「行けなくなった人」と「これから行きたい人」が必ず生じます。この2者を非公式サイトではなく公式の中でマッチングさせる機能です。
+    </p>
+    <div class="cards c2">
       <div class="card">
-        <span class="tag">リセール機能の提供</span>
-        <h3>譲りたい人と、買いたい人をマッチング</h3>
-        <p>「チケットを譲りたい人」が d ticket に出品し、「チケットを買いたい人」が購入。購入者には発券、出品者には振込が行われます。</p>
-        <p><b>公式リセールの場を提供することで転売を抑止</b>します。</p>
+        <span class="lbl">リセール機能の提供</span>
+        <h4>譲りたい人と、買いたい人をマッチング</h4>
+        <p>チケットを譲りたい人が d ticket に出品し、買いたい人が購入します。購入者には発券、出品者には振込が行われます。</p>
+        <p>公式リセールの場を提供することで転売を抑止します。</p>
       </div>
       <div class="card">
-        <span class="tag">座席のアップグレード</span>
-        <h3>新たなキャッシュポイントの確保</h3>
-        <p>購入者を対象に、グッズ付き・前方席確約席へのアップグレード受付（抽選）の実施が可能です。</p>
-        <p>例）S席を購入 → 後日リンク周辺へアップグレード。</p>
+        <span class="lbl">座席のアップグレード</span>
+        <h4>新たなキャッシュポイントの確保</h4>
+        <p>購入者を対象に、グッズ付き・前方席確約席へのアップグレード受付（抽選）を実施できます。</p>
+        <p>例）S席を購入したお客様に、後日リンク周辺の席へのアップグレードを案内。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════ 06 ═══════ -->
-<section id="fraud" class="dark">
+<!-- 6 -->
+<section id="s6" class="sec-mist">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">06 — 電子チケット利用などに関する転売対策</p>
-      <h2>不正の型を5つに特定し、<br>購入の入口から対策を講じる。</h2>
-      <p class="lead">
-        高額転売のリスクが高い興行のチケットにおいて、<b>購入時に複数の対策を講じることであんしん安全なサービス提供</b>を行います。想定される不正内容を5つに分類し、それぞれに適用する対策を明確に紐づけています。
-      </p>
-    </div>
-    <div class="threats rv">
+    <p class="kicker">6. 電子チケット利用などに関する転売対策</p>
+    <h2 class="t">想定される5つの不正内容に、それぞれ対策を紐づけています</h2>
+    <p class="lead">
+      高額転売のリスクが高い興行のチケットにおいて、購入時に複数の対策を講じることで、あんしん安全なサービス提供を行います。
+    </p>
+    <div class="threats">
       <h4>想定される不正内容</h4>
       <ol>
         <li>複数アカウントを所持し、自身またはbotにて大量に申込</li>
@@ -798,83 +575,72 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:44px 0 6
         <li>一意の電子チケットを複製し、複数人へ転売</li>
       </ol>
     </div>
-    <div class="cards c4 rv">
+    <div class="cards c4">
       <div class="card">
-        <span class="tag">アカウント大量作成</span>
-        <h3>SMS認証</h3>
-        <p>電話番号認証を経てチケットを発行し、実在の回線に紐づかないアカウントの大量生成を抑止します。</p>
-        <div class="applies"><span class="lbl">適用対象</span><span class="chip">1</span></div>
+        <span class="lbl">アカウント大量作成</span><h4>SMS認証</h4>
+        <p>電話番号認証を経てチケットを発行します。実在の回線に紐づかないアカウントの大量生成を抑止します。</p>
+        <div class="applies">適用対象<span><span class="chip">1</span></span></div>
       </div>
       <div class="card">
-        <span class="tag">クレジットカードの不正利用</span>
-        <h3>AI不正検知</h3>
-        <p>決済代行会社SBPSの機能。与信取得前に決済ごとのスコアリングとルール判定を実施し、専用の管理画面にてスコアとルール判定の結果を確認可能。</p>
-        <div class="applies"><span class="lbl">適用対象</span><span class="chip">2</span></div>
+        <span class="lbl">クレジットカードの不正利用</span><h4>AI不正検知</h4>
+        <p>決済代行会社SBPSの機能です。与信取得前に決済ごとのスコアリングとルール判定を実施し、専用の管理画面で結果を確認できます。</p>
+        <div class="applies">適用対象<span><span class="chip">2</span></span></div>
       </div>
       <div class="card">
-        <span class="tag">電子チケットを改ざん／複製</span>
-        <h3>運用回避</h3>
-        <p>前提として、アクティブなチケット以外「公式」のリセールサイトに出品不可。「非公式」のリセールサイトにて購入した改ざんor複製されたチケットは入場不可とするルールを定めます。</p>
-        <div class="applies"><span class="lbl">適用対象</span><span class="chip">4</span><span class="chip">5</span></div>
+        <span class="lbl">改ざん／複製</span><h4>運用回避</h4>
+        <p>アクティブなチケット以外は公式のリセールサイトに出品できません。非公式のリセールサイトで購入した改ざんまたは複製されたチケットは入場不可とするルールを定めます。</p>
+        <div class="applies">適用対象<span><span class="chip">4</span><span class="chip">5</span></span></div>
       </div>
       <div class="card">
-        <span class="tag">高額転売</span>
-        <h3>システム制御／転売サイト監視</h3>
-        <p>チケット流通センター、チケジャム、メルカリ、Yahoo!オークションを監視。サイト側へ出品取り下げを通知し、出品者・購入者が特定できた場合は入場不可とします。</p>
-        <div class="applies"><span class="lbl">適用対象</span><span class="chip">3</span><span class="chip">4</span><span class="chip">5</span></div>
+        <span class="lbl">高額転売</span><h4>システム制御／転売サイト監視</h4>
+        <p>チケット流通センター、チケジャム、メルカリ、Yahoo!オークションを監視します。サイト側へ出品取り下げを通知し、出品者・購入者が特定できた場合は入場不可とします。</p>
+        <div class="applies">適用対象<span><span class="chip">3</span><span class="chip">4</span><span class="chip">5</span></span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════ 07 ═══════ -->
-<section id="support">
+<!-- 7 -->
+<section id="s7">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">07 — チケットサービス問合せ受付体制</p>
-      <h2>興行主さまとユーザ、<br>それぞれの窓口を用意します。</h2>
-      <p class="lead">
-        あんしん安全にご利用頂けるよう、<b>業界標準に即した体制</b>を配備いたします。一次受付から開発ベンダまでを3階層でつなぎ、各層はSlackで連携。ドコモの運用担当・開発担当も同じ導線に入ります。
-      </p>
+    <p class="kicker">7. チケットサービス問合せ受付体制</p>
+    <h2 class="t">興行主さま向けとユーザ向けに、3階層の窓口を用意しています</h2>
+    <p class="lead">
+      あんしん安全にご利用いただけるよう、業界標準に即した体制を配備いたします。各層はSlackで連携し、ドコモの運用担当と開発担当も同じ導線に入ります。
+    </p>
+    <div class="intake">
+      <div><b>興行主さま</b><br>メール／電話 → ドコモ運用担当（L1／L2）</div>
+      <div><b>ユーザ</b><br>WEBフォーム → 一次問い合わせ窓口（L1）</div>
     </div>
-    <div class="intake rv">
-      <div><b>興行主さま</b> ── メール／電話 → ドコモ運用担当（L1／L2）</div>
-      <div><b>ユーザ</b> ── WEBフォーム → 一次問い合わせ窓口（L1）</div>
-    </div>
-    <div class="tiers rv">
+    <div class="tiers">
       <div class="tier">
-        <span class="lv">L1</span>
-        <h3>一次問い合わせ窓口</h3>
-        <p>ユーザからのWEBフォーム受付および調査／対応。解決しない場合はL2へエスカレーション。</p>
+        <span class="lv">L1</span><h4>一次問い合わせ窓口</h4>
+        <p>ユーザからのWEBフォームを受け付け、調査と対応を行います。解決しない場合はL2へエスカレーションします。</p>
         <span class="hours">全日 10:00–20:00<span>稼働時間</span></span>
       </div>
       <div class="tier">
-        <span class="lv">L2</span>
-        <h3>問い合わせ窓口</h3>
-        <p>L1からのエスカレーションを受けて調査／対応。ドコモ運用担当とSlackで連携。</p>
+        <span class="lv">L2</span><h4>問い合わせ窓口</h4>
+        <p>L1からのエスカレーションを受けて調査と対応を行います。ドコモ運用担当とSlackで連携します。</p>
         <span class="hours">全日 9:30–18:00<span>稼働時間</span></span>
       </div>
       <div class="tier">
-        <span class="lv">L3</span>
-        <h3>各開発ベンダ</h3>
-        <p>システム起因の事象を調査／対応。ドコモ開発担当とSlackで連携。</p>
+        <span class="lv">L3</span><h4>各開発ベンダ</h4>
+        <p>システム起因の事象を調査し対応します。ドコモ開発担当とSlackで連携します。</p>
         <span class="hours">全日 10:00–17:00<span>稼働時間</span></span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════ 08 ═══════ -->
-<section id="compare" class="sec-mist">
+<!-- 8 -->
+<section id="s8" class="sec-mist">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">08 — 他社チケットサービスとの比較</p>
-      <h2>差がつくのは、チケット機能の外側。</h2>
-      <p class="lead">
-        チケット販売サービスそのものは各社横並びです。違いが出るのは<b>その周辺をどれだけ自社で持っているか</b>——会員基盤の規模、ベニュー、配信、IP、販路、金融、回線。d ticketは他社チケットサービスと比べて幅広い領域の資産を保有し、興行運営のサポートに活用します。
-      </p>
-    </div>
-    <div class="tscroll rv">
+    <p class="kicker">8. 他社チケットサービスとの比較</p>
+    <h2 class="t">会員基盤、ベニュー、配信、販路の保有状況を他社と比較しました</h2>
+    <p class="lead">
+      チケット販売サービス自体は各社が提供しています。d ticket は他社チケットサービスと比べて幅広い領域の資産を保有し、興行運営のサポートに活用します。
+    </p>
+    <div class="tscroll">
       <table>
         <caption>◯＝提供あり／—＝該当なし</caption>
         <thead>
@@ -883,11 +649,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:44px 0 6
         <tbody>
           <tr><th scope="row">チケット販売サービス</th><td class="own">d ticket</td><td class="yes">◯</td><td class="yes">◯</td></tr>
           <tr><th scope="row">ベニュー運営</th><td class="own">国立競技場／IGアリーナ／有明アリーナ／GLIONアリーナ</td><td>3施設</td><td class="no">—</td></tr>
-          <tr><th scope="row">データ基盤</th><td class="own tnum">dアカウント／dポイントクラブ <mark>1億規模</mark>の会員</td><td class="tnum">約2,000万会員</td><td class="tnum">約1,600万会員</td></tr>
+          <tr><th scope="row">データ基盤</th><td class="own tnum">dアカウント／dポイントクラブ <b class="hl">1億規模</b>の会員</td><td class="tnum">約2,000万会員</td><td class="tnum">約1,600万会員</td></tr>
           <tr><th scope="row">配信プラットフォーム</th><td class="own">Lemino／DAZN／dヒッツ／dマガジン など</td><td>ライブ動画配信サービス</td><td>ライブ配信サービス</td></tr>
           <tr><th scope="row">IPマネジメント</th><td class="own">docomo Studio&amp;Live</td><td class="no">—</td><td class="no">—</td></tr>
           <tr><th scope="row">オンライン販路（チケット除く）</th><td class="own">タワーレコード／dポイントマーケット など</td><td class="yes">◯</td><td class="yes">◯</td></tr>
-          <tr><th scope="row">オフライン販路</th><td class="own tnum">全国のドコモショップ <mark>2,000店舗以上</mark></td><td class="no">—</td><td class="yes">◯</td></tr>
+          <tr><th scope="row">オフライン販路</th><td class="own tnum">全国のドコモショップ <b class="hl">2,000店舗以上</b></td><td class="no">—</td><td class="yes">◯</td></tr>
           <tr><th scope="row">金融サービス</th><td class="own">QRコード決済：d払い／クレジットカード：dカード</td><td>QRコード決済：×／クレジットカード：◯</td><td>QRコード決済：◯／クレジットカード：◯</td></tr>
           <tr><th scope="row">回線提供</th><td class="own">移動通信ネットワーク／固定回線（5G・IOWN）</td><td class="no">—</td><td class="no">—</td></tr>
           <tr><th scope="row">オウンドメディア配信</th><td class="own">dメニュー／my daiz／Myインフォメール など</td><td class="yes">◯</td><td class="yes">◯</td></tr>
@@ -897,39 +663,32 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:44px 0 6
   </div>
 </section>
 
-<!-- ═══════ APPENDIX ═══════ -->
-<section id="appendix">
+<!-- 9 -->
+<section id="s9">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">A — Appendix</p>
-      <h2>本編で触れたドコモアセットの詳細。</h2>
-      <p class="lead">
-        比較表および「提供する価値」で言及した<b>配信プラットフォームとプロモーション面</b>について、提供形態とリーチ可能規模を具体的にご説明します。
-      </p>
-    </div>
+    <p class="kicker">9. Appendix</p>
+    <h2 class="t">動画配信サービスとプロモーション面の詳細</h2>
+    <p class="lead">
+      本編で触れた配信プラットフォームとプロモーション面について、提供形態とリーチ可能規模を記載します。
+    </p>
 
-    <div class="sub rv">
-      <h3>A‑1　動画配信サービス</h3>
-      <p class="lead">
-        興行は当日の会場だけで終わりません。<b>Leminoを軸に、PPV・生配信・見逃し配信まで</b>を同一グループ内で提供できるため、会場に来られない層まで収益化の対象に含められます。
-      </p>
-    </div>
-    <div class="cards c3 rv">
+    <h3 class="s">A‑1　動画配信サービス</h3>
+    <p class="slead">
+      Leminoを軸に、PPV、生配信、見逃し配信までを同一グループ内で提供できます。会場に来られない層への販売もあわせて設計できます。
+    </p>
+    <div class="cards c3">
       <div class="card">
-        <span class="tag">Lemino</span>
-        <h3>AVOD／SVODの二層構成</h3>
+        <span class="lbl">Lemino</span><h4>AVOD／SVODの二層構成</h4>
         <p><b>AVOD（広告型無料配信）</b>：豊富なコンテンツやサービス機能を広告付き無料で提供。</p>
         <p><b>SVOD（サブスク型配信）</b>：映画やドラマ、アニメ、ほか総合編成ラインナップを定額料金で提供。</p>
-        <p style="color:var(--ink-3);font-size:.79rem;">加えて、特化型SVOD／TVOD・EST／PPV の課金形態にも対応。</p>
+        <p>このほか、特化型SVOD、TVOD／EST、PPV の課金形態にも対応します。</p>
       </div>
       <div class="card">
-        <span class="tag">ペイパービュー（PPV）</span>
-        <h3>単発興行の都度課金配信</h3>
-        <p>視聴したい動画を1本ずつ購入する視聴方法。ボクシング「THE DAY」など、単発の大型興行の配信実績があります。</p>
+        <span class="lbl">ペイパービュー（PPV）</span><h4>単発興行の都度課金配信</h4>
+        <p>視聴したい動画を1本ずつ購入する視聴方法です。ボクシング「THE DAY」などの配信実績があります。</p>
       </div>
       <div class="card">
-        <span class="tag">SVOD（生配信・見逃し配信）</span>
-        <h3>国内最大級の総合編成ラインナップ</h3>
+        <span class="lbl">SVOD（生配信・見逃し配信）</span><h4>国内最大級の総合編成ラインナップ</h4>
         <p>オリジナルコンテンツの拡充を進めています。</p>
         <div class="badges">
           <span class="badge">韓流・アジア</span><span class="badge">国内ドラマ</span><span class="badge">エンタメ</span>
@@ -939,67 +698,59 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:44px 0 6
       </div>
     </div>
 
-    <div class="sub rv">
-      <h3>A‑2　プロモーション</h3>
-      <p class="lead">
-        ドコモデータを活用し、<b>従来のチケットサービスではリーチ出来なかったファン見込み層</b>に対して、オンライン／オフラインそれぞれから効果的にアプローチいたします。
-      </p>
-    </div>
-    <div class="cards c2 rv">
+    <h3 class="s">A‑2　プロモーション</h3>
+    <p class="slead">
+      ドコモデータを活用し、従来のチケットサービスではリーチ出来なかったファン見込み層に対して、オンラインとオフラインの両方からアプローチいたします。
+    </p>
+    <div class="cards c2">
       <div class="card">
-        <span class="tag">オンライン配信</span>
-        <h3>オウンドメディア＋ターゲティング配信</h3>
-        <p>アカウント数1億人以上を誇るドコモのオウンドメディアや、ドコモデータに基づくターゲティング配信を実施。ドコモポイントクラブの面に加え、Google／Instagram／Facebook／X／YouTube／Spotify など外部プラットフォームへも配信します。</p>
+        <span class="lbl">オンライン配信</span><h4>オウンドメディアとターゲティング配信</h4>
+        <p>アカウント数1億人以上のドコモのオウンドメディアや、ドコモデータに基づくターゲティング配信を実施します。ドコモポイントクラブの面に加えて、Google、Instagram、Facebook、X、YouTube、Spotify などの外部プラットフォームにも配信します。</p>
       </div>
       <div class="card">
-        <span class="tag">オフライン配信</span>
-        <h3>データを活用したスクリーン広告</h3>
-        <p>リアルの接点においても、データを活用したスクリーン広告でターゲット層にリーチ。</p>
-        <p>東京スクリーン：渋谷_マイアミビル／大阪スクリーン：大阪_サンシティパレス。</p>
+        <span class="lbl">オフライン配信</span><h4>データを活用したスクリーン広告</h4>
+        <p>リアルの接点においても、データを活用したスクリーン広告でターゲット層にリーチします。</p>
+        <p>東京スクリーン：渋谷_マイアミビル／大阪スクリーン：大阪_サンシティパレス</p>
       </div>
     </div>
 
-    <div class="sub rv">
-      <h3>A‑3　オンライン配信メニューとリーチ可能規模</h3>
-      <p class="lead">
-        <b>3大プレイガイド比5倍の1億アカウント</b>の行動履歴データを有効活用し、効率的な出面を確保します。広告種別ごとの具体的なリーチ可能人数は以下のとおりです。
-      </p>
-    </div>
-    <div class="tscroll rv">
+    <h3 class="s">A‑3　オンライン配信メニューとリーチ可能規模</h3>
+    <p class="slead">
+      3大プレイガイド比5倍にあたる1億アカウントの行動履歴データを活用し、効率的な出面を確保します。広告種別ごとのリーチ可能人数は以下のとおりです。
+    </p>
+    <div class="tscroll">
       <table>
         <caption>DPC：ドコモポイントクラブ</caption>
         <thead>
           <tr><th scope="col">広告種別</th><th scope="col">サービス名</th><th scope="col">App／Web</th><th scope="col">リーチ可能人数</th></tr>
         </thead>
         <tbody>
-          <tr><th scope="row" rowspan="4">プッシュ広告</th><td>DPCアプリプッシュ</td><td>App</td><td class="tnum">通知許諾者数 <mark>約500万人</mark></td></tr>
-          <tr><td>DPC公式LINE</td><td>App</td><td class="tnum">お友達登録数 <mark>約1,800万人以上</mark></td></tr>
-          <tr><td>myインフォメール（メッセージS／メッセージR）</td><td>Web</td><td class="tnum">許諾者数 <mark>約3,500万人</mark></td></tr>
-          <tr><td>my daiz</td><td>App</td><td class="tnum">会員数 <mark>約2,000万人</mark></td></tr>
-          <tr><th scope="row" rowspan="2">バナー広告</th><td>dmenu</td><td>Web</td><td class="tnum">1週間平均 1,570万UU／月間総imp数 <mark>約6.4億</mark></td></tr>
-          <tr><td>d POINT CLUB</td><td>Web／App</td><td class="tnum">MAU <mark>約6,245万人</mark></td></tr>
+          <tr><th scope="row" rowspan="4">プッシュ広告</th><td>DPCアプリプッシュ</td><td>App</td><td class="tnum">通知許諾者数 約500万人</td></tr>
+          <tr><td>DPC公式LINE</td><td>App</td><td class="tnum">お友達登録数 約1,800万人以上</td></tr>
+          <tr><td>myインフォメール（メッセージS／メッセージR）</td><td>Web</td><td class="tnum">許諾者数 約3,500万人</td></tr>
+          <tr><td>my daiz</td><td>App</td><td class="tnum">会員数 約2,000万人</td></tr>
+          <tr><th scope="row" rowspan="2">バナー広告</th><td>dmenu</td><td>Web</td><td class="tnum">1週間平均 1,570万UU／月間総imp数 約6.4億</td></tr>
+          <tr><td>d POINT CLUB</td><td>Web／App</td><td class="tnum">MAU 約6,245万人</td></tr>
           <tr><th scope="row">SNS</th><td>ドコモ公式X</td><td>Web／App</td><td class="tnum">約95万フォロワー</td></tr>
-          <tr><th scope="row">外部PF配信</th><td>D2C Date Connect</td><td>Web</td><td>各外部PF参照（Google／Meta／YouTube／Spotify など）<br><span style="color:var(--ink-3);font-size:.76rem;">※ドコモの正確性の高いデータを活用した大手外部PFへの広告配信サービスです。</span></td></tr>
+          <tr><th scope="row">外部PF配信</th><td>D2C Date Connect</td><td>Web</td><td>各外部PF参照（Google／Meta／YouTube／Spotify など）<br><span style="color:var(--ink-3);font-size:12px;">※ドコモの正確性の高いデータを活用した大手外部PFへの広告配信サービスです。</span></td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<!-- ═══════ CTA ═══════ -->
-<section class="dark">
+<!-- next -->
+<section class="sec-mist">
   <div class="wrap">
-    <div class="sec-head rv">
-      <p class="num">NEXT — ご相談の進め方</p>
-      <h2>対象興行を1本お決めいただければ、<br>そこから具体化できます。</h2>
-      <p class="lead">
-        d ticketの価値は、実際の興行に当てはめたときに最もはっきりします。まずは対象となる興行を1本お選びいただき、<b>そのチケットデータ・想定顧客像を用いた簡易分析</b>からご一緒させてください。
-      </p>
-    </div>
-    <div class="next rv">
-      <div><span class="sn">STEP 1</span><h4>対象興行の選定</h4><p>ジャンル・会場規模・販売時期をお伺いし、d ticketの適用範囲をすり合わせます。</p></div>
-      <div><span class="sn">STEP 2</span><h4>顧客像の簡易分析</h4><p>ドコモデータ基盤を用いて、想定される購入者像と販促プランの方向性をご提示します。</p></div>
-      <div><span class="sn">STEP 3</span><h4>導入条件のご提示</h4><p>販売設計・転売対策・サポート体制・スケジュールを含めた具体条件をご提案します。</p></div>
+    <p class="kicker">ご相談の進め方</p>
+    <h2 class="t">対象となる興行を1本お決めいただければ、条件の具体化に進めます</h2>
+    <p class="lead">
+      まず対象興行を1本お選びいただき、そのチケットデータと想定顧客像を用いた簡易分析からご一緒させてください。以下は想定の進め方です。実際の進行にあわせて調整いたします。
+    </p>
+    <div class="next">
+      <div><span class="n">STEP 1</span><h4>対象興行の選定</h4><p>ジャンル、会場規模、販売時期をお伺いし、d ticket の適用範囲をすり合わせます。</p></div>
+      <div><span class="n">STEP 2</span><h4>顧客像の簡易分析</h4><p>ドコモデータ基盤を用いて、想定される購入者像と販促プランの方向性を提示します。</p></div>
+      <div><span class="n">STEP 3</span><h4>導入条件のご提示</h4><p>販売設計、転売対策、サポート体制、スケジュールを含めた条件を提案します。</p></div>
     </div>
   </div>
 </section>
@@ -1008,44 +759,15 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:44px 0 6
 
 <footer>
   <div class="wrap">
-    <div class="foot-brand">
-      <img src="__IMG_LOGO__" alt="d ticket">
-      <span>ドコモ 新チケットサービス　|　IMG Media Japan 合同会社 御中</span>
-    </div>
+    <img src="__IMG_LOGO__" alt="d ticket">
     <div class="notice">
       <b>取扱注意</b>　©2025 NTT DOCOMO, INC. All Rights Reserved.<br>
       ・無断複写／複製、社外持出禁止　・セキュリティBOX／裁断等で適正廃棄<br>
       ※掲載の画面はイメージです。※チケット販売期間は各公演毎に異なります。詳細は公式サイト等でご確認ください。
     </div>
     <p class="credits">
-      <b>画像クレジット</b>　d ticketロゴおよびサービス画面：NTTドコモ公式素材（dticket.docomo.ne.jp／ドコモ報道発表資料）より。<br>
-      会場写真：東京ドーム © ClarkSui (CC BY-SA 3.0)／IGアリーナ © Kyu3a (CC BY-SA 4.0)／国立競技場 © RuinDig (CC BY 4.0)／横浜アリーナ © Momotarou2012 (CC BY-SA 3.0)　いずれも Wikimedia Commons。ブランドトーンに合わせた色調補正を行っています。
+      <b>画像クレジット</b>　d ticket ロゴ、キービジュアル、サービス画面：NTTドコモ公式素材（dticket.docomo.ne.jp、ドコモ報道発表資料）。
+      会場写真：東京ドーム © ClarkSui (CC BY-SA 3.0)／IGアリーナ © Kyu3a (CC BY-SA 4.0)／国立競技場 © RuinDig (CC BY 4.0)／横浜アリーナ © Momotarou2012 (CC BY-SA 3.0)、いずれも Wikimedia Commons。色調補正を行っています。
     </p>
   </div>
 </footer>
-
-<script>
-(function(){
-  var nav = document.getElementById('nav');
-  var hero = document.querySelector('header.dark');
-  function onScroll(){
-    var y = window.scrollY || document.documentElement.scrollTop;
-    nav.classList.toggle('solid', y > hero.offsetHeight - 90);
-  }
-  onScroll();
-  window.addEventListener('scroll', onScroll, {passive:true});
-
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var els = document.querySelectorAll('.rv');
-  if (reduce || !('IntersectionObserver' in window)) {
-    els.forEach(function(el){ el.classList.add('in'); });
-    return;
-  }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, {rootMargin:'0px 0px -8% 0px', threshold:0.06});
-  els.forEach(function(el){ io.observe(el); });
-})();
-</script>

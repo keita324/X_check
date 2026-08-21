@@ -56,7 +56,7 @@ a{color:var(--aqua);}
 @media(max-width:900px){.nav-links{display:none;}.nav-in{padding:0 18px;}}
 
 /* ── header ────────────────────────────── */
-.head{background:var(--navy);color:#fff;padding:52px 0 56px;}
+.head{background:var(--navy);color:#fff;padding:52px 0 0;}
 .head-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center;}
 .to{font-size:13px;color:rgba(255,255,255,.66);margin:0 0 22px;}
 .to b{color:#fff;font-weight:700;}
@@ -64,7 +64,7 @@ a{color:var(--aqua);}
 .head-desc{font-size:14.5px;line-height:2.0;color:rgba(255,255,255,.78);margin:0;max-width:40em;}
 .head-desc b{color:#fff;font-weight:700;}
 .kv{border-radius:var(--r);overflow:hidden;}
-.hstats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;border-top:1px solid rgba(255,255,255,.18);}
+.hstats{margin-bottom:44px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;border-top:1px solid rgba(255,255,255,.18);}
 .hstats>div{padding:22px 22px 0;border-right:1px solid rgba(255,255,255,.18);}
 .hstats>div:first-child{padding-left:0;}
 .hstats>div:last-child{border-right:none;}
@@ -268,17 +268,17 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
 .hb-l{font-size:12.5px;color:var(--ink-2);line-height:1.5;}
 .hb-t{height:18px;display:flex;}
 .hb-t.track{background:var(--mist-2);border-radius:2px;overflow:hidden;}
-.hb-f{height:100%;background:var(--c);border-radius:0 4px 4px 0;min-width:2px;}
+.hb-f{height:100%;width:var(--w,0);background:var(--c);border-radius:0 4px 4px 0;min-width:2px;}
 .hb-t.track .hb-f{border-radius:0;}
 .hb.dim .hb-f{background:var(--c-dim);}
 .hb-v{font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);text-align:right;}
 .hb.dim .hb-v{color:var(--ink-2);font-weight:400;}
 
 /* columns */
-.cols{display:flex;align-items:flex-end;gap:16px;height:132px;max-width:520px;border-bottom:1px solid var(--grid);}
-.col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;}
-.col b{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;margin-bottom:6px;color:var(--ink);}
-.col i{width:100%;max-width:24px;background:var(--c);border-radius:4px 4px 0 0;}
+.cols{display:flex;align-items:flex-end;gap:16px;height:158px;max-width:520px;padding-top:26px;border-bottom:1px solid var(--grid);}
+.col{flex:1;position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center;}
+.col b{position:absolute;left:0;right:0;bottom:calc(var(--h,0) + 7px);text-align:center;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);}
+.col i{width:100%;max-width:24px;height:var(--h,0);background:var(--c);border-radius:4px 4px 0 0;}
 .col-x{display:flex;gap:16px;max-width:520px;padding-top:8px;}
 .col-x span{flex:1;text-align:center;font-size:11.5px;color:var(--ink-3);}
 
@@ -359,7 +359,116 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
   .esc-c.span2{grid-column:auto;}
   .esc-arrow::before{display:none;}
 }
+
+/* ══════════ motion ══════════
+   Easing and timings lifted from the reference sites:
+   --e  = cubic-bezier(.23,1,.32,1)  Billboard Live's house curve (42 uses)
+   --e2 = cubic-bezier(.5,0,.11,1)   c-rayon's curve (28 uses)
+   Stagger step 60ms (c-rayon staggers at .04s).
+   Everything is gated on .js + prefers-reduced-motion: no-preference,
+   so with JS off or motion reduced the page renders in its final state. */
+:root{--e:cubic-bezier(.23,1,.32,1);--e2:cubic-bezier(.5,0,.11,1);--dur:.72s;}
+
+/* scroll progress */
+.prog{position:fixed;top:0;left:0;height:2px;width:100%;z-index:120;background:transparent;pointer-events:none;}
+.prog i{display:block;height:100%;width:0;background:var(--aqua-d);transform-origin:left;}
+
+@media (prefers-reduced-motion:no-preference){
+  /* generic reveal */
+  .js .rv{opacity:0;transform:translateY(22px);}
+  .js .rv.in{opacity:1;transform:none;
+    transition:opacity var(--dur) var(--e) var(--d,0ms),transform var(--dur) var(--e) var(--d,0ms);}
+
+  /* staggered children */
+  .js [data-stagger]>*{opacity:0;transform:translateY(18px);}
+  .js [data-stagger].in>*{opacity:1;transform:none;
+    transition:opacity .62s var(--e) calc(var(--i,0)*60ms),transform .62s var(--e) calc(var(--i,0)*60ms);}
+
+  /* horizontal bars wipe out from the baseline */
+  .js .hb-f{width:0;}
+  .js .in .hb-f{width:var(--w);transition:width .95s var(--e) calc(var(--i,0)*70ms + 120ms);}
+  /* columns grow from the axis */
+  .js .col i{height:0;}
+  .js .in .col i{height:var(--h);transition:height .85s var(--e) calc(var(--i,0)*90ms + 120ms);}
+  .js .col b{opacity:0;}
+  .js .in .col b{opacity:1;transition:opacity .45s var(--e) calc(var(--i,0)*90ms + 780ms);}
+  /* split meters */
+  .js .split i{transform:scaleX(0);transform-origin:left;}
+  .js .in .split i{transform:none;transition:transform .8s var(--e) calc(var(--i,0)*110ms + 120ms);}
+  /* matrix dots pop */
+  .js .dot{transform:scale(0);}
+  .js .in .dot{transform:none;transition:transform .5s cubic-bezier(.34,1.56,.64,1) calc(var(--i,0)*45ms + 200ms);}
+  /* hub diagram: draw the connectors */
+  .js .hub path{stroke-dasharray:240;stroke-dashoffset:240;}
+  .js .in .hub path{stroke-dashoffset:0;transition:stroke-dashoffset 1.1s var(--e) calc(var(--i,0)*55ms + 150ms);}
+  .js .hub rect,.js .hub text,.js .hub image{opacity:0;}
+  .js .in .hub rect,.js .in .hub text,.js .in .hub image{opacity:1;transition:opacity .6s var(--e) calc(var(--i,0)*40ms + 250ms);}
+
+  /* hero entrance */
+  .js .head-grid>div,.js .hstats>div{opacity:0;transform:translateY(26px);}
+  .js .head-grid>div{animation:rise .95s var(--e) forwards;}
+  .js .head-grid>div:nth-child(1){animation-delay:.10s;}
+  .js .head-grid>div:nth-child(2){animation-delay:.26s;}
+  .js .hstats>div{animation:rise .8s var(--e) forwards;}
+  .js .hstats>div:nth-child(1){animation-delay:.42s;}
+  .js .hstats>div:nth-child(2){animation-delay:.50s;}
+  .js .hstats>div:nth-child(3){animation-delay:.58s;}
+  .js .hstats>div:nth-child(4){animation-delay:.66s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+
+  .scrollcue i{animation:cue 1.9s var(--e) infinite;}
+  @keyframes cue{0%{transform:translateY(-4px);opacity:0;}35%{opacity:1;}70%{transform:translateY(6px);opacity:0;}100%{opacity:0;}}
+
+  .mq-track{animation:mq 42s linear infinite;}
+  @keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .mq:hover .mq-track{animation-play-state:paused;}
+}
+
+/* nav underline draw (c-rayon "underLine") */
+.nav-links a{position:relative;border-bottom:none;}
+.nav-links a::after{
+  content:"";position:absolute;left:11px;right:11px;bottom:0;height:2px;background:var(--aqua);
+  transform:scaleX(0);transform-origin:left;transition:transform .38s var(--e);
+}
+.nav-links a:hover::after{transform:scaleX(1);}
+
+/* section rule wipe */
+h3.s{position:relative;border-bottom:none;}
+h3.s::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--navy);
+  transform:scaleX(0);transform-origin:left;transition:transform .7s var(--e) .1s;
+}
+.rv.in h3.s::after,h3.s.in::after{transform:scaleX(1);}
+@media (prefers-reduced-motion:reduce){h3.s::after{transform:scaleX(1);}}
+
+/* hover micro-interactions */
+.card,.tier,.next div,.vn{transition:border-color .35s var(--e),transform .45s var(--e),box-shadow .45s var(--e);}
+.card:hover,.next div:hover{border-color:var(--aqua);transform:translateY(-2px);box-shadow:0 10px 28px -18px rgba(8,50,64,.5);}
+.vn{overflow:hidden;}
+.vn img{transition:transform 1.1s var(--e);}
+.vn:hover img{transform:scale(1.05);}
+.vn:hover{border-color:var(--aqua);}
+.toc a{position:relative;transition:color .35s linear,padding-left .4s var(--e);}
+.toc a:hover{padding-left:6px;}
+.reclist li{transition:background .35s var(--e);}
+.reclist li:hover{background:var(--mist);}
+
+/* hero marquee band (Billboard "moveLeftContinuousPC") */
+.mq{border-top:1px solid rgba(255,255,255,.18);padding:16px 0 22px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);}
+.mq-track{display:flex;width:max-content;}
+.mq-track span{display:inline-flex;align-items:center;gap:14px;padding:0 26px;white-space:nowrap;
+  font-size:12.5px;color:rgba(255,255,255,.6);}
+.mq-track span::after{content:"";width:3px;height:3px;border-radius:50%;background:var(--aqua-d);}
+.mq-h{font-size:11px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.45);margin:0 0 12px;}
+
+/* scroll cue */
+.scrollcue{display:flex;align-items:center;gap:9px;margin-top:26px;font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5);}
+.scrollcue i{display:block;width:1px;height:22px;background:linear-gradient(180deg,var(--aqua-d),transparent);}
 </style>
+
+<div class="prog"><i id="prog"></i></div>
 
 <nav class="nav">
   <div class="nav-in">
@@ -388,6 +497,7 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
         販売・決済・入場の標準機能に加えて、<b>dアカウントと連携した1億規模の会員データ</b>を使った需要予測と集客支援、
         電子チケットによる入場管理、公式リセールによる転売対策までをあわせてご提供します。
       </p>
+      <div class="scrollcue"><i></i>SCROLL</div>
     </div>
     <div class="kv"><img src="__IMG_KV__" alt="d ticket キービジュアル"></div>
   </div>
@@ -397,6 +507,8 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
     <div><b>4<i>施設</i></b><span>運営に参画する大型ベニュー</span></div>
     <div><b>2,000<i>店超</i></b><span>全国のドコモショップ（オフライン販路）</span></div>
   </div>
+  <div class="wrap"><p class="mq-h">NOW RUNNING ON d ticket</p></div>
+  <div class="mq"><div class="mq-track"><span>ボクシング ダブル世界タイトルマッチ 井上尚弥 vs 中谷潤人</span><span>令和7年大相撲七月場所（名古屋場所）</span><span>BLACK SAMURAI 2025（八村塁）</span><span>NTTドコモ ビジネスレディス</span><span>THE MUSIC STADIUM 2026</span><span>マイナビ 東京ガールズコレクション 2026 A/W</span><span>MUSIC AWARDS JAPAN 2026</span><span>びわ湖大花火大会 2026</span><span aria-hidden="true">ボクシング ダブル世界タイトルマッチ 井上尚弥 vs 中谷潤人</span><span aria-hidden="true">令和7年大相撲七月場所（名古屋場所）</span><span aria-hidden="true">BLACK SAMURAI 2025（八村塁）</span><span aria-hidden="true">NTTドコモ ビジネスレディス</span><span aria-hidden="true">THE MUSIC STADIUM 2026</span><span aria-hidden="true">マイナビ 東京ガールズコレクション 2026 A/W</span><span aria-hidden="true">MUSIC AWARDS JAPAN 2026</span><span aria-hidden="true">びわ湖大花火大会 2026</span></div></div>
 </header>
 
 <div class="gist">
@@ -609,13 +721,13 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
       <div class="viz">
         <p class="viz-h">チケット購入者が40代以下の場合</p>
         <p class="viz-sub">同行者との関係性（構成比）</p>
-        <div class="hb dim"><span class="hb-l">同年代</span><span class="hb-t"><span class="hb-f" style="width:30.4%"></span></span><span class="hb-v">30.4%</span></div><div class="hb"><span class="hb-l">親子</span><span class="hb-t"><span class="hb-f" style="width:41.6%"></span></span><span class="hb-v">41.6%</span></div><div class="hb dim"><span class="hb-l">その他</span><span class="hb-t"><span class="hb-f" style="width:28.0%"></span></span><span class="hb-v">28.0%</span></div>
+        <div class="hb dim"><span class="hb-l">同年代</span><span class="hb-t"><span class="hb-f" style="--w:30.4%"></span></span><span class="hb-v">30.4%</span></div><div class="hb"><span class="hb-l">親子</span><span class="hb-t"><span class="hb-f" style="--w:41.6%"></span></span><span class="hb-v">41.6%</span></div><div class="hb dim"><span class="hb-l">その他</span><span class="hb-t"><span class="hb-f" style="--w:28.0%"></span></span><span class="hb-v">28.0%</span></div>
         <p class="viz-note">内訳：親子‑男女ペア 17.6%／親子‑女性ペア 14.8%／親子‑男性ペア 3.9%</p>
       </div>
       <div class="viz">
         <p class="viz-h">チケット購入者が50代以上の場合</p>
         <p class="viz-sub">同行者との関係性（構成比）</p>
-        <div class="hb"><span class="hb-l">同年代</span><span class="hb-t"><span class="hb-f" style="width:51.2%"></span></span><span class="hb-v">51.2%</span></div><div class="hb dim"><span class="hb-l">親子</span><span class="hb-t"><span class="hb-f" style="width:14.7%"></span></span><span class="hb-v">14.7%</span></div><div class="hb dim"><span class="hb-l">その他</span><span class="hb-t"><span class="hb-f" style="width:34.1%"></span></span><span class="hb-v">34.1%</span></div>
+        <div class="hb"><span class="hb-l">同年代</span><span class="hb-t"><span class="hb-f" style="--w:51.2%"></span></span><span class="hb-v">51.2%</span></div><div class="hb dim"><span class="hb-l">親子</span><span class="hb-t"><span class="hb-f" style="--w:14.7%"></span></span><span class="hb-v">14.7%</span></div><div class="hb dim"><span class="hb-l">その他</span><span class="hb-t"><span class="hb-f" style="--w:34.1%"></span></span><span class="hb-v">34.1%</span></div>
         <p class="viz-note">内訳：同世代‑男女ペア 40.1%／同世代‑男性ペア 10.8%／同世代‑女性ペア 7.3%</p>
       </div>
     </div>
@@ -637,14 +749,14 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
       <div class="viz" style="--lw:5.5em">
         <p class="viz-h">宿泊者の居住地（他県の内訳・上位5県）</p>
         <p class="viz-sub">宿泊者全体に占める割合</p>
-        <div class="hb"><span class="hb-l">東京都</span><span class="hb-t"><span class="hb-f" style="width:100.0%"></span></span><span class="hb-v">19.3%</span></div><div class="hb"><span class="hb-l">大阪府</span><span class="hb-t"><span class="hb-f" style="width:36.3%"></span></span><span class="hb-v">7.0%</span></div><div class="hb"><span class="hb-l">石川県</span><span class="hb-t"><span class="hb-f" style="width:34.2%"></span></span><span class="hb-v">6.6%</span></div><div class="hb"><span class="hb-l">神奈川県</span><span class="hb-t"><span class="hb-f" style="width:32.6%"></span></span><span class="hb-v">6.3%</span></div><div class="hb"><span class="hb-l">兵庫県</span><span class="hb-t"><span class="hb-f" style="width:24.9%"></span></span><span class="hb-v">4.8%</span></div>
+        <div class="hb"><span class="hb-l">東京都</span><span class="hb-t"><span class="hb-f" style="--w:100.0%"></span></span><span class="hb-v">19.3%</span></div><div class="hb"><span class="hb-l">大阪府</span><span class="hb-t"><span class="hb-f" style="--w:36.3%"></span></span><span class="hb-v">7.0%</span></div><div class="hb"><span class="hb-l">石川県</span><span class="hb-t"><span class="hb-f" style="--w:34.2%"></span></span><span class="hb-v">6.6%</span></div><div class="hb"><span class="hb-l">神奈川県</span><span class="hb-t"><span class="hb-f" style="--w:32.6%"></span></span><span class="hb-v">6.3%</span></div><div class="hb"><span class="hb-l">兵庫県</span><span class="hb-t"><span class="hb-f" style="--w:24.9%"></span></span><span class="hb-v">4.8%</span></div>
         <p class="viz-note">石川県は大の里関の出身県です。</p>
       </div>
     </div>
     <div class="viz" style="margin-top:14px;">
       <p class="viz-h">【参考】愛知県の観光客数（県外）の推移</p>
       <p class="viz-sub">単位：千人／愛知県の観光入込客統計より</p>
-      <div class="cols"><div class="col"><b>1,675</b><i style="height:43%"></i></div><div class="col"><b>1,960</b><i style="height:51%"></i></div><div class="col"><b>2,922</b><i style="height:75%"></i></div><div class="col"><b>3,871</b><i style="height:100%"></i></div></div>
+      <div class="cols"><div class="col" style="--h:43%"><b>1,675</b><i></i></div><div class="col" style="--h:51%"><b>1,960</b><i></i></div><div class="col" style="--h:75%"><b>2,922</b><i></i></div><div class="col" style="--h:100%"><b>3,871</b><i></i></div></div>
       <div class="col-x"><span>2021</span><span>2022</span><span>2023</span><span>2024</span></div>
     </div>
 
@@ -768,7 +880,7 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
     <div class="viz" style="--lw:9.5em;margin-bottom:14px;">
       <p class="viz-h">データ基盤の規模比較</p>
       <p class="viz-sub">各社が保有する会員組織の規模。ドコモはdアカウント／dポイントクラブの合計。</p>
-<div class="hb"><span class="hb-l">NTTドコモ<br>（d ticket）</span><span class="hb-t"><span class="hb-f" style="width:100.0%"></span></span><span class="hb-v">1億規模</span></div><div class="hb dim"><span class="hb-l">P社</span><span class="hb-t"><span class="hb-f" style="width:20.0%"></span></span><span class="hb-v">約2,000万</span></div><div class="hb dim"><span class="hb-l">L社</span><span class="hb-t"><span class="hb-f" style="width:16.0%"></span></span><span class="hb-v">約1,600万</span></div>
+<div class="hb"><span class="hb-l">NTTドコモ<br>（d ticket）</span><span class="hb-t"><span class="hb-f" style="--w:100.0%"></span></span><span class="hb-v">1億規模</span></div><div class="hb dim"><span class="hb-l">P社</span><span class="hb-t"><span class="hb-f" style="--w:20.0%"></span></span><span class="hb-v">約2,000万</span></div><div class="hb dim"><span class="hb-l">L社</span><span class="hb-t"><span class="hb-f" style="--w:16.0%"></span></span><span class="hb-v">約1,600万</span></div>
       <p class="viz-note">ドコモの会員基盤は、P社の約5倍、L社の約6倍の規模にあたります。</p>
     </div>
     <div class="tscroll">
@@ -852,7 +964,7 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
     <div class="viz" style="--lw:10em;margin-bottom:14px;">
       <p class="viz-h">配信面ごとのリーチ可能規模</p>
       <p class="viz-sub">指標は面ごとに異なります（MAU／許諾者数／会員数／登録数／週間UU／フォロワー）。棒の長さは人数の比較のみを表します。</p>
-<div class="hb"><span class="hb-l">d POINT CLUB<br><span style="font-size:11px;color:var(--ink-3)">MAU</span></span><span class="hb-t"><span class="hb-f" style="width:100.0%"></span></span><span class="hb-v">約6,245万人</span></div><div class="hb"><span class="hb-l">myインフォメール<br><span style="font-size:11px;color:var(--ink-3)">許諾者数</span></span><span class="hb-t"><span class="hb-f" style="width:56.0%"></span></span><span class="hb-v">約3,500万人</span></div><div class="hb"><span class="hb-l">my daiz<br><span style="font-size:11px;color:var(--ink-3)">会員数</span></span><span class="hb-t"><span class="hb-f" style="width:32.0%"></span></span><span class="hb-v">約2,000万人</span></div><div class="hb"><span class="hb-l">DPC公式LINE<br><span style="font-size:11px;color:var(--ink-3)">お友達登録数</span></span><span class="hb-t"><span class="hb-f" style="width:28.8%"></span></span><span class="hb-v">約1,800万人以上</span></div><div class="hb"><span class="hb-l">dmenu<br><span style="font-size:11px;color:var(--ink-3)">1週間平均UU</span></span><span class="hb-t"><span class="hb-f" style="width:25.1%"></span></span><span class="hb-v">1,570万UU</span></div><div class="hb"><span class="hb-l">DPCアプリプッシュ<br><span style="font-size:11px;color:var(--ink-3)">通知許諾者数</span></span><span class="hb-t"><span class="hb-f" style="width:8.0%"></span></span><span class="hb-v">約500万人</span></div><div class="hb"><span class="hb-l">ドコモ公式X<br><span style="font-size:11px;color:var(--ink-3)">フォロワー</span></span><span class="hb-t"><span class="hb-f" style="width:1.5%"></span></span><span class="hb-v">約95万人</span></div>
+<div class="hb"><span class="hb-l">d POINT CLUB<br><span style="font-size:11px;color:var(--ink-3)">MAU</span></span><span class="hb-t"><span class="hb-f" style="--w:100.0%"></span></span><span class="hb-v">約6,245万人</span></div><div class="hb"><span class="hb-l">myインフォメール<br><span style="font-size:11px;color:var(--ink-3)">許諾者数</span></span><span class="hb-t"><span class="hb-f" style="--w:56.0%"></span></span><span class="hb-v">約3,500万人</span></div><div class="hb"><span class="hb-l">my daiz<br><span style="font-size:11px;color:var(--ink-3)">会員数</span></span><span class="hb-t"><span class="hb-f" style="--w:32.0%"></span></span><span class="hb-v">約2,000万人</span></div><div class="hb"><span class="hb-l">DPC公式LINE<br><span style="font-size:11px;color:var(--ink-3)">お友達登録数</span></span><span class="hb-t"><span class="hb-f" style="--w:28.8%"></span></span><span class="hb-v">約1,800万人以上</span></div><div class="hb"><span class="hb-l">dmenu<br><span style="font-size:11px;color:var(--ink-3)">1週間平均UU</span></span><span class="hb-t"><span class="hb-f" style="--w:25.1%"></span></span><span class="hb-v">1,570万UU</span></div><div class="hb"><span class="hb-l">DPCアプリプッシュ<br><span style="font-size:11px;color:var(--ink-3)">通知許諾者数</span></span><span class="hb-t"><span class="hb-f" style="--w:8.0%"></span></span><span class="hb-v">約500万人</span></div><div class="hb"><span class="hb-l">ドコモ公式X<br><span style="font-size:11px;color:var(--ink-3)">フォロワー</span></span><span class="hb-t"><span class="hb-f" style="--w:1.5%"></span></span><span class="hb-v">約95万人</span></div>
     </div>
     <div class="tscroll">
       <table>
@@ -907,3 +1019,80 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
     </p>
   </div>
 </footer>
+
+<script>
+(function(){
+  var d = document, root = d.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) root.classList.add('js');
+
+  /* ---- scroll progress ---- */
+  var prog = d.getElementById('prog'), ticking = false;
+  function drawProgress(){
+    var h = d.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if (!ticking){ ticking = true; requestAnimationFrame(drawProgress); }
+  }, {passive:true});
+  drawProgress();
+
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  /* ---- mark what animates, and index the children that stagger ---- */
+  var REVEAL = ['.sec-head','.kicker','h2.t','.lead','h3.s','.slead','.cards','.venues',
+                '.reclist','.viz','.vgrid','.cyc','.mx','.esc','.next','.tscroll','.hub-wrap',
+                '.hub-fallback','.shot','.cap','.gist ol','.toc ol'];
+  REVEAL.forEach(function(sel){
+    Array.prototype.forEach.call(d.querySelectorAll(sel), function(el){ el.classList.add('rv'); });
+  });
+  var STAGGER = ['.cards','.venues','.reclist','.cyc-row','.next','.gist ol','.toc ol','.vgrid'];
+  STAGGER.forEach(function(sel){
+    Array.prototype.forEach.call(d.querySelectorAll(sel), function(el){
+      el.setAttribute('data-stagger','');
+      Array.prototype.forEach.call(el.children, function(c,i){ c.style.setProperty('--i', i); });
+    });
+  });
+  /* bars, columns, meters and matrix dots each carry their own order */
+  Array.prototype.forEach.call(d.querySelectorAll('.viz'), function(v){
+    ['.hb','.col','.split'].forEach(function(sel){
+      Array.prototype.forEach.call(v.querySelectorAll(sel), function(el,i){ el.style.setProperty('--i', i); });
+    });
+  });
+  Array.prototype.forEach.call(d.querySelectorAll('.mx .dot'), function(el,i){ el.style.setProperty('--i', i); });
+  Array.prototype.forEach.call(d.querySelectorAll('.hub path'), function(el,i){ el.style.setProperty('--i', i); });
+  Array.prototype.forEach.call(d.querySelectorAll('.hub rect,.hub text,.hub image'), function(el,i){ el.style.setProperty('--i', i); });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+      if (e.target.hasAttribute('data-count')) countUp(e.target);
+    });
+  }, {rootMargin:'0px 0px -10% 0px', threshold:0.08});
+  Array.prototype.forEach.call(d.querySelectorAll('.rv,[data-count]'), function(el){ io.observe(el); });
+
+  /* ---- headline figures count up ---- */
+  function countUp(el){
+    var node = el.firstChild;                      /* the digits sit before the unit <i> */
+    if (!node || node.nodeType !== 3) return;
+    var target = parseFloat(node.nodeValue.replace(/,/g,''));
+    if (!isFinite(target)) return;
+    var grouped = node.nodeValue.indexOf(',') > -1;
+    var t0 = null, DUR = 1100;
+    function frame(t){
+      if (t0 === null) t0 = t;
+      var k = Math.min((t - t0) / DUR, 1);
+      var v = Math.round(target * (1 - Math.pow(1 - k, 4)));   /* easeOutQuart, matches --e */
+      node.nodeValue = grouped ? v.toLocaleString('en-US') : String(v);
+      if (k < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  Array.prototype.forEach.call(d.querySelectorAll('.hstats b'), function(el){
+    el.setAttribute('data-count',''); io.observe(el);
+  });
+})();
+</script>

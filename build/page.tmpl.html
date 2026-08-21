@@ -466,6 +466,42 @@ h3.s::after{
 /* scroll cue */
 .scrollcue{display:flex;align-items:center;gap:9px;margin-top:26px;font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.5);}
 .scrollcue i{display:block;width:1px;height:22px;background:linear-gradient(180deg,var(--aqua-d),transparent);}
+
+/* ══════════ chapter openers ══════════
+   Every section opens on its own photograph so the nine chapters are
+   told apart at a glance, then the content sits on a light ground. */
+section{padding:0;}
+.chap{position:relative;background:var(--navy) center/cover no-repeat;overflow:hidden;}
+.chap::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(5,17,29,.96) 0%,rgba(5,17,29,.93) 42%,rgba(5,17,29,.60) 66%,rgba(5,17,29,.12) 100%);}
+.chap-in{position:relative;z-index:1;display:grid;grid-template-columns:auto minmax(0,1fr);gap:36px;
+  align-items:start;padding-top:62px;padding-bottom:62px;}
+.chap-in>div{max-width:660px;}
+.chap h2.t,.chap .lead{text-shadow:0 1px 14px rgba(4,14,24,.55);}
+.chap-n{font-size:clamp(3.2rem,7.4vw,5.4rem);font-weight:700;line-height:.82;letter-spacing:-.055em;
+  color:var(--aqua-d);font-variant-numeric:tabular-nums;}
+.chap-k{font-size:11.5px;font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.6);margin:0 0 15px;}
+.chap h2.t{color:#fff;font-size:clamp(1.45rem,3.1vw,2.25rem);line-height:1.5;margin:0 0 18px;}
+.chap .lead{font-size:15px;line-height:2.0;color:rgba(255,255,255,.8);max-width:42em;margin:0;}
+.chap .lead b{color:#fff;font-weight:700;}
+.chap h3.s::after{background:var(--aqua-d);}
+@media(max-width:700px){
+  .chap-in{grid-template-columns:1fr;gap:14px;padding-top:44px;padding-bottom:44px;}
+  .chap-n{font-size:3rem;}
+}
+.sec-body{padding-top:56px;padding-bottom:76px;}
+.sec-tint{background:var(--mist);}
+.cta-sec{position:relative;background:var(--navy) center/cover no-repeat;overflow:hidden;}
+.cta-sec::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(5,17,29,.96) 0%,rgba(5,17,29,.88) 34%,rgba(5,17,29,.46) 100%);}
+.cta-sec>.wrap{position:relative;z-index:1;}
+.cta-sec .kicker{color:var(--aqua-d);}
+.cta-sec h2.t{color:#fff;}
+.cta-sec .lead{color:rgba(255,255,255,.8);}
+.cta-sec .lead b{color:#fff;}
+.cta-sec .next div{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);}
+.cta-sec .next h4{color:#fff;}
+.cta-sec .next p{color:rgba(255,255,255,.76);}
+.cta-sec .next div:hover{border-color:var(--aqua-d);background:rgba(255,255,255,.1);}
 </style>
 
 <div class="prog"><i id="prog"></i></div>
@@ -543,13 +579,20 @@ h3.s::after{
 
 <!-- 1 -->
 <section id="s1">
-  <div class="wrap">
-    <p class="kicker">1. d ticketとは</p>
-    <h2 class="t">ドコモの10領域の事業資産を、チケット販売とあわせて利用できます</h2>
-    <p class="lead">
+  <div class="chap" style="background-image:url(__IMG_CH1__)">
+    <div class="wrap chap-in">
+      <span class="chap-n">01</span>
+      <div>
+        <p class="chap-k">d ticketとは</p>
+        <h2 class="t">ドコモの10領域の事業資産を、チケット販売とあわせて利用できます</h2>
+        <p class="lead">
       d ticket は、ドコモが所有するコンテンツ配信、金融、グッズ／ECなどの他領域資産を活用し、あらゆる角度から支援するチケットサービスです。
       チケットの販売機能だけでなく、会員データによる見込み層の抽出、オウンドメディアでの告知、全国のドコモショップでの販売、d払いでの決済、Leminoでの配信までを、<b>同一グループ内でご提供できます</b>。
     </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap sec-body">
     <div class="hub-wrap"><svg class="hub" viewBox="0 0 1000 520" role="img" aria-label="d ticketを中心に、データ基盤・ベニュー・コンテンツ配信・ファンクラブ／コミュニティ・オウンドメディア・IPマネジメント・回線・金融・オフライン販路・グッズ／ECの10領域が接続された図"><path d="M258 66 C322 66 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="30" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="60" font-size="14" font-weight="700" fill="#152229">データ基盤</text><text x="24" y="80" font-size="11.5" fill="#7C8B93">dアカウント／dポイント</text><path d="M258 163 C322 163 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="127" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="157" font-size="14" font-weight="700" fill="#152229">ベニュー</text><text x="24" y="177" font-size="11.5" fill="#7C8B93">国立競技場・IGアリーナ</text><path d="M258 260 C322 260 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="224" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="254" font-size="14" font-weight="700" fill="#152229">コンテンツ配信</text><text x="24" y="274" font-size="11.5" fill="#7C8B93">Lemino／dヒッツ／dマガジン</text><path d="M258 357 C322 357 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="321" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="351" font-size="14" font-weight="700" fill="#152229">ファンクラブ／コミュニティ</text><text x="24" y="371" font-size="11.5" fill="#7C8B93">ファン組織の構築・運営</text><path d="M258 454 C322 454 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="418" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="448" font-size="14" font-weight="700" fill="#152229">オウンドメディア</text><text x="24" y="468" font-size="11.5" fill="#7C8B93">dメニュー／my daiz</text><path d="M742 66 C678 66 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="30" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="60" font-size="14" font-weight="700" fill="#152229">IPマネジメント</text><text x="758" y="80" font-size="11.5" fill="#7C8B93">docomo Studio&amp;Live</text><path d="M742 163 C678 163 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="127" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="157" font-size="14" font-weight="700" fill="#152229">回線</text><text x="758" y="177" font-size="11.5" fill="#7C8B93">ドコモMAX／5G／IOWN</text><path d="M742 260 C678 260 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="224" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="254" font-size="14" font-weight="700" fill="#152229">金融</text><text x="758" y="274" font-size="11.5" fill="#7C8B93">d払い／dカード</text><path d="M742 357 C678 357 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="321" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="351" font-size="14" font-weight="700" fill="#152229">オフライン販路</text><text x="758" y="371" font-size="11.5" fill="#7C8B93">ドコモショップ 2,000店超</text><path d="M742 454 C678 454 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="418" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="448" font-size="14" font-weight="700" fill="#152229">グッズ／EC</text><text x="758" y="468" font-size="11.5" fill="#7C8B93">タワーレコード／dポイントマーケット</text><rect x="390" y="205" width="220" height="110" rx="8" fill="#0E1F33"/><image href="__IMG_LOGO__" x="437" y="228" width="126" height="34"/><text x="500" y="292" font-size="12" fill="#8FA8B2" text-anchor="middle">10領域を束ねる結節点</text></svg></div>
     <div class="cards c2 hub-fallback">
       <div class="card"><h4>データ基盤</h4><p>dアカウント／dポイント。属性・行動・決済を横断した1億規模の会員データ。</p></div>
@@ -567,15 +610,22 @@ h3.s::after{
 </section>
 
 <!-- 2 -->
-<section id="s2" class="sec-mist">
-  <div class="wrap">
-    <p class="kicker">2. 機能概要</p>
-    <h2 class="t">販売・決済・利用の標準機能に、ドコモアセットによる支援を追加します</h2>
-    <p class="lead">
+<section id="s2">
+  <div class="chap" style="background-image:url(__IMG_CH2__)">
+    <div class="wrap chap-in">
+      <span class="chap-n">02</span>
+      <div>
+        <p class="chap-k">機能概要</p>
+        <h2 class="t">販売・決済・利用の標準機能に、ドコモアセットによる支援を追加します</h2>
+        <p class="lead">
       全国のスポーツや音楽ライブなどを取り扱うチケット販売サービスです。
       ドコモが培ってきた情報セキュリティ技術に、転売防止機能などを備えたあんしん安全の運用体制を加えて、
       <b>dアカウント連携によるデータ分析</b>や、<b>ドコモアセットを活用したマーケティング・プロモーション支援</b>等の付加価値を提供します。
     </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap sec-body sec-tint">
     <div class="shot"><img src="__IMG_UI__" alt="d ticket の画面：公演選択、公演説明、座席選択、お支払い完了"></div>
     <p class="cap">公演選択から座席選択、決済完了までをWEB上で完結します。※画面はイメージです</p>
 
@@ -616,13 +666,20 @@ h3.s::after{
 
 <!-- 3 -->
 <section id="s3">
-  <div class="wrap">
-    <p class="kicker">3. 導入実績</p>
-    <h2 class="t">ジャンルと会場規模の異なる興行で稼働しています</h2>
-    <p class="lead">
+  <div class="chap" style="background-image:url(__IMG_CH3__)">
+    <div class="wrap chap-in">
+      <span class="chap-n">03</span>
+      <div>
+        <p class="chap-k">導入実績</p>
+        <h2 class="t">ジャンルと会場規模の異なる興行で稼働しています</h2>
+        <p class="lead">
       格闘技、大相撲、バスケットボール、ゴルフ、音楽フェス、ファッション、音楽アワード、花火大会で導入しています。
       東京ドームや国立競技場などの大規模会場から、屋外の広域イベントまで対応します。
     </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap sec-body">
     <div class="venues">
       <div class="vn">
         <img src="__IMG_V_TOKYODOME__" alt="東京ドーム">
@@ -653,15 +710,22 @@ h3.s::after{
 </section>
 
 <!-- 4 -->
-<section id="s4" class="sec-mist">
-  <div class="wrap">
-    <p class="kicker">4. d ticketが提供する価値</p>
-    <h2 class="t">購入から入場までのデータを、次回興行の計画に還元します</h2>
-    <p class="lead">
+<section id="s4">
+  <div class="chap" style="background-image:url(__IMG_CH4__)">
+    <div class="wrap chap-in">
+      <span class="chap-n">04</span>
+      <div>
+        <p class="chap-k">d ticketが提供する価値</p>
+        <h2 class="t">購入から入場までのデータを、次回興行の計画に還元します</h2>
+        <p class="lead">
       d ticket では、購入から入場までの記録をdアカウント単位で蓄積します。
       蓄積したデータは、需要予測、会場選定、グッズ企画、協賛獲得の材料としてご利用いただけます。
       以下では、土台となるデータ資産、提供の流れ、支援範囲、分析事例の順にご説明します。
     </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap sec-body sec-tint">
 
     <h3 class="s">① ドコモが保有するデータ</h3>
     <p class="slead">
@@ -781,12 +845,19 @@ h3.s::after{
 
 <!-- 5 -->
 <section id="s5">
-  <div class="wrap">
-    <p class="kicker">5. チケットサービス機能</p>
-    <h2 class="t">チケットサービス標準機能を完備し、新たな機能開発についても積極的に導入します</h2>
-    <p class="lead">
+  <div class="chap" style="background-image:url(__IMG_CH5__)">
+    <div class="wrap chap-in">
+      <span class="chap-n">05</span>
+      <div>
+        <p class="chap-k">チケットサービス機能</p>
+        <h2 class="t">チケットサービス標準機能を完備し、新たな機能開発についても積極的に導入します</h2>
+        <p class="lead">
       販売から利用までの標準機能に加えて、収益機会を増やす機能と転売を抑える機能を同じ購入導線の中に実装しています。
     </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap sec-body">
     <div class="cards c3">
       <div class="card"><h4>FC先行</h4><p>ファンクラブ向けの希望順エントリー／単独エントリーによる抽選先行受付。</p></div>
       <div class="card"><h4>分配登録</h4><p>LINE、メールほかの方法で同行者へチケットを分配します。同行者情報の取得にもつながります。</p></div>
@@ -818,13 +889,20 @@ h3.s::after{
 </section>
 
 <!-- 6 -->
-<section id="s6" class="sec-mist">
-  <div class="wrap">
-    <p class="kicker">6. 電子チケット利用などに関する転売対策</p>
-    <h2 class="t">想定される5つの不正内容に、それぞれ対策を紐づけています</h2>
-    <p class="lead">
+<section id="s6">
+  <div class="chap" style="background-image:url(__IMG_CH6__)">
+    <div class="wrap chap-in">
+      <span class="chap-n">06</span>
+      <div>
+        <p class="chap-k">電子チケット利用などに関する転売対策</p>
+        <h2 class="t">想定される5つの不正内容に、それぞれ対策を紐づけています</h2>
+        <p class="lead">
       高額転売のリスクが高い興行のチケットにおいて、購入時に複数の対策を講じることで、あんしん安全なサービス提供を行います。
     </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap sec-body sec-tint">
     <div class="mx">
       <table>
         <caption>●＝その不正内容に適用される対策</caption>
@@ -845,12 +923,19 @@ h3.s::after{
 
 <!-- 7 -->
 <section id="s7">
-  <div class="wrap">
-    <p class="kicker">7. チケットサービス問合せ受付体制</p>
-    <h2 class="t">興行主さま向けとユーザ向けに、3階層の窓口を用意しています</h2>
-    <p class="lead">
+  <div class="chap" style="background-image:url(__IMG_CH7__)">
+    <div class="wrap chap-in">
+      <span class="chap-n">07</span>
+      <div>
+        <p class="chap-k">チケットサービス問合せ受付体制</p>
+        <h2 class="t">興行主さま向けとユーザ向けに、3階層の窓口を用意しています</h2>
+        <p class="lead">
       あんしん安全にご利用いただけるよう、業界標準に即した体制を配備いたします。各層はSlackで連携し、ドコモの運用担当と開発担当も同じ導線に入ります。
     </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap sec-body">
     <div class="esc">
       <div class="esc-lane hd"><div>受付元</div><div>一次受付</div><div>二次受付</div><div>三次受付</div></div>
       <div class="esc-lane">
@@ -870,13 +955,20 @@ h3.s::after{
 </section>
 
 <!-- 8 -->
-<section id="s8" class="sec-mist">
-  <div class="wrap">
-    <p class="kicker">8. 他社チケットサービスとの比較</p>
-    <h2 class="t">会員基盤、ベニュー、配信、販路の保有状況を他社と比較しました</h2>
-    <p class="lead">
+<section id="s8">
+  <div class="chap" style="background-image:url(__IMG_CH8__)">
+    <div class="wrap chap-in">
+      <span class="chap-n">08</span>
+      <div>
+        <p class="chap-k">他社チケットサービスとの比較</p>
+        <h2 class="t">会員基盤、ベニュー、配信、販路の保有状況を他社と比較しました</h2>
+        <p class="lead">
       チケット販売サービス自体は各社が提供しています。d ticket は他社チケットサービスと比べて幅広い領域の資産を保有し、興行運営のサポートに活用します。
     </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap sec-body sec-tint">
     <div class="viz" style="--lw:9.5em;margin-bottom:14px;">
       <p class="viz-h">データ基盤の規模比較</p>
       <p class="viz-sub">各社が保有する会員組織の規模。ドコモはdアカウント／dポイントクラブの合計。</p>
@@ -908,12 +1000,19 @@ h3.s::after{
 
 <!-- 9 -->
 <section id="s9">
-  <div class="wrap">
-    <p class="kicker">9. Appendix</p>
-    <h2 class="t">動画配信サービスとプロモーション面の詳細</h2>
-    <p class="lead">
+  <div class="chap" style="background-image:url(__IMG_CH9__)">
+    <div class="wrap chap-in">
+      <span class="chap-n">09</span>
+      <div>
+        <p class="chap-k">Appendix</p>
+        <h2 class="t">動画配信サービスとプロモーション面の詳細</h2>
+        <p class="lead">
       本編で触れた配信プラットフォームとプロモーション面について、提供形態とリーチ可能規模を記載します。
     </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap sec-body">
 
     <h3 class="s">A‑1　動画配信サービス</h3>
     <p class="slead">
@@ -988,8 +1087,8 @@ h3.s::after{
 </section>
 
 <!-- next -->
-<section class="sec-mist">
-  <div class="wrap">
+<section class="cta-sec" style="background-image:url(__IMG_CH1__)">
+  <div class="wrap sec-body">
     <p class="kicker">ご相談の進め方</p>
     <h2 class="t">対象となる興行を1本お決めいただければ、条件の具体化に進めます</h2>
     <p class="lead">
@@ -1015,7 +1114,9 @@ h3.s::after{
     </div>
     <p class="credits">
       <b>画像クレジット</b>　d ticket ロゴ、キービジュアル、サービス画面：NTTドコモ公式素材（dticket.docomo.ne.jp、ドコモ報道発表資料）。
-      会場写真：東京ドーム © ClarkSui (CC BY-SA 3.0)／IGアリーナ © Kyu3a (CC BY-SA 4.0)／国立競技場 © RuinDig (CC BY 4.0)／横浜アリーナ © Momotarou2012 (CC BY-SA 3.0)、いずれも Wikimedia Commons。色調補正を行っています。
+      会場写真：東京ドーム © ClarkSui (CC BY-SA 3.0)／IGアリーナ © Kyu3a (CC BY-SA 4.0)／国立競技場 © RuinDig (CC BY 4.0)／横浜アリーナ © Momotarou2012 (CC BY-SA 3.0)。<br>
+      章扉写真：ライブ © Shixart1985 (CC BY 2.0)／両国国技館 © Gregg Tavares (CC BY 2.0)／渋谷 © Maarten Heerlien (CC BY 2.0)。<br>
+      いずれも Wikimedia Commons。トリミングおよび色調補正を行っています。
     </p>
   </div>
 </footer>
@@ -1064,15 +1165,40 @@ h3.s::after{
   Array.prototype.forEach.call(d.querySelectorAll('.hub path'), function(el,i){ el.style.setProperty('--i', i); });
   Array.prototype.forEach.call(d.querySelectorAll('.hub rect,.hub text,.hub image'), function(el,i){ el.style.setProperty('--i', i); });
 
+  /* Reveal on entry, but also sweep anything already above the fold: an anchor
+     jump from the table of contents skips whole screens, and elements that were
+     never on screen for a single frame would otherwise stay at opacity 0. */
+  var pending = [].slice.call(d.querySelectorAll('.rv,[data-count]'));
+  function show(el){
+    if (el.classList.contains('in')) return;
+    el.classList.add('in');
+    if (el.hasAttribute('data-count')) countUp(el);
+  }
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if (!e.isIntersecting) return;
-      e.target.classList.add('in');
-      io.unobserve(e.target);
-      if (e.target.hasAttribute('data-count')) countUp(e.target);
+      show(e.target); io.unobserve(e.target);
     });
-  }, {rootMargin:'0px 0px -10% 0px', threshold:0.08});
-  Array.prototype.forEach.call(d.querySelectorAll('.rv,[data-count]'), function(el){ io.observe(el); });
+  }, {rootMargin:'0px 0px -10% 0px', threshold:0.02});
+  pending.forEach(function(el){ io.observe(el); });
+
+  var sweeping = false;
+  function sweep(){
+    sweeping = false;
+    var vh = window.innerHeight, still = [];
+    for (var i = 0; i < pending.length; i++){
+      var el = pending[i];
+      if (el.classList.contains('in')) continue;
+      if (el.getBoundingClientRect().top < vh){ show(el); io.unobserve(el); }
+      else still.push(el);
+    }
+    pending = still;
+  }
+  window.addEventListener('scroll', function(){
+    if (!sweeping){ sweeping = true; requestAnimationFrame(sweep); }
+  }, {passive:true});
+  window.addEventListener('resize', sweep, {passive:true});
+  sweep();
 
   /* ---- headline figures count up ---- */
   function countUp(el){

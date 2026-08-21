@@ -18,7 +18,8 @@
   --ink-3:#7C8B93;
   --navy:#0E1F33;
   --navy-2:#1B3550;
-  --aqua:#00858A;           /* accent on white: readable, still d ticket */
+  --aqua:#00858A;
+  --aqua-d:#2FD8D2;           /* accent on white: readable, still d ticket */
   --aqua-d:#2FD8D2;         /* accent on navy */
   --docomo:#C8102E;
   --wrap:1120px;
@@ -63,6 +64,19 @@ a{color:var(--aqua);}
 .head-desc{font-size:14.5px;line-height:2.0;color:rgba(255,255,255,.78);margin:0;max-width:40em;}
 .head-desc b{color:#fff;font-weight:700;}
 .kv{border-radius:var(--r);overflow:hidden;}
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;border-top:1px solid rgba(255,255,255,.18);}
+.hstats>div{padding:22px 22px 0;border-right:1px solid rgba(255,255,255,.18);}
+.hstats>div:first-child{padding-left:0;}
+.hstats>div:last-child{border-right:none;}
+.hstats b{display:flex;align-items:baseline;gap:2px;font-size:2rem;font-weight:700;line-height:1;letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums;}
+.hstats i{font-style:normal;font-size:.44em;font-weight:700;letter-spacing:.02em;color:var(--aqua-d,#2FD8D2);}
+.hstats span{display:block;font-size:12px;line-height:1.75;color:rgba(255,255,255,.58);margin-top:11px;}
+@media(max-width:860px){.hstats{grid-template-columns:repeat(2,1fr);}
+  .hstats>div{padding:20px 18px 0;border-bottom:1px solid rgba(255,255,255,.18);}
+  .hstats>div:nth-child(2){border-right:none;}
+  .hstats>div:nth-child(3){padding-left:0;}}
+@media(max-width:480px){.hstats{grid-template-columns:1fr;}
+  .hstats>div{padding-left:0!important;padding-right:0;border-right:none;}}
 @media(max-width:860px){.head-grid{grid-template-columns:1fr;gap:30px;}}
 
 /* ── 要点 ──────────────────────────────── */
@@ -239,6 +253,112 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
 .notice b{color:rgba(255,255,255,.9);font-weight:700;}
 .credits{font-size:11.5px;line-height:1.9;color:rgba(255,255,255,.44);}
 .credits b{color:rgba(255,255,255,.7);font-weight:700;}
+
+/* ══════════ data viz ══════════
+   Single data hue #008F96 validated with the dataviz palette checker
+   (lightness band / chroma floor / CVD / contrast: all PASS on white).
+   De-emphasis grey #9FB4BA sits under 3:1, so every bar is direct-labelled. */
+.viz{--c:#008F96;--c-dim:#A8BBC0;--grid:#E5EBEC;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;}
+.viz-h{font-size:13.5px;font-weight:700;margin:0 0 4px;}
+.viz-sub{font-size:12px;color:var(--ink-3);margin:0 0 18px;line-height:1.7;}
+.viz-note{font-size:11.5px;color:var(--ink-3);margin:14px 0 0;line-height:1.75;}
+
+/* horizontal bars */
+.hb{display:grid;grid-template-columns:var(--lw,8.5em) 1fr 5.2em;gap:12px;align-items:center;padding:4px 0;}
+.hb-l{font-size:12.5px;color:var(--ink-2);line-height:1.5;}
+.hb-t{height:18px;display:flex;}
+.hb-t.track{background:var(--mist-2);border-radius:2px;overflow:hidden;}
+.hb-f{height:100%;background:var(--c);border-radius:0 4px 4px 0;min-width:2px;}
+.hb-t.track .hb-f{border-radius:0;}
+.hb.dim .hb-f{background:var(--c-dim);}
+.hb-v{font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);text-align:right;}
+.hb.dim .hb-v{color:var(--ink-2);font-weight:400;}
+
+/* columns */
+.cols{display:flex;align-items:flex-end;gap:16px;height:132px;max-width:520px;border-bottom:1px solid var(--grid);}
+.col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;}
+.col b{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;margin-bottom:6px;color:var(--ink);}
+.col i{width:100%;max-width:24px;background:var(--c);border-radius:4px 4px 0 0;}
+.col-x{display:flex;gap:16px;max-width:520px;padding-top:8px;}
+.col-x span{flex:1;text-align:center;font-size:11.5px;color:var(--ink-3);}
+
+/* split meter (two-part ratio) */
+.split{display:flex;height:22px;border-radius:2px;overflow:hidden;gap:2px;background:var(--paper);}
+.split i{display:block;height:100%;}
+.split .on{background:var(--c);}
+.split .off{background:var(--c-dim);}
+.split-k{display:flex;justify-content:space-between;margin-top:7px;font-size:12px;color:var(--ink-2);}
+.split-k b{font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);}
+.split-k .r{color:var(--ink-3);}
+.vgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:720px){.vgrid{grid-template-columns:1fr;}}
+
+/* ══════════ diagrams ══════════ */
+.hub{width:100%;height:auto;display:block;}
+.hub-wrap{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px;}
+@media(max-width:760px){.hub-wrap{display:none;}}
+.hub-fallback{display:none;}
+@media(max-width:760px){.hub-fallback{display:grid;}}
+
+/* cycle */
+.cyc{border:1px solid var(--line);border-radius:var(--r);background:var(--paper);overflow:hidden;}
+.cyc-h{background:var(--navy);color:#fff;font-size:13px;font-weight:700;letter-spacing:.06em;padding:11px 18px;}
+.cyc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);}
+.cyc-s{background:var(--paper);padding:18px 16px;position:relative;}
+.cyc-s .n{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--aqua);}
+.cyc-s h4{font-size:14px;font-weight:700;margin:7px 0 8px;}
+.cyc-s p{margin:0;font-size:12.5px;line-height:1.85;color:var(--ink-2);}
+.cyc-s::after{
+  content:"";position:absolute;right:-7px;top:50%;margin-top:-6px;z-index:2;
+  border-left:7px solid var(--navy);border-top:6px solid transparent;border-bottom:6px solid transparent;
+}
+.cyc-s:last-child::after{display:none;}
+.cyc-back{
+  display:flex;align-items:center;gap:10px;background:var(--mist);border-top:1px solid var(--line);
+  padding:11px 18px;font-size:12.5px;color:var(--ink-2);
+}
+.cyc-back::before{
+  content:"";width:0;height:0;border-right:7px solid var(--navy);
+  border-top:6px solid transparent;border-bottom:6px solid transparent;flex:0 0 auto;
+}
+@media(max-width:860px){.cyc-row{grid-template-columns:repeat(2,1fr);}.cyc-s::after{display:none;}}
+@media(max-width:520px){.cyc-row{grid-template-columns:1fr;}}
+
+/* threat x countermeasure matrix */
+.mx{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--paper);}
+.mx table{min-width:660px;}
+.mx th.rot{font-size:12px;font-weight:700;color:var(--ink);text-align:center;width:8.5em;line-height:1.5;background:var(--mist);}
+.mx td.cell{text-align:center;background:var(--paper);}
+.mx td.cell.on{background:#EAF5F5;}
+.dot{display:inline-block;width:13px;height:13px;border-radius:50%;background:var(--c-mx,#008F96);}
+.mx tbody th{width:auto;font-weight:400;color:var(--ink-2);font-size:13px;background:var(--paper);}
+.mx tbody th b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:11.5px;font-weight:700;margin-right:9px;}
+
+/* escalation lanes */
+.esc{border:1px solid var(--line);border-radius:var(--r);background:var(--paper);overflow:hidden;}
+.esc-lane{display:grid;grid-template-columns:11em repeat(3,1fr);gap:1px;background:var(--line);}
+.esc-lane>div{background:var(--paper);padding:14px 16px;}
+.esc-lane.hd>div{background:var(--mist);font-size:12px;font-weight:700;color:var(--ink-2);}
+.esc-from{background:var(--mist)!important;font-size:12.5px;}
+.esc-from b{display:block;color:var(--ink);font-weight:700;margin-bottom:3px;}
+.esc-from span{color:var(--ink-3);font-size:11.5px;}
+.esc-c{position:relative;}
+.esc-c .lv{margin-bottom:8px;}
+.esc-c p{margin:0;font-size:12.5px;line-height:1.8;color:var(--ink-2);}
+.esc-c .h{display:block;margin-top:9px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);}
+.esc-arrow{position:relative;}
+.esc-arrow::before{
+  content:"";position:absolute;left:-8px;top:50%;margin-top:-6px;z-index:2;
+  border-left:7px solid var(--navy);border-top:6px solid transparent;border-bottom:6px solid transparent;
+}
+.esc-slack{background:var(--mist)!important;font-size:11.5px;color:var(--ink-3);grid-column:1/-1;padding:10px 16px!important;}
+.esc-c.span2{grid-column:2/4;}
+@media(max-width:860px){
+  .esc-lane{grid-template-columns:1fr;}
+  .esc-lane.hd{display:none;}
+  .esc-c.span2{grid-column:auto;}
+  .esc-arrow::before{display:none;}
+}
 </style>
 
 <nav class="nav">
@@ -270,6 +390,12 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
       </p>
     </div>
     <div class="kv"><img src="__IMG_KV__" alt="d ticket キービジュアル"></div>
+  </div>
+  <div class="wrap hstats">
+    <div><b>1<i>億規模</i></b><span>dアカウント／dポイントクラブの会員基盤</span></div>
+    <div><b>5<i>倍</i></b><span>3大プレイガイド比のリーチ可能アカウント数</span></div>
+    <div><b>4<i>施設</i></b><span>運営に参画する大型ベニュー</span></div>
+    <div><b>2,000<i>店超</i></b><span>全国のドコモショップ（オフライン販路）</span></div>
   </div>
 </header>
 
@@ -312,10 +438,11 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
       d ticket は、ドコモが所有するコンテンツ配信、金融、グッズ／ECなどの他領域資産を活用し、あらゆる角度から支援するチケットサービスです。
       チケットの販売機能だけでなく、会員データによる見込み層の抽出、オウンドメディアでの告知、全国のドコモショップでの販売、d払いでの決済、Leminoでの配信までを、<b>同一グループ内でご提供できます</b>。
     </p>
-    <div class="cards c3">
+    <div class="hub-wrap"><svg class="hub" viewBox="0 0 1000 520" role="img" aria-label="d ticketを中心に、データ基盤・ベニュー・コンテンツ配信・ファンクラブ／コミュニティ・オウンドメディア・IPマネジメント・回線・金融・オフライン販路・グッズ／ECの10領域が接続された図"><path d="M258 66 C322 66 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="30" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="60" font-size="14" font-weight="700" fill="#152229">データ基盤</text><text x="24" y="80" font-size="11.5" fill="#7C8B93">dアカウント／dポイント</text><path d="M258 163 C322 163 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="127" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="157" font-size="14" font-weight="700" fill="#152229">ベニュー</text><text x="24" y="177" font-size="11.5" fill="#7C8B93">国立競技場・IGアリーナ</text><path d="M258 260 C322 260 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="224" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="254" font-size="14" font-weight="700" fill="#152229">コンテンツ配信</text><text x="24" y="274" font-size="11.5" fill="#7C8B93">Lemino／dヒッツ／dマガジン</text><path d="M258 357 C322 357 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="321" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="351" font-size="14" font-weight="700" fill="#152229">ファンクラブ／コミュニティ</text><text x="24" y="371" font-size="11.5" fill="#7C8B93">ファン組織の構築・運営</text><path d="M258 454 C322 454 330 260 388 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="8" y="418" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="24" y="448" font-size="14" font-weight="700" fill="#152229">オウンドメディア</text><text x="24" y="468" font-size="11.5" fill="#7C8B93">dメニュー／my daiz</text><path d="M742 66 C678 66 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="30" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="60" font-size="14" font-weight="700" fill="#152229">IPマネジメント</text><text x="758" y="80" font-size="11.5" fill="#7C8B93">docomo Studio&amp;Live</text><path d="M742 163 C678 163 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="127" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="157" font-size="14" font-weight="700" fill="#152229">回線</text><text x="758" y="177" font-size="11.5" fill="#7C8B93">ドコモMAX／5G／IOWN</text><path d="M742 260 C678 260 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="224" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="254" font-size="14" font-weight="700" fill="#152229">金融</text><text x="758" y="274" font-size="11.5" fill="#7C8B93">d払い／dカード</text><path d="M742 357 C678 357 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="321" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="351" font-size="14" font-weight="700" fill="#152229">オフライン販路</text><text x="758" y="371" font-size="11.5" fill="#7C8B93">ドコモショップ 2,000店超</text><path d="M742 454 C678 454 670 260 612 260" fill="none" stroke="#C3D6DA" stroke-width="1.5"/><rect x="742" y="418" width="250" height="72" rx="6" fill="#FFFFFF" stroke="#D5E0E3"/><text x="758" y="448" font-size="14" font-weight="700" fill="#152229">グッズ／EC</text><text x="758" y="468" font-size="11.5" fill="#7C8B93">タワーレコード／dポイントマーケット</text><rect x="390" y="205" width="220" height="110" rx="8" fill="#0E1F33"/><image href="__IMG_LOGO__" x="437" y="228" width="126" height="34"/><text x="500" y="292" font-size="12" fill="#8FA8B2" text-anchor="middle">10領域を束ねる結節点</text></svg></div>
+    <div class="cards c2 hub-fallback">
       <div class="card"><h4>データ基盤</h4><p>dアカウント／dポイント。属性・行動・決済を横断した1億規模の会員データ。</p></div>
       <div class="card"><h4>ベニュー</h4><p>国立競技場、IGアリーナほか大型施設の運営に参画。</p></div>
-      <div class="card"><h4>コンテンツ配信</h4><p>Lemino／dヒッツ／dマガジン／スゴ得コンテンツ／dバリューパス。</p></div>
+      <div class="card"><h4>コンテンツ配信</h4><p>Lemino／dヒッツ／dマガジン／スゴ得コンテンツ。</p></div>
       <div class="card"><h4>ファンクラブ／コミュニティ</h4><p>ファン組織の構築・運営を支援。</p></div>
       <div class="card"><h4>オウンドメディア</h4><p>dメニュー／my daiz。自社面での告知配信。</p></div>
       <div class="card"><h4>IPマネジメント</h4><p>docomo Studio&amp;Live によるIPの育成・運用。</p></div>
@@ -446,15 +573,15 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
       購入から入場までの全過程において、コンテンツ価値の最大化と顧客体験向上を目指します。
       1億の会員基盤を活用したデータ分析から興行需要を予測し、継続的な興行計画・改善をサポートいたします。
     </p>
-    <div class="flow">
-      <div class="flow-h">継続的なサービス提供</div>
-      <div class="steps">
-        <div class="step"><span class="n">STEP 1</span><h4>データ分析</h4><p>dアカウント所有者や過去来場のお客様の購買データを基に、販売計画の段階から興行需要を予測します。</p></div>
-        <div class="step"><span class="n">STEP 2</span><h4>チケット販売</h4><p>チケット販売と同時にグッズ販売も可能です。お客様の操作で人数の追加、上位席種への変更も行えます。</p></div>
-        <div class="step"><span class="n">STEP 3</span><h4>サービス機能</h4><p>電話番号認証（SMS認証）を経てチケットを発行します。分配機能により同行者情報の取得も可能です。</p></div>
-        <div class="step"><span class="n">STEP 4</span><h4>行動ログ管理</h4><p>電子認証により、入退場をスムーズに管理します。</p></div>
+    <div class="cyc">
+      <div class="cyc-h">継続的なサービス提供</div>
+      <div class="cyc-row">
+        <div class="cyc-s"><span class="n">STEP 1</span><h4>データ分析</h4><p>dアカウント所有者や過去来場のお客様の購買データを基に、販売計画の段階から興行需要を予測します。</p></div>
+        <div class="cyc-s"><span class="n">STEP 2</span><h4>チケット販売</h4><p>チケット販売と同時にグッズ販売も可能です。お客様の操作で人数の追加、上位席種への変更も行えます。</p></div>
+        <div class="cyc-s"><span class="n">STEP 3</span><h4>サービス機能</h4><p>電話番号認証（SMS認証）を経てチケットを発行します。分配機能により同行者情報の取得も可能です。</p></div>
+        <div class="cyc-s"><span class="n">STEP 4</span><h4>行動ログ管理</h4><p>電子認証により、入退場をスムーズに管理します。</p></div>
       </div>
-      <div class="flow-f">STEP 4 で得た行動ログは STEP 1 のデータ分析に戻り、次回興行の予測精度を高めます。</div>
+      <div class="cyc-back">STEP 4 で得た行動ログは STEP 1 のデータ分析に戻り、次回興行の予測精度を高めます。</div>
     </div>
 
     <h3 class="s">③ 単一興行に留まらない継続支援</h3>
@@ -473,47 +600,68 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
       実際に大相撲名古屋場所のデータを分析した事例です。
       チケット購入者の年代、同行者との関係、宿泊の有無と居住地を調べ、そこから2つの販促プランを設計しました。
     </p>
-    <div class="case">
-      <div class="box">
-        <div class="find">
-          <h4>顧客像は「親子ペア」と「シニア夫婦ペア」の2つ</h4>
-          <p>チケット購入者が40代以下の場合は親子が多く、その中でも「親子‑女性ペア」が男性ペアより相対的に多い。50代以上の場合は「同世代‑男女ペア」が最も多い。</p>
-          <div class="figs">
-            <span class="fig">40代以下・親子 <b>41.6%</b></span>
-            <span class="fig">50代以上・同年代 <b>51.2%</b></span>
-            <span class="fig">30代の親子‑女性ペア <b>14.8%</b></span>
-            <span class="fig">60代の同世代‑男女ペア <b>40.1%</b></span>
-          </div>
-        </div>
-        <div class="find">
-          <h4>都市からの移動手段＋宿泊を交えた観光向け施策が効果的</h4>
-          <p>宿泊者の後泊率が高いことから、観光目的の宿泊であることが想定される。宿泊者の居住地は他県、なかでも東京都／大阪府といった都市に住む人が多い。</p>
-          <div class="figs">
-            <span class="fig">後泊 <b>74%</b></span>
-            <span class="fig">他県居住 <b>93%</b></span>
-            <span class="fig">東京都 <b>19.3%</b></span>
-            <span class="fig">大阪府 <b>7.0%</b></span>
-            <span class="fig">愛知県観光客数 2024年 <b>3,871</b></span>
-          </div>
-        </div>
+    <h4 style="font-size:14.5px;font-weight:700;margin:0 0 8px;">調査結果 1　顧客像は「親子ペア」と「シニア夫婦ペア」の2つ</h4>
+    <p class="slead">
+      チケット購入者が40代以下の場合は親子が多く、その中でも「親子‑女性ペア」が男性ペアより相対的に多くなっています。
+      50代以上の場合は「同世代‑男女ペア」が最も多くなっています。
+    </p>
+    <div class="vgrid">
+      <div class="viz">
+        <p class="viz-h">チケット購入者が40代以下の場合</p>
+        <p class="viz-sub">同行者との関係性（構成比）</p>
+        <div class="hb dim"><span class="hb-l">同年代</span><span class="hb-t"><span class="hb-f" style="width:30.4%"></span></span><span class="hb-v">30.4%</span></div><div class="hb"><span class="hb-l">親子</span><span class="hb-t"><span class="hb-f" style="width:41.6%"></span></span><span class="hb-v">41.6%</span></div><div class="hb dim"><span class="hb-l">その他</span><span class="hb-t"><span class="hb-f" style="width:28.0%"></span></span><span class="hb-v">28.0%</span></div>
+        <p class="viz-note">内訳：親子‑男女ペア 17.6%／親子‑女性ペア 14.8%／親子‑男性ペア 3.9%</p>
       </div>
-      <div>
-        <div class="plan">
-          <span class="pn">販促プラン A</span>
-          <h4>まるっと名古屋旅パック</h4>
-          <dl>
-            <dt>ターゲット</dt><dd>親子（女性ペア）／東京都・大阪府 在住</dd>
-            <dt>施策内容</dt><dd>大相撲名古屋場所1日チケット ＋ 新幹線（東京／大阪発） ＋ ホテル1泊分 ＋ ノリタケの森ミュージアムの入場券</dd>
-          </dl>
-        </div>
-        <div class="plan">
-          <span class="pn">販促プラン B</span>
-          <h4>芸術も楽しむ名古屋旅パック</h4>
-          <dl>
-            <dt>ターゲット</dt><dd>シニア夫婦／東京都・大阪府 在住</dd>
-            <dt>施策内容</dt><dd>大相撲名古屋場所1日チケット ＋ 新幹線（東京／大阪発） ＋ 高級ホテル1泊分 ＋ 能楽堂狂言観覧チケット</dd>
-          </dl>
-        </div>
+      <div class="viz">
+        <p class="viz-h">チケット購入者が50代以上の場合</p>
+        <p class="viz-sub">同行者との関係性（構成比）</p>
+        <div class="hb"><span class="hb-l">同年代</span><span class="hb-t"><span class="hb-f" style="width:51.2%"></span></span><span class="hb-v">51.2%</span></div><div class="hb dim"><span class="hb-l">親子</span><span class="hb-t"><span class="hb-f" style="width:14.7%"></span></span><span class="hb-v">14.7%</span></div><div class="hb dim"><span class="hb-l">その他</span><span class="hb-t"><span class="hb-f" style="width:34.1%"></span></span><span class="hb-v">34.1%</span></div>
+        <p class="viz-note">内訳：同世代‑男女ペア 40.1%／同世代‑男性ペア 10.8%／同世代‑女性ペア 7.3%</p>
+      </div>
+    </div>
+
+    <h4 style="font-size:14.5px;font-weight:700;margin:38px 0 8px;">調査結果 2　都市からの移動手段と宿泊を交えた観光向け施策が効果的</h4>
+    <p class="slead">
+      宿泊者の後泊率が高いことから、観光目的の宿泊であることが想定されます。宿泊者の居住地は他県が大半で、なかでも東京都と大阪府に住む人が多くなっています。
+    </p>
+    <div class="vgrid">
+      <div class="viz">
+        <p class="viz-h">宿泊者の傾向</p>
+        <p class="viz-sub">前泊か後泊かの割合／居住地が愛知県か他県かの割合</p>
+        <div class="split"><i class="off" style="width:26%"></i><i class="on" style="width:74%"></i></div>
+        <div class="split-k"><span class="r">前泊 <b>26%</b></span><span>後泊 <b>74%</b></span></div>
+        <div style="height:18px"></div>
+        <div class="split"><i class="off" style="width:7%"></i><i class="on" style="width:93%"></i></div>
+        <div class="split-k"><span class="r">愛知県 <b>7%</b></span><span>他県 <b>93%</b></span></div>
+      </div>
+      <div class="viz" style="--lw:5.5em">
+        <p class="viz-h">宿泊者の居住地（他県の内訳・上位5県）</p>
+        <p class="viz-sub">宿泊者全体に占める割合</p>
+        <div class="hb"><span class="hb-l">東京都</span><span class="hb-t"><span class="hb-f" style="width:100.0%"></span></span><span class="hb-v">19.3%</span></div><div class="hb"><span class="hb-l">大阪府</span><span class="hb-t"><span class="hb-f" style="width:36.3%"></span></span><span class="hb-v">7.0%</span></div><div class="hb"><span class="hb-l">石川県</span><span class="hb-t"><span class="hb-f" style="width:34.2%"></span></span><span class="hb-v">6.6%</span></div><div class="hb"><span class="hb-l">神奈川県</span><span class="hb-t"><span class="hb-f" style="width:32.6%"></span></span><span class="hb-v">6.3%</span></div><div class="hb"><span class="hb-l">兵庫県</span><span class="hb-t"><span class="hb-f" style="width:24.9%"></span></span><span class="hb-v">4.8%</span></div>
+        <p class="viz-note">石川県は大の里関の出身県です。</p>
+      </div>
+    </div>
+    <div class="viz" style="margin-top:14px;">
+      <p class="viz-h">【参考】愛知県の観光客数（県外）の推移</p>
+      <p class="viz-sub">単位：千人／愛知県の観光入込客統計より</p>
+      <div class="cols"><div class="col"><b>1,675</b><i style="height:43%"></i></div><div class="col"><b>1,960</b><i style="height:51%"></i></div><div class="col"><b>2,922</b><i style="height:75%"></i></div><div class="col"><b>3,871</b><i style="height:100%"></i></div></div>
+      <div class="col-x"><span>2021</span><span>2022</span><span>2023</span><span>2024</span></div>
+    </div>
+
+    <h3 class="s">分析から設計した販促プラン</h3>
+    <p class="slead">上記2つの調査結果をもとに、ターゲットと施策内容を具体化した2案です。</p>
+    <div class="cards c2">
+      <div class="card">
+        <span class="lbl">販促プラン A</span>
+        <h4>まるっと名古屋旅パック</h4>
+        <p><b>ターゲット</b>　親子（女性ペア）／東京都・大阪府 在住</p>
+        <p><b>施策内容</b>　大相撲名古屋場所1日チケット ＋ 新幹線（東京／大阪発） ＋ ホテル1泊分 ＋ ノリタケの森ミュージアムの入場券</p>
+      </div>
+      <div class="card">
+        <span class="lbl">販促プラン B</span>
+        <h4>芸術も楽しむ名古屋旅パック</h4>
+        <p><b>ターゲット</b>　シニア夫婦／東京都・大阪府 在住</p>
+        <p><b>施策内容</b>　大相撲名古屋場所1日チケット ＋ 新幹線（東京／大阪発） ＋ 高級ホテル1泊分 ＋ 能楽堂狂言観覧チケット</p>
       </div>
     </div>
   </div>
@@ -565,37 +713,20 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
     <p class="lead">
       高額転売のリスクが高い興行のチケットにおいて、購入時に複数の対策を講じることで、あんしん安全なサービス提供を行います。
     </p>
-    <div class="threats">
-      <h4>想定される不正内容</h4>
-      <ol>
-        <li>複数アカウントを所持し、自身またはbotにて大量に申込</li>
-        <li>他者のクレジットカードを利用し購入（クレジットカードの不正利用）</li>
-        <li>不正に取得したチケットを、非公式の転売サイトまたはSNS等で高額転売</li>
-        <li>電子チケットを改ざん、または不正に作成し転売</li>
-        <li>一意の電子チケットを複製し、複数人へ転売</li>
-      </ol>
+    <div class="mx">
+      <table>
+        <caption>●＝その不正内容に適用される対策</caption>
+        <thead><tr><th scope="col">想定される不正内容</th><th scope="col" class="rot">SMS認証</th><th scope="col" class="rot">AI不正検知</th><th scope="col" class="rot">運用回避</th><th scope="col" class="rot">システム制御／<br>転売サイト監視</th></tr></thead>
+        <tbody><tr><th scope="row"><b>1</b>複数アカウントを所持し、自身またはbotにて大量に申込</th><td class="cell on"><span class="dot"></span></td><td class="cell"></td><td class="cell"></td><td class="cell"></td></tr><tr><th scope="row"><b>2</b>他者のクレジットカードを利用し購入（クレジットカードの不正利用）</th><td class="cell"></td><td class="cell on"><span class="dot"></span></td><td class="cell"></td><td class="cell"></td></tr><tr><th scope="row"><b>3</b>不正に取得したチケットを、非公式の転売サイトまたはSNS等で高額転売</th><td class="cell"></td><td class="cell"></td><td class="cell"></td><td class="cell on"><span class="dot"></span></td></tr><tr><th scope="row"><b>4</b>電子チケットを改ざん、または不正に作成し転売</th><td class="cell"></td><td class="cell"></td><td class="cell on"><span class="dot"></span></td><td class="cell on"><span class="dot"></span></td></tr><tr><th scope="row"><b>5</b>一意の電子チケットを複製し、複数人へ転売</th><td class="cell"></td><td class="cell"></td><td class="cell on"><span class="dot"></span></td><td class="cell on"><span class="dot"></span></td></tr></tbody>
+      </table>
     </div>
+
+    <h3 class="s">それぞれの対策の内容</h3>
     <div class="cards c4">
-      <div class="card">
-        <span class="lbl">アカウント大量作成</span><h4>SMS認証</h4>
-        <p>電話番号認証を経てチケットを発行します。実在の回線に紐づかないアカウントの大量生成を抑止します。</p>
-        <div class="applies">適用対象<span><span class="chip">1</span></span></div>
-      </div>
-      <div class="card">
-        <span class="lbl">クレジットカードの不正利用</span><h4>AI不正検知</h4>
-        <p>決済代行会社SBPSの機能です。与信取得前に決済ごとのスコアリングとルール判定を実施し、専用の管理画面で結果を確認できます。</p>
-        <div class="applies">適用対象<span><span class="chip">2</span></span></div>
-      </div>
-      <div class="card">
-        <span class="lbl">改ざん／複製</span><h4>運用回避</h4>
-        <p>アクティブなチケット以外は公式のリセールサイトに出品できません。非公式のリセールサイトで購入した改ざんまたは複製されたチケットは入場不可とするルールを定めます。</p>
-        <div class="applies">適用対象<span><span class="chip">4</span><span class="chip">5</span></span></div>
-      </div>
-      <div class="card">
-        <span class="lbl">高額転売</span><h4>システム制御／転売サイト監視</h4>
-        <p>チケット流通センター、チケジャム、メルカリ、Yahoo!オークションを監視します。サイト側へ出品取り下げを通知し、出品者・購入者が特定できた場合は入場不可とします。</p>
-        <div class="applies">適用対象<span><span class="chip">3</span><span class="chip">4</span><span class="chip">5</span></span></div>
-      </div>
+      <div class="card"><h4>SMS認証</h4><p>電話番号認証を経てチケットを発行します。実在の回線に紐づかないアカウントの大量生成を抑止します。</p></div>
+      <div class="card"><h4>AI不正検知</h4><p>決済代行会社SBPSの機能です。与信取得前に決済ごとのスコアリングとルール判定を実施し、専用の管理画面で結果を確認できます。</p></div>
+      <div class="card"><h4>運用回避</h4><p>アクティブなチケット以外は公式のリセールサイトに出品できません。非公式サイトで購入した改ざんまたは複製されたチケットは入場不可とするルールを定めます。</p></div>
+      <div class="card"><h4>システム制御／転売サイト監視</h4><p>チケット流通センター、チケジャム、メルカリ、Yahoo!オークションを監視します。サイト側へ出品取り下げを通知し、出品者・購入者が特定できた場合は入場不可とします。</p></div>
     </div>
   </div>
 </section>
@@ -608,26 +739,20 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
     <p class="lead">
       あんしん安全にご利用いただけるよう、業界標準に即した体制を配備いたします。各層はSlackで連携し、ドコモの運用担当と開発担当も同じ導線に入ります。
     </p>
-    <div class="intake">
-      <div><b>興行主さま</b><br>メール／電話 → ドコモ運用担当（L1／L2）</div>
-      <div><b>ユーザ</b><br>WEBフォーム → 一次問い合わせ窓口（L1）</div>
-    </div>
-    <div class="tiers">
-      <div class="tier">
-        <span class="lv">L1</span><h4>一次問い合わせ窓口</h4>
-        <p>ユーザからのWEBフォームを受け付け、調査と対応を行います。解決しない場合はL2へエスカレーションします。</p>
-        <span class="hours">全日 10:00–20:00<span>稼働時間</span></span>
+    <div class="esc">
+      <div class="esc-lane hd"><div>受付元</div><div>一次受付</div><div>二次受付</div><div>三次受付</div></div>
+      <div class="esc-lane">
+        <div class="esc-from"><b>ユーザ</b><span>WEBフォーム</span></div>
+        <div class="esc-c"><span class="lv">L1</span><p>一次問い合わせ窓口。受付および調査・対応を行い、解決しない場合はL2へエスカレーションします。</p><span class="h">全日 10:00–20:00</span></div>
+        <div class="esc-c esc-arrow"><span class="lv">L2</span><p>問い合わせ窓口。L1からのエスカレーションを受けて調査・対応を行います。</p><span class="h">全日 9:30–18:00</span></div>
+        <div class="esc-c esc-arrow"><span class="lv">L3</span><p>各開発ベンダ。システム起因の事象を調査し対応します。</p><span class="h">全日 10:00–17:00</span></div>
       </div>
-      <div class="tier">
-        <span class="lv">L2</span><h4>問い合わせ窓口</h4>
-        <p>L1からのエスカレーションを受けて調査と対応を行います。ドコモ運用担当とSlackで連携します。</p>
-        <span class="hours">全日 9:30–18:00<span>稼働時間</span></span>
+      <div class="esc-lane">
+        <div class="esc-from"><b>興行主さま</b><span>メール／電話</span></div>
+        <div class="esc-c span2"><p><b>ドコモ運用担当（L1／L2）</b>が直接受け付け、調査・対応します。</p></div>
+        <div class="esc-c"><p><b>ドコモ開発担当（L3）</b>が調査・対応します。</p></div>
       </div>
-      <div class="tier">
-        <span class="lv">L3</span><h4>各開発ベンダ</h4>
-        <p>システム起因の事象を調査し対応します。ドコモ開発担当とSlackで連携します。</p>
-        <span class="hours">全日 10:00–17:00<span>稼働時間</span></span>
-      </div>
+      <div class="esc-slack">各層は Slack で相互に連携します。ドコモ運用担当は L1／L2 と、ドコモ開発担当は L3 と接続します。</div>
     </div>
   </div>
 </section>
@@ -640,6 +765,12 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
     <p class="lead">
       チケット販売サービス自体は各社が提供しています。d ticket は他社チケットサービスと比べて幅広い領域の資産を保有し、興行運営のサポートに活用します。
     </p>
+    <div class="viz" style="--lw:9.5em;margin-bottom:14px;">
+      <p class="viz-h">データ基盤の規模比較</p>
+      <p class="viz-sub">各社が保有する会員組織の規模。ドコモはdアカウント／dポイントクラブの合計。</p>
+<div class="hb"><span class="hb-l">NTTドコモ<br>（d ticket）</span><span class="hb-t"><span class="hb-f" style="width:100.0%"></span></span><span class="hb-v">1億規模</span></div><div class="hb dim"><span class="hb-l">P社</span><span class="hb-t"><span class="hb-f" style="width:20.0%"></span></span><span class="hb-v">約2,000万</span></div><div class="hb dim"><span class="hb-l">L社</span><span class="hb-t"><span class="hb-f" style="width:16.0%"></span></span><span class="hb-v">約1,600万</span></div>
+      <p class="viz-note">ドコモの会員基盤は、P社の約5倍、L社の約6倍の規模にあたります。</p>
+    </div>
     <div class="tscroll">
       <table>
         <caption>◯＝提供あり／—＝該当なし</caption>
@@ -718,6 +849,11 @@ footer img{height:16px;width:auto;margin-bottom:18px;}
     <p class="slead">
       3大プレイガイド比5倍にあたる1億アカウントの行動履歴データを活用し、効率的な出面を確保します。広告種別ごとのリーチ可能人数は以下のとおりです。
     </p>
+    <div class="viz" style="--lw:10em;margin-bottom:14px;">
+      <p class="viz-h">配信面ごとのリーチ可能規模</p>
+      <p class="viz-sub">指標は面ごとに異なります（MAU／許諾者数／会員数／登録数／週間UU／フォロワー）。棒の長さは人数の比較のみを表します。</p>
+<div class="hb"><span class="hb-l">d POINT CLUB<br><span style="font-size:11px;color:var(--ink-3)">MAU</span></span><span class="hb-t"><span class="hb-f" style="width:100.0%"></span></span><span class="hb-v">約6,245万人</span></div><div class="hb"><span class="hb-l">myインフォメール<br><span style="font-size:11px;color:var(--ink-3)">許諾者数</span></span><span class="hb-t"><span class="hb-f" style="width:56.0%"></span></span><span class="hb-v">約3,500万人</span></div><div class="hb"><span class="hb-l">my daiz<br><span style="font-size:11px;color:var(--ink-3)">会員数</span></span><span class="hb-t"><span class="hb-f" style="width:32.0%"></span></span><span class="hb-v">約2,000万人</span></div><div class="hb"><span class="hb-l">DPC公式LINE<br><span style="font-size:11px;color:var(--ink-3)">お友達登録数</span></span><span class="hb-t"><span class="hb-f" style="width:28.8%"></span></span><span class="hb-v">約1,800万人以上</span></div><div class="hb"><span class="hb-l">dmenu<br><span style="font-size:11px;color:var(--ink-3)">1週間平均UU</span></span><span class="hb-t"><span class="hb-f" style="width:25.1%"></span></span><span class="hb-v">1,570万UU</span></div><div class="hb"><span class="hb-l">DPCアプリプッシュ<br><span style="font-size:11px;color:var(--ink-3)">通知許諾者数</span></span><span class="hb-t"><span class="hb-f" style="width:8.0%"></span></span><span class="hb-v">約500万人</span></div><div class="hb"><span class="hb-l">ドコモ公式X<br><span style="font-size:11px;color:var(--ink-3)">フォロワー</span></span><span class="hb-t"><span class="hb-f" style="width:1.5%"></span></span><span class="hb-v">約95万人</span></div>
+    </div>
     <div class="tscroll">
       <table>
         <caption>DPC：ドコモポイントクラブ</caption>

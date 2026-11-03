@@ -63,7 +63,12 @@ def main(pdf):
             # 「問」は全角の大きな字なので、行頭30pxの中に縦18px以上のインクがあるはず（引用符などの誤検出を除外）
             ys = np.where(a[g[0]:g[1], g[2]:g[2] + 30].any(1))[0]
             if len(ys) and ys.max() - ys.min() >= 18:
-                starts.append((i, g[0], mn))
+                y0 = g[0]
+                # 開始行の真上にあるルビ（ふりがな、例:「脆弱性」の「ぜい」）は、この問題に含める
+                for r in segs:
+                    if r[1] - r[0] < 15 and 0 <= y0 - r[1] <= 12:
+                        y0 = min(y0, r[0])
+                starts.append((i, y0, mn))
     if len(starts) != 80:
         raise SystemExit(f"問題の開始行を80個検出できませんでした: {len(starts)}個")
     report = []

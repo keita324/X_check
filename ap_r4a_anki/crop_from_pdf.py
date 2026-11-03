@@ -73,7 +73,10 @@ def main(pdf):
         y1 = max(g[1] for g in body)
         x0 = max(0, mn - PAD - 10)
         x1 = min(pages[p].width, max(max(g[3] for g in body) + PAD, x0 + 1150))
-        crop = pages[p].crop((x0, max(0, y0 - PAD), x1, min(pages[p].height, y1 + PAD)))
+        bottom = min(pages[p].height, y1 + PAD)
+        if nxt and nxt[0] == p:  # 次の問題の行に食い込まないようにする
+            bottom = min(bottom, nxt[1] - 4)
+        crop = pages[p].crop((x0, max(0, y0 - PAD), x1, bottom))
         name = f"ipa_r04a_q{k + 1:02d}.jpg"
         crop.save(MEDIA / name, quality=92, optimize=True)
         report.append(dict(no=k + 1, file=name, pdf_page=p + 1, y=[y0, y1], size=crop.size))

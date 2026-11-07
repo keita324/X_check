@@ -1,0 +1,562 @@
+[
+ {
+  "no": 1,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q01.jpg"
+ },
+ {
+  "no": 2,
+  "official_answer": "エ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q02.jpg"
+ },
+ {
+  "no": 3,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q03.jpg"
+ },
+ {
+  "no": 4,
+  "official_answer": "ア",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q04.jpg"
+ },
+ {
+  "no": 5,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q05.jpg"
+ },
+ {
+  "no": 6,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q06.jpg"
+ },
+ {
+  "no": 7,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q07.jpg"
+ },
+ {
+  "no": 8,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q08.jpg"
+ },
+ {
+  "no": 9,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q09.jpg"
+ },
+ {
+  "no": 10,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q10.jpg"
+ },
+ {
+  "no": 11,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q11.jpg"
+ },
+ {
+  "no": 12,
+  "official_answer": "エ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q12.jpg"
+ },
+ {
+  "no": 13,
+  "official_answer": "エ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q13.jpg"
+ },
+ {
+  "no": 14,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q14.jpg"
+ },
+ {
+  "no": 15,
+  "official_answer": "ア",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q15.jpg"
+ },
+ {
+  "no": 16,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q16.jpg"
+ },
+ {
+  "no": 17,
+  "official_answer": "ア",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q17.jpg"
+ },
+ {
+  "no": 18,
+  "official_answer": "エ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q18.jpg"
+ },
+ {
+  "no": 19,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q19.jpg"
+ },
+ {
+  "no": 20,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q20.jpg"
+ },
+ {
+  "no": 21,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q21.jpg"
+ },
+ {
+  "no": 22,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q22.jpg"
+ },
+ {
+  "no": 23,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q23.jpg"
+ },
+ {
+  "no": 24,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q24.jpg"
+ },
+ {
+  "no": 25,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q25.jpg"
+ },
+ {
+  "no": 26,
+  "official_answer": "エ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q26.jpg"
+ },
+ {
+  "no": 27,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q27.jpg"
+ },
+ {
+  "no": 28,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q28.jpg"
+ },
+ {
+  "no": 29,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q29.jpg"
+ },
+ {
+  "no": 30,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q30.jpg"
+ },
+ {
+  "no": 31,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q31.jpg"
+ },
+ {
+  "no": 32,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q32.jpg"
+ },
+ {
+  "no": 33,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q33.jpg"
+ },
+ {
+  "no": 34,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q34.jpg"
+ },
+ {
+  "no": 35,
+  "official_answer": "エ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q35.jpg"
+ },
+ {
+  "no": 36,
+  "official_answer": "ア",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q36.jpg"
+ },
+ {
+  "no": 37,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q37.jpg"
+ },
+ {
+  "no": 38,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q38.jpg"
+ },
+ {
+  "no": 39,
+  "official_answer": "ア",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q39.jpg"
+ },
+ {
+  "no": 40,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q40.jpg"
+ },
+ {
+  "no": 41,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q41.jpg"
+ },
+ {
+  "no": 42,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q42.jpg"
+ },
+ {
+  "no": 43,
+  "official_answer": "エ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q43.jpg"
+ },
+ {
+  "no": 44,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q44.jpg"
+ },
+ {
+  "no": 45,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q45.jpg"
+ },
+ {
+  "no": 46,
+  "official_answer": "ア",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q46.jpg"
+ },
+ {
+  "no": 47,
+  "official_answer": "ウ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q47.jpg"
+ },
+ {
+  "no": 48,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q48.jpg"
+ },
+ {
+  "no": 49,
+  "official_answer": "イ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q49.jpg"
+ },
+ {
+  "no": 50,
+  "official_answer": "エ",
+  "field": "テクノロジ系",
+  "category": "",
+  "image": "ipa_r06a_q50.jpg"
+ },
+ {
+  "no": 51,
+  "official_answer": "ウ",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q51.jpg"
+ },
+ {
+  "no": 52,
+  "official_answer": "エ",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q52.jpg"
+ },
+ {
+  "no": 53,
+  "official_answer": "ア",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q53.jpg"
+ },
+ {
+  "no": 54,
+  "official_answer": "エ",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q54.jpg"
+ },
+ {
+  "no": 55,
+  "official_answer": "エ",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q55.jpg"
+ },
+ {
+  "no": 56,
+  "official_answer": "ウ",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q56.jpg"
+ },
+ {
+  "no": 57,
+  "official_answer": "イ",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q57.jpg"
+ },
+ {
+  "no": 58,
+  "official_answer": "ア",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q58.jpg"
+ },
+ {
+  "no": 59,
+  "official_answer": "ア",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q59.jpg"
+ },
+ {
+  "no": 60,
+  "official_answer": "ウ",
+  "field": "マネジメント系",
+  "category": "",
+  "image": "ipa_r06a_q60.jpg"
+ },
+ {
+  "no": 61,
+  "official_answer": "イ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q61.jpg"
+ },
+ {
+  "no": 62,
+  "official_answer": "エ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q62.jpg"
+ },
+ {
+  "no": 63,
+  "official_answer": "イ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q63.jpg"
+ },
+ {
+  "no": 64,
+  "official_answer": "イ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q64.jpg"
+ },
+ {
+  "no": 65,
+  "official_answer": "ウ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q65.jpg"
+ },
+ {
+  "no": 66,
+  "official_answer": "ア",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q66.jpg"
+ },
+ {
+  "no": 67,
+  "official_answer": "エ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q67.jpg"
+ },
+ {
+  "no": 68,
+  "official_answer": "ウ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q68.jpg"
+ },
+ {
+  "no": 69,
+  "official_answer": "ウ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q69.jpg"
+ },
+ {
+  "no": 70,
+  "official_answer": "ウ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q70.jpg"
+ },
+ {
+  "no": 71,
+  "official_answer": "ウ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q71.jpg"
+ },
+ {
+  "no": 72,
+  "official_answer": "ア",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q72.jpg"
+ },
+ {
+  "no": 73,
+  "official_answer": "イ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q73.jpg"
+ },
+ {
+  "no": 74,
+  "official_answer": "ウ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q74.jpg"
+ },
+ {
+  "no": 75,
+  "official_answer": "イ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q75.jpg"
+ },
+ {
+  "no": 76,
+  "official_answer": "イ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q76.jpg"
+ },
+ {
+  "no": 77,
+  "official_answer": "ア",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q77.jpg"
+ },
+ {
+  "no": 78,
+  "official_answer": "イ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q78.jpg"
+ },
+ {
+  "no": 79,
+  "official_answer": "ア",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q79.jpg"
+ },
+ {
+  "no": 80,
+  "official_answer": "ウ",
+  "field": "ストラテジ系",
+  "category": "",
+  "image": "ipa_r06a_q80.jpg"
+ }
+]

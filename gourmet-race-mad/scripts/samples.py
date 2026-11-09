@@ -7,3 +7,9 @@ S={ # name:(start,len)  verified with vocal-stem whisper
 "imada":(854.96,0.40),"uwaa":(3.38,1.4),"mou_owaru":(150.62,0.58),"jessie":(447.46,1.54),"yappa":(515.81,1.28),
 "giyutte":(67.35,1.12),"nanzo":(65.79,1.04),"oi":(454.96,0.80),"sugoi1":(147.88,0.52),
 }
+# syllable boundaries (absolute src times) from vocal-stem whisper
+SYL={
+"shiawase":[813.92,814.30,814.54,814.66,814.82,814.96,815.10,815.20,815.30,815.40,815.60],
+"kimoi":[792.62,792.94,793.04,793.14,793.40],
+"seeno":[0.0,0.48,0.82,1.0],
+}

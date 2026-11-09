@@ -1,7 +1,7 @@
 import sys;sys.path.insert(0,"scripts")
 import json,numpy as np,soundfile as sf,random
 from tune import tune
-from samples import S
+from samples import S,SYL
 SR=44100
 rng=random.Random(3)
 idx=json.load(open("work/cand_idx.json"))
@@ -38,54 +38,57 @@ vseg(0.72,"lara",fx=["zoom"])
 vseg(1.71,"lara",off=0.99,fx=["zoom","flip"])
 vseg(2.70,"lara",off=1.98,fx=["zoom","rgb"])
 flashes+= [(0.72,0.8),(1.71,0.5)]
-# ---------- helper for melodic sections ----------
-def melodic(sec,plan,bar0,shift,fxcycle,gain=1.0,bl=1.3004):
+# ---------- helper: per-bar spec (name, mode, restart) ----------
+ctr={}
+def melodic(sec,plan,bar0,shift,fxfn,gain=1.0,bl=1.3004):
     notes=[n for n in score if n[4]==sec]
     bars={}
     for n in notes: bars.setdefault(bar_of(n[0],bar0,bl),[]).append(n)
     for b,ns in sorted(bars.items()):
-        name,mode=plan[b%len(plan)] if isinstance(plan,list) else plan(b)
-        k=len(ns)
+        name,mode,restart=plan[b%len(plan)]
+        if restart: ctr[name]=0
         for i,n in enumerate(ns):
-            s,e,p,a,_,nxt=n
-            dur=min(nxt-s,0.9); dur=max(dur,0.09)
-            Ls=S[name][1]
-            if mode=="syl":
-                off=Ls*i/k; L=max(Ls/k,0.12)
+            s_,e,p,a,_,nxt=n
+            dur=max(min(nxt-s_,0.9),0.09)
+            if mode=="line":
+                bd=SYL[name]; j=ctr.get(name,0)%(len(bd)-1); ctr[name]=ctr.get(name,0)+1
+                off=bd[j]-S[name][0]; L=max(bd[j+1]-bd[j],0.1)
+                # last syllable of a line may sustain
             else:
-                off=0.0; L=Ls
-            x=get(name,off,min(L,Ls-off) if mode=="syl" else L)
-            y=tune(x,p+shift,dur*0.97 if mode!="syl" else dur*0.97,stretch_max=3)
-            place(s,y,gain)
-            fx=list(fxcycle[(b*7+i)%len(fxcycle)])
-            if i==0: fx=fx+["zoom"]
-            vseg(s,name,off=off,fx=fx)
-        flashes.append((bar0+b*bl,0.35))
-# ---------- A section ----------
-A_plan=[("sugoi","rep"),("sugoi","rep"),("nanikore","rep"),("nanikore","rep"),
-        ("shiawase","syl"),("hisashiburi","syl"),("kimoi","syl"),("soccer","syl"),
-        ("seeno","rep"),("seeno","rep"),("ore","rep"),("ore","rep"),
-        ("lara","syl"),("jessie","syl"),("iuna","syl"),("kimoi","syl")]
-melodic("A",A_plan,3.32,-12,[[],["flip"],["rgb"],[],["shake"],["flip"],[] ,["mirror"]])
-# ---------- B1 bass ----------
-B1_plan=[("ban","rep"),("ban","rep"),("baa","rep"),("chigau","rep"),("ore","rep"),("ikeru","rep"),("ban","rep"),("hai","rep"),
-         ("ban","rep"),("baa","rep"),("chigau","rep"),("ikeru","rep"),("imada","rep"),("sugoi","rep"),("agatta","rep"),("seeno","rep"),("ban","rep")]
-melodic("B1",B1_plan,23.44,+24,[["tile2"],["invert"],["flip","tile3"],["hue"],["mirror"],["shake","rgb"],["tile2","flip"],["gray"],["squash"],["rot"]],gain=1.0)
-# ---------- B2 ----------
-B2_plan=[("yesorno","syl"),("shiawase","syl"),("paa","syl"),("kimoi","syl"),("soccer","syl"),("giyutte","syl"),("lara","syl"),("nanzo","syl"),
-         ("nanikore2","syl"),("yokatta","syl"),("sugoi3","rep"),("jessie","syl"),("hisashiburi","syl"),("yappa","syl"),("mou_owaru","syl"),("oi","syl"),("ore","rep"),("seeno","rep")]
-melodic("B2",B2_plan,44.24,-12,[[],["flip"],["tile2"],["rgb"],[],["mirror"],["zoomin"],["hue"]])
+                off=0.0; L=S[name][1]
+            x=get(name,off,L)
+            y=tune(x,p+shift,dur*0.97,stretch_max=4)
+            place(s_,y,gain)
+            vseg(s_,name,off=off,fx=fxfn(b,i))
+        flashes.append((bar0+b*bl,0.3))
+SH=("shiawase","line",False); SHr=("shiawase","line",True); KI=("kimoi","line",True); KIc=("kimoi","line",False)
+# ---------- A section: 幸せって2種類あんねん x many, answered by キモいです ----------
+A_plan=[SHr,SH,SH,SH,SHr,SH,KI,KIc, SHr,SH,SH,SH,SHr,SH,KI,KIc]
+def fxA(b,i): return ["zoom"] if i==0 else (["flip"] if (b%4==3 and i%2) else [])
+melodic("A",A_plan,3.32,-12,fxA)
+# ---------- B1 bass: 俺 俺 俺 ... ----------
+OR=("ore","rep",False); SE=("seeno","line",True)
+B1_plan=[OR,OR,OR,SE,OR,OR,OR,SE,OR,OR,OR,SE,OR,OR,OR,SE,OR]
+def fxB1(b,i):
+    if i==0: return ["zoom"]
+    return [[],["flip"],[],["tile2"]][(b+i)%4] if b>=8 else ([] if i%2==0 else ["flip"])
+melodic("B1",B1_plan,23.44,+24,fxB1)
+# ---------- B2: キモいです x many, then 幸せって ----------
+NK=("nanikore","rep",False)
+B2_plan=[KI,KIc,KI,KIc,KI,KIc,NK,NK, KI,KIc,KI,KIc,SHr,SH,SH,SH,KI,KIc]
+def fxB2(b,i): return ["zoom"] if i==0 else ([] if b<8 else (["flip"] if i%2 else []))
+melodic("B2",B2_plan,44.24,-12,fxB2)
 # ---------- build-up 66.84 -> 68.18 ----------
 t=66.84; i=0; step=0.16254
 while t<68.1:
     y=tune(get("ore"),67+i,0.15); place(t,y,0.9)
-    vseg(t,"ore",fx=["zoom","tile2" if i%2 else "flip"] if i<5 else ["shake","tile3" if i%2 else "invert"])
+    vseg(t,"ore",fx=["zoom"] if i<5 else ["zoom","shake"])
     t+=step; i+=1
 # ---------- punchline ----------
 y=get("warai",clean=False,L=1.4); place(68.18,y,1.3)
 vseg(68.18,"warai",fx=["zoom"])
 flashes.append((68.18,1.0))
-vseg(69.5,"warai",off=1.2,fx=["freeze","gray"],text="おしまい",ts={"pos":"center","size":150,"color":"#ff4d6d","pop":True})
+vseg(69.5,"warai",off=1.2,fx=["freeze","gray"])
 # ---------- mix ----------
 pk=np.max(np.abs(vox)); 
 vox=np.tanh(vox*1.2)*0.8

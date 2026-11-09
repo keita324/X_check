@@ -19,11 +19,11 @@ def font(sz):
     if sz not in _fc:_fc[sz]=ImageFont.truetype(FONT,sz)
     return _fc[sz]
 _cache={}
-def grab(src_t,n):
-    key=(round(src_t,3),n)
+def grab(src_t,n,spd=1.0):
+    key=(round(src_t,3),n,round(spd,3))
     if key in _cache: return _cache[key]
     cmd=["ffmpeg","-v","error","-ss",f"{max(0,src_t):.3f}","-i",SRC,"-frames:v",str(n),
-         "-vf",f"fps={FPS},scale={W}:{H}","-f","rawvideo","-pix_fmt","rgb24","-"]
+         "-vf",(f"setpts=PTS/{spd}," if abs(spd-1)>1e-3 else "")+f"fps={FPS},scale={W}:{H}","-f","rawvideo","-pix_fmt","rgb24","-"]
     raw=subprocess.run(cmd,capture_output=True).stdout
     fr=np.frombuffer(raw,np.uint8).reshape(-1,H,W,3)
     if len(fr)==0: fr=np.zeros((1,H,W,3),np.uint8)
@@ -67,6 +67,8 @@ def apply_fx(img,fx,i,n,rng,face=None):
         elif f=="tile3": img=tile(img,3)
         elif f=="tile4": img=tile(img,4)
         elif f=="mirror": img=img.copy(); img[:,W//2:]=img[:,:W//2][:,::-1]
+        elif f=="shake2":
+            dx,dy=rng.randint(-7,7),rng.randint(-5,5); img=np.roll(img,(dy,dx),(0,1))
         elif f=="shake":
             dx,dy=rng.randint(-25,25),rng.randint(-18,18); img=np.roll(img,(dy,dx),(0,1))
         elif f=="rgb":
@@ -95,6 +97,20 @@ def draw_text(img,text,style,i):
     y={"bottom":H-th-40,"center":(H-th)//2,"top":30}[pos]-bb[1]
     d.text((x,y),text,font=f,fill=style.get("color","#ffffff"),stroke_width=max(6,sz//14),stroke_fill=style.get("stroke","#000000"))
     return np.asarray(im)
+def draw_kara(img,words,cur,i):
+    im=Image.fromarray(img); d=ImageDraw.Draw(im)
+    sz=84; full="".join(words)
+    f=font(sz); sw=7
+    tw=d.textlength(full,font=f)
+    if tw>W-60: sz=int(sz*(W-60)/tw); f=font(sz); tw=d.textlength(full,font=f); sw=max(5,sz//12)
+    x=(W-tw)/2; y=H-sz-38
+    a=np.asarray(im).copy(); y0=int(y-14); a[y0:]=(a[y0:]*0.35).astype(np.uint8); im=Image.fromarray(a); d=ImageDraw.Draw(im)
+    for j,w in enumerate(words):
+        col="#ffe600" if j==cur else ("#ffffff" if j<cur else "#d8d8d8")
+        yy=y-(6 if (j==cur and i<3) else 0)
+        d.text((x,yy),w,font=f,fill=col,stroke_width=sw,stroke_fill="#000000")
+        x+=d.textlength(w,font=f)
+    return np.asarray(im)
 def render(segs,flashes,total,out):
     nfr=int(round(total*FPS))
     enc=subprocess.Popen(["ffmpeg","-v","error","-y","-f","rawvideo","-pix_fmt","rgb24","-s",f"{W}x{H}","-r",str(FPS),"-i","-",
@@ -113,7 +129,7 @@ def render(segs,flashes,total,out):
         if s.get("black"):
             frames=np.zeros((n,H,W,3),np.uint8)
         else:
-            frames=grab(s["src"],n if "freeze" not in s.get("fx",[]) else 1)
+            frames=grab(s["src"],n if "freeze" not in s.get("fx",[]) else 1,s.get("spd",1.0))
         face=None
         if any(f.startswith("face") for f in s.get("fx",[])) and not s.get("black"):
             face=face_of(frames[0],(round(s["src"],2)))
@@ -121,6 +137,7 @@ def render(segs,flashes,total,out):
             img=frames[min(i,len(frames)-1)]
             img=apply_fx(img,s.get("fx",[]),i,n,rng,face)
             img=draw_text(img,s.get("text",""),s.get("ts",{}),i)
+            if s.get("kara"): img=draw_kara(img,s["kara"]["words"],s["kara"]["cur"],i)
             a=fl[f0+i]
             if a>0: img=(img*(1-a)+255*a).astype(np.uint8)
             enc.stdin.write(np.ascontiguousarray(img,dtype=np.uint8).tobytes())

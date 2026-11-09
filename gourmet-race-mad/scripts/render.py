@@ -1,5 +1,15 @@
 """Video renderer: takes segments json and writes video (no audio)."""
-import json,subprocess,numpy as np,sys,random
+import json,subprocess,numpy as np,sys,random,cv2
+_casc=cv2.CascadeClassifier('models/face.xml')
+_fcache={}
+def face_of(img,key):
+    if key in _fcache: return _fcache[key]
+    g=cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
+    fs=_casc.detectMultiScale(g,1.1,6,minSize=(60,60))
+    r=None
+    if len(fs):
+        x,y,w,h=max(fs,key=lambda f:f[2]*f[3]); r=((x+w/2)/1280,(y+h/2)/720,h/720)
+    _fcache[key]=r; return r
 from PIL import Image,ImageDraw,ImageFont,ImageFilter
 W,H,FPS=1280,720,30
 SRC="dl/src.bin"
@@ -33,9 +43,15 @@ def hue_rot(img,deg):
     im=Image.fromarray(img).convert("HSV"); a=np.asarray(im).copy()
     a[...,0]=(a[...,0].astype(int)+int(deg/360*255))%256
     return np.asarray(Image.fromarray(a,"HSV").convert("RGB"))
-def apply_fx(img,fx,i,n,rng):
+def apply_fx(img,fx,i,n,rng,face=None):
     p=i/max(1,n-1)
     for f in fx:
+        if f in("face","faceslow","facebig","facepunch"):
+            if face is None: img=zoom(img,{"face":1.5,"faceslow":1.0+0.5*p,"facebig":1.9,"facepunch":1.5+0.4*max(0,1-i/4)}[f]); continue
+            cx,cy,fh=face
+            base=min(max(0.42/fh,1.4),2.6)
+            z={"face":base,"faceslow":1.0+(base-1)*min(1,p*1.3),"facebig":base*1.25,"facepunch":base*(1+0.25*max(0,1-i/4))}[f]
+            img=zoom(img,z,cx,cy); continue
         if f=="zoom": img=zoom(img,1.0+0.35*max(0,1-i/4))
         elif f=="zoomin": img=zoom(img,1.0+0.6*p)
         elif f=="bigzoom": img=zoom(img,1.6)
@@ -93,9 +109,12 @@ def render(segs,flashes,total,out):
             frames=np.zeros((n,H,W,3),np.uint8)
         else:
             frames=grab(s["src"],n if "freeze" not in s.get("fx",[]) else 1)
+        face=None
+        if any(f.startswith("face") for f in s.get("fx",[])) and not s.get("black"):
+            face=face_of(frames[0],(round(s["src"],2)))
         for i in range(n):
             img=frames[min(i,len(frames)-1)]
-            img=apply_fx(img,s.get("fx",[]),i,n,rng)
+            img=apply_fx(img,s.get("fx",[]),i,n,rng,face)
             img=draw_text(img,s.get("text",""),s.get("ts",{}),i)
             a=fl[f0+i]
             if a>0: img=(img*(1-a)+255*a).astype(np.uint8)

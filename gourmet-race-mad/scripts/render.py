@@ -46,6 +46,11 @@ def hue_rot(img,deg):
 def apply_fx(img,fx,i,n,rng,face=None):
     p=i/max(1,n-1)
     for f in fx:
+        if f.startswith("zc:"):
+            _,x,y,z,mode=f.split(":"); x,y,z=float(x),float(y),float(z)
+            if mode=="punch": z=z*(1+0.3*max(0,1-i/4))
+            elif mode=="slow": z=1+(z-1)*min(1,p*1.2)
+            img=zoom(img,z,x,y); continue
         if f in("face","faceslow","facebig","facepunch"):
             if face is None: img=zoom(img,{"face":1.5,"faceslow":1.0+0.5*p,"facebig":1.9,"facepunch":1.5+0.4*max(0,1-i/4)}[f]); continue
             cx,cy,fh=face

@@ -19,11 +19,14 @@ def font(sz):
     if sz not in _fc:_fc[sz]=ImageFont.truetype(FONT,sz)
     return _fc[sz]
 _cache={}
-def grab(src_t,n,spd=1.0):
-    key=(round(src_t,3),n,round(spd,3))
+FILES={"src":("dl/src.bin",""),"n1":("dl2/n1.bin","crop=360:340:0:200,split[a][b];[a]scale=1280:720,boxblur=20:2[bg];[b]scale=-2:720[fg];[bg][fg]overlay=(W-w)/2:0,"),
+       "n2":("dl2/n2.bin",""),"n3":("dl2/n3.bin","")}
+def grab(src_t,n,spd=1.0,file="src"):
+    key=(file,round(src_t,3),n,round(spd,3))
     if key in _cache: return _cache[key]
-    cmd=["ffmpeg","-v","error","-ss",f"{max(0,src_t):.3f}","-i",SRC,"-frames:v",str(n),
-         "-vf",(f"setpts=PTS/{spd}," if abs(spd-1)>1e-3 else "")+f"fps={FPS},scale={W}:{H}","-f","rawvideo","-pix_fmt","rgb24","-"]
+    path,pre=FILES[file]
+    cmd=["ffmpeg","-v","error","-ss",f"{max(0,src_t):.3f}","-i",path,"-frames:v",str(n),
+         "-vf",pre+(f"setpts=PTS/{spd}," if abs(spd-1)>1e-3 else "")+f"fps={FPS},scale={W}:{H}","-f","rawvideo","-pix_fmt","rgb24","-"]
     raw=subprocess.run(cmd,capture_output=True).stdout
     fr=np.frombuffer(raw,np.uint8).reshape(-1,H,W,3)
     if len(fr)==0: fr=np.zeros((1,H,W,3),np.uint8)
@@ -129,10 +132,10 @@ def render(segs,flashes,total,out):
         if s.get("black"):
             frames=np.zeros((n,H,W,3),np.uint8)
         else:
-            frames=grab(s["src"],n if "freeze" not in s.get("fx",[]) else 1,s.get("spd",1.0))
+            frames=grab(s["src"],n if "freeze" not in s.get("fx",[]) else 1,s.get("spd",1.0),s.get("file","src"))
         face=None
         if any(f.startswith("face") for f in s.get("fx",[])) and not s.get("black"):
-            face=face_of(frames[0],(round(s["src"],2)))
+            face=face_of(frames[0],(s.get("file","src"),round(s["src"],2)))
         for i in range(n):
             img=frames[min(i,len(frames)-1)]
             img=apply_fx(img,s.get("fx",[]),i,n,rng,face)

@@ -52,6 +52,7 @@ def apply_fx(img,fx,i,n,rng,face=None):
         if f.startswith("zc:"):
             _,x,y,z,mode=f.split(":"); x,y,z=float(x),float(y),float(z)
             if mode=="punch": z=z*(1+0.3*max(0,1-i/4))
+            elif mode=="p2": z=z*(1+0.07*max(0,1-i/3))
             elif mode=="slow": z=1+(z-1)*min(1,p*1.2)
             img=zoom(img,z,x,y); continue
         if f in("face","faceslow","facebig","facepunch"):

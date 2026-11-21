@@ -15,9 +15,11 @@ W,H,FPS=1280,720,30
 SRC="dl/src.bin"
 FONT="/usr/share/fonts/truetype/fonts-japanese-gothic.ttf"
 _fc={}
-def font(sz):
-    if sz not in _fc:_fc[sz]=ImageFont.truetype(FONT,sz)
-    return _fc[sz]
+_fcp={}
+def font(sz,path=None):
+    path=path or FONT
+    if (sz,path) not in _fcp:_fcp[(sz,path)]=ImageFont.truetype(path,sz)
+    return _fcp[(sz,path)]
 _cache={}
 FILES={"src":("dl/src.bin",""),"n1":("dl2/n1.bin","crop=360:340:0:200,split[a][b];[a]scale=1280:720,boxblur=20:2[bg];[b]scale=-2:720[fg];[bg][fg]overlay=(W-w)/2:0,"),
        "n2":("dl2/n2.bin",""),"n3":("dl2/n3.bin","")}
@@ -89,16 +91,16 @@ def apply_fx(img,fx,i,n,rng,face=None):
 def draw_text(img,text,style,i):
     if not text: return img
     im=Image.fromarray(img); d=ImageDraw.Draw(im)
-    sz=style.get("size",110)
+    sz=style.get("size",110); fp=style.get("font")
     if style.get("pop") and i<3: sz=int(sz*(1.35-0.12*i))
-    f=font(sz)
+    f=font(sz,fp)
     bb=d.textbbox((0,0),text,font=f,stroke_width=8)
     tw,th=bb[2]-bb[0],bb[3]-bb[1]
     if tw>W-40:
-        sz=int(sz*(W-40)/tw); f=font(sz); bb=d.textbbox((0,0),text,font=f,stroke_width=8); tw,th=bb[2]-bb[0],bb[3]-bb[1]
+        sz=int(sz*(W-40)/tw); f=font(sz,fp); bb=d.textbbox((0,0),text,font=f,stroke_width=8); tw,th=bb[2]-bb[0],bb[3]-bb[1]
     pos=style.get("pos","bottom")
     x=(W-tw)//2-bb[0]
-    y={"bottom":H-th-40,"center":(H-th)//2,"top":30}[pos]-bb[1]
+    y={"bottom":H-th-style.get("margin",40),"center":(H-th)//2,"top":30}[pos]-bb[1]
     d.text((x,y),text,font=f,fill=style.get("color","#ffffff"),stroke_width=max(6,sz//14),stroke_fill=style.get("stroke","#000000"))
     return np.asarray(im)
 def draw_kara(img,words,cur,i):

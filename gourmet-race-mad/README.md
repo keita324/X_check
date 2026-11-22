@@ -146,6 +146,8 @@
 - フォントは Google Fonts（OFL）から取得してレンダリングに使用（リポジトリには含めていません）
 - 生成スクリプト: `scripts/build22.py` + `scripts/timeline17.py`
 
-## 縦動画（YouTube Shorts用）
-- `gourmet_race_mad_shorts.mp4` … 1080x1920 / 30fps / 37秒。横動画を幅いっぱいで中央に置き、上下は同じ映像をぼかして暗くした背景で埋めたもの
-- 作り方: `ffmpeg -i gourmet_race_mad.mp4 -filter_complex "[0:v]split[a][b];[a]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:4,eq=brightness=-0.08[bg];[b]scale=1080:-2[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2" -c:a copy gourmet_race_mad_shorts.mp4`
+## 縦動画（YouTube Shorts用・予告編）
+- `gourmet_race_mad_shorts.mp4` … 1080x1920 / 30fps / 22.7秒。フル動画（横・37秒）への入口用に、オチ（せーの…シーン…こういうこと）を入れずに「素晴らしい!!」で終わる
+- 冒頭0.7秒はバケツのザバッ（つかみ）。最後の「素晴らしい!!」から冒頭のザバッにつながるのでループ再生向き
+- 縦だけの演出: 上にタイトル「塩崎大智で グルメレース」、下にゴールへ進むレース風の進行バー、車内の叫び(12.4秒)とギュー〜バケツ(16.3〜21.2秒)は縦画面いっぱいのドアップ
+- 生成: `scripts/build_short.py`（短縮版の音と映像）→ `scripts/vertical.py`（縦レイアウト）

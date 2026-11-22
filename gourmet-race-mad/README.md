@@ -145,3 +145,7 @@
 - 34.9秒〜: 「こういうこと〜」（元音声）→ 止め絵、全体37.0秒
 - フォントは Google Fonts（OFL）から取得してレンダリングに使用（リポジトリには含めていません）
 - 生成スクリプト: `scripts/build22.py` + `scripts/timeline17.py`
+
+## 縦動画（YouTube Shorts用）
+- `gourmet_race_mad_shorts.mp4` … 1080x1920 / 30fps / 37秒。横動画を幅いっぱいで中央に置き、上下は同じ映像をぼかして暗くした背景で埋めたもの
+- 作り方: `ffmpeg -i gourmet_race_mad.mp4 -filter_complex "[0:v]split[a][b];[a]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:4,eq=brightness=-0.08[bg];[b]scale=1080:-2[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2" -c:a copy gourmet_race_mad_shorts.mp4`
